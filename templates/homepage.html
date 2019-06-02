@@ -1,0 +1,25 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block body %}
+
+<div id="bodyWrapper">
+
+    <div class="homepageBodyMsg">
+        <span class="welcomeText">Welcome,</span>
+        <span class="conText">Coders Of Nepal</span>
+        <p>Participate and win upto 20,000 cash prizes. Show <br/>
+            your coding skills and get nationally recognized.</p>
+        
+        <div class="homepageBodyBtnWrapper">
+            <button type="button" class="btn bodyGetStartedBtn">Get Started!</button>
+            <button type="button" class="btn bodyLearnMoreBtn">Learn more</button>
+        </div>
+    </div>
+
+    <div class="homePageBodyImg">
+        <Img src="{% static 'global/images/homepageimg.png' %}" class="img-response" alt="coderslab" />
+    </div>
+
+</div>
+
+{% endblock %}
