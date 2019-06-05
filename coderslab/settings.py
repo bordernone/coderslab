@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +40,8 @@ INSTALLED_APPS = [
     'register.apps.RegisterConfig', #register
     'login.apps.LoginConfig', #login
     'practice.apps.PracticeConfig', #practice
+    'questionscreen.apps.QuestionscreenConfig', #question screen
+    'userprofile.apps.UserprofileConfig', #user profile
 ]
 
 MIDDLEWARE = [

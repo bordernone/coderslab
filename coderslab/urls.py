@@ -22,4 +22,6 @@ urlpatterns = [
     path('register/', include('register.urls')), # register
     path('login/', include('login.urls')), # login
     path('practice/', include('practice.urls')), # practice
+    path('question/', include('questionscreen.urls')), #question screen
+    path('user/', include('userprofile.urls')), #user profile
 ]

@@ -1,11 +1,22 @@
 html, body {
     height: 100%;
     width: 100%;
+    min-width: 300px;
 }
 
 @font-face {
     font-family: HelveticaNeue-Light;
     src: url('../fonts/HelveticaNeue-Light.woff'), url('../fonts/HelveticaNeue-Light.woff') format('woff');
+}
+
+@font-face {
+    font-family: HelveticaNeue-Medium;
+    src: url('../fonts/HelveticaNeue-Medium.woff'), url('../fonts/HelveticaNeue-Medium.woff') format('woff');
+}
+
+@font-face {
+    font-family: HelveticaNeue-Bold;
+    src: url('../fonts/HelveticaNeueBold.woff'), url('../fonts/HelveticaNeueBold.woff') format('woff');
 }
 
 #mainWrapper {
@@ -75,6 +86,7 @@ html, body {
     background-color: white;
     display: flex;
     flex-direction: row;
+    max-width: 1210px;
 }
 
 #bodyWrapper>div {
@@ -312,8 +324,8 @@ html, body {
     padding-bottom: 0px;
 }
 
-.noMargin{
-    margin:0 !important;
+.noMargin {
+    margin: 0 !important;
 }
 
 .inputWithIconContainer {
@@ -339,7 +351,7 @@ html, body {
     color: #707070;
     font-family: HelveticaNeue-Light;
     opacity: 0.9;
-    font-size:14px;
+    font-size: 14px;
     /* Firefox */
 }
 
@@ -355,9 +367,9 @@ html, body {
     font-family: HelveticaNeue-Light;
 }
 
-.formSubmitButton{
+.formSubmitButton {
     background-color: #009FD0;
-    color:white;
+    color: white;
     font-family: HelveticaNeue-Light;
     border-radius: 10px;
     font-size: 14px;
@@ -367,43 +379,44 @@ html, body {
     box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.38);
 }
 
-.formSubmitButton:hover{
-    color:white;
+.formSubmitButton:hover {
+    color: white;
 }
 
-.formSubmitButtonContainer{
+.formSubmitButtonContainer {
     margin-bottom: 0.5rem;
 }
 
-.signInOptionsWrapper{
+.signInOptionsWrapper {
     padding-bottom: 15px;
 }
 
-.signInWith{
+.signInWith {
     font-size: 11px;
     color: #707070;
     text-align: center;
     font-family: HelveticaNeue-Light;
 }
 
-.googleSignIn{
+.googleSignIn {
     text-align: center;
-    padding:2px;
+    padding: 2px;
 }
 
-.googleSignIn>div{
+.googleSignIn>div {
     display: inline-block;
 }
 
-.facebookSignIn{
+.facebookSignIn {
     text-align: center;
 }
 
-.facebookSignIn>div{
-    display:inline-block;
+.facebookSignIn>div {
+    display: inline-block;
 }
 
 /* login */
+
 .loginWrapper {
     padding: 20px;
     margin-top: 50px;
@@ -427,10 +440,311 @@ html, body {
 }
 
 /* practice */
-.catWrapper{
-    padding:20px;
+
+.catWrapper {
+    padding: 20px;
 }
-.catTitle{
-    font-family: HelveticaNeue-Light;
+
+.catTitle {
     margin-top: 20px;
+    width: 100%;
+    display: block;
+}
+
+.catTitle h4 {
+    font-family: HelveticaNeue-Medium;
+    color: #8e8e8e;
+}
+
+.questionsWrapper {
+    width: 100%;
+}
+
+.questionBox {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: solid 1px #a7a7a7;
+    border-radius: 8px;
+    min-height: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-shadow: 0px 2px 6px -4px rgba(0, 0, 0, 1);
+    cursor: pointer;
+}
+
+.questionBox .question-details {
+    flex-grow: 1;
+    overflow: hidden;
+    width: 100%;
+    padding-right: 2px;
+}
+
+.questionBox .question-details h4 {
+    font-size: 14px;
+    font-family: HelveticaNeue-Bold;
+    color: #707070;
+    margin-bottom: 1px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.questionBox .question-details .question-details-minor {
+    color: rgb(172, 172, 172);
+    font-size: 10px;
+    display: block;
+    padding-left: 5px;
+}
+
+.questionBox .question-difficulty {
+    height: 100%;
+    text-align: center;
+}
+
+.questionBox .question-difficulty-percent-wrapper {
+    text-align: center;
+    display: block;
+    margin-bottom: 1px;
+}
+
+.question-difficulty-percent {
+    display: inline-block;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    font-size: 9px;
+    color: black;
+    line-height: 38px;
+    text-align: center;
+    border: solid 1px #00B400;
+}
+
+.questionBox .question-difficulty-minor {
+    color: rgb(146, 146, 146);
+    font-size: 12px;
+    display: block;
+    font-family: HelveticaNeue-Medium;
+    white-space: nowrap;
+}
+
+/* question screen */
+
+.questionscreenWrapper {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 60px!important;
+    padding-bottom: 60px!important;
+}
+
+.questionscreenWrapper .questionViewBox {
+    border-radius: 2px;
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.46);
+    padding: 10px!important;
+    padding-left: 45px!important;
+    padding-right: 45px!important;
+    margin-bottom: 20px;
+}
+
+.questionscreenWrapper .question-title .questionBackBtn {
+    color: grey;
+    margin-left: -40px;
+    display: inline-block;
+}
+
+.question-title h1 {
+    color: grey;
+    display: inline;
+    vertical-align: middle;
+    font-size: 18px;
+    margin: 0px!important;
+}
+
+.questionscreenWrapper .question-description p {
+    font-family: HelveticaNeue-Light;
+    color: rgb(96, 96, 96);
+}
+
+.questionscreenWrapper .question-right-sidebar {
+    padding: 0px !important;
+}
+
+.questionscreenWrapper .question-right-sidebar>div {
+    min-height: 100px;
+    border-radius: 2px;
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.46);
+    margin-bottom: 20px;
+}
+
+.questionscreenWrapper .question-right-sidebar .questionSubmissionsView {
+    height: 80px;
+    width: 80px;
+    line-height: 85px;
+    font-size: 18px;
+    color: grey;
+    font-family: HelveticaNeue-Medium;
+    display: inline-block;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.46);
+    border-radius: 50%;
+    vertical-align: middle;
+    margin: 10px;
+}
+
+.questionViewDifficultyWrapper {
+    padding-top: 50px !important;
+    padding-bottom: 30px !important;
+}
+
+.questionscreenWrapper .questionSubmissionsWrapper {
+    text-align: center;
+}
+
+.question-right-sidebar .totalSubmissionsText {
+    margin-top: 10px;
+    color: grey;
+    font-family: HelveticaNeue-Light;
+    font-size: 20px;
+}
+
+.question-right-sidebar .questionSubmissionsStatsWrapper>div {
+    text-align: center;
+}
+
+.questionSubmissionsStatsWrapper .questionSubmissionsSuccessRate {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    display: inline-block;
+    color: grey;
+    border: solid 1px #00B400;
+    border-radius: 50%;
+    vertical-align: middle;
+    font-size: 12px;
+    margin: 5px;
+}
+
+.questionSubmissionsStatsWrapper .questionSubmissionsStatsLabel {
+    color: rgb(154, 154, 154);
+    font-family: HelveticaNeue-Bold;
+    font-size: 14px;
+}
+
+.questionSubmissionsStatsWrapper .questionSubmissionsFailureRate {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    display: inline-block;
+    color: grey;
+    border: solid 1px rgb(237, 0, 20);
+    border-radius: 50%;
+    vertical-align: middle;
+    font-size: 12px;
+    margin: 5px;
+}
+
+.questionViewScoreWrapper {
+    padding: 10px!important;
+}
+
+.questionViewScoreWrapper>div {
+    padding: 0px!important;
+    padding-top: 25px !important;
+}
+
+.questionViewScoreWrapper .scoreDisplayBox {
+    text-align: center;
+}
+
+.questionViewScoreWrapper .scoreDisplay {
+    font-family: 'Hoefler Text';
+    border-bottom: solid 1px rgb(175, 175, 175);
+    display: inline-block;
+    font-size: 30px;
+    padding: 5px;
+    font-weight: 100;
+    color: rgb(147, 147, 147);
+    line-height: 1;
+    margin: 10px;
+}
+
+.questionViewScoreWrapper .scoreDisplayLabel {
+    color: rgb(162, 162, 162);
+    font-family: HelveticaNeue-Medium;
+    font-size: 14px;
+}
+
+.questionViewScoreWrapper .userSubmissionsCountDisplay {
+    text-align: center;
+    color: rgb(173, 173, 173);
+    font-family: HelveticaNeue-Light;
+    margin-bottom: -5px;
+    margin-top: 30px;
+    font-size: 14px;
+}
+
+.profilePageWrapper {
+    margin-top: 30px!important;
+    margin-bottom: 30px!important;
+}
+
+.profileDisplayWrapper {
+    min-height: 400px;
+}
+
+.profileDisplayWrapper .userIntro {
+    min-height: 100px;
+    padding: 20px;
+}
+
+.profileDisplayWrapper .userDetails {
+    min-height: 300px;
+}
+
+.profileDisplayWrapper .userIntro .userDisplayPicture {
+    flex:1;
+}
+
+.profileDisplayWrapper .userDisplayPictureContainer{
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    border-radius: 50%;
+    box-shadow: 0px 0px 4px rgb(128,128,128);
+}
+
+.profileDisplayWrapper .userIntro .userIntroDetails{
+    flex:2;
+}
+
+.profileDisplayWrapper .userIntroFullName h5{
+    line-height: 1;
+    font-family: HelveticaNeue-Bold;
+    color:rgb(152, 152, 152);
+    text-shadow:0px 1px 2px rgb(178, 178, 178);
+}
+
+.profileDisplayWrapper .userIntroDescription{
+    font-family: HelveticaNeue-Light;
+    color:rgb(171, 171, 171);
+}
+
+.profileDisplayWrapper .userIntroSocialIcons a{
+    font-size: 20px;
+    color:rgb(136, 136, 136);
+}
+
+.profileDisplayWrapper .userDetails{
+    box-shadow: 0px 0px 6px -1px rgb(178, 178, 178);
+    border-radius: 3px;
+    padding:10px;
+}
+
+.profileDisplayWrapper .userDetailsHeading{
+    color:grey;
+    margin-top:15px;
 }

@@ -1,0 +1,47 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block body %}
+
+<div id="bodyWrapper">
+
+    <div class="row justify-content-center profilePageWrapper noMargin">
+        <div class="col-md-5 profileDisplayWrapper">
+            <div class="userIntro d-flex">
+                <div class="p-2 userDisplayPicture">
+                    <div class="userDisplayPictureContainer">
+
+                    </div>
+                </div>
+                <div class="p-2 userIntroDetails d-flex flex-column">
+                    <div class="p-2 flex-grow-1">
+                        <div class="userIntroFullName">
+                            <h5>Bishnu Dev</h5>
+                        </div>
+                        <div class="userIntroDescription">
+                            There's clearly nothing here.
+                        </div>
+                    </div>
+
+                    <div class="p-2 userIntroSocialIcons">
+                        <a href="#"><span class="fab fa-facebook-square"></span></a>
+                        <a href="#"><span class="fab fa-linkedin"></span></a>
+                        <a href="#"><span class="fab fa-instagram"></span></a>
+                        <a href="#"><span class="fab fa-twitter"></span></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="userDetails">
+                <div class="userDetailsEach">
+                    <h5 class="userDetailsHeading">Basic Info</h5>
+                    <div class="userDetailsEachItems">
+                        <span>Location: Kathmandu, Nepal <i class="fas fa-pencil-alt"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
