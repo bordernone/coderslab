@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/Users/bishnu/.local/share/virtualenvs/CodersLab-Ycn1tp6c/bin/python"
+    "python.pythonPath": "/Users/bishnu/.local/share/virtualenvs/CodersLab-Ycn1tp6c/bin/python",
+    "git.enabled": false,
 }

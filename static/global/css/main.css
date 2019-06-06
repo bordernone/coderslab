@@ -36,7 +36,7 @@ html, body {
     -webkit-box-shadow: 0px 7px 6px 0px rgba(0, 0, 0, 0.16);
     -moz-box-shadow: 0px 7px 6px 0px rgba(0, 0, 0, 0.16);
     box-shadow: 0px 7px 6px 0px rgba(0, 0, 0, 0.16);
-    z-index: 1;
+    z-index: 10;
 }
 
 .topNavGradient {
@@ -104,6 +104,10 @@ html, body {
     padding: 15px;
     padding-top: 120px !important;
     padding-left: 60px !important;
+}
+
+.noPaddingStrict {
+    padding: 0px!important;
 }
 
 .welcomeText {
@@ -687,6 +691,7 @@ html, body {
 }
 
 /* user profile */
+
 .profilePageWrapper {
     margin-top: 30px!important;
     margin-bottom: 30px!important;
@@ -718,16 +723,17 @@ html, body {
     overflow: hidden;
 }
 
-.profileDisplayWrapper .userDisplayPictureContainer img{
+.profileDisplayWrapper .userDisplayPictureContainer img {
     height: 100%;
     width: 100%;
-    overflow:hidden;
+    overflow: hidden;
     position: absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
+
 .profileDisplayWrapper .userIntro .userIntroDetails {
     flex: 2;
 }
@@ -772,7 +778,7 @@ html, body {
 .profileDisplayWrapper .userDetailsEachItems td {
     color: rgb(151, 151, 151);
     font-family: HelveticaNeue-Light;
-    padding:0px;
+    padding: 0px;
 }
 
 .profileDisplayWrapper .userDetailsEachItems a {
@@ -782,20 +788,201 @@ html, body {
 }
 
 /*account settings */
-.accountSettingsWrapper{
-    padding-top:50px !important;
+
+.accountSettingsWrapper {
+    padding-top: 50px !important;
     padding-bottom: 50px !important;
 }
 
-.accountSettingsWrapper>div{
+.accountSettingsWrapper>div {
     box-shadow: 0px 0px 6px -1px rgb(178, 178, 178);
     border-radius: 3px;
+    padding: 15px;
+    padding-left: 3%;
+    min-height: 500px;
 }
 
-.accountSettingsMainHeading span{
+.accountSettingsBox{
+    position:relative;
+}
+
+.accountSettingsMainHeading {
+    position: relative;
+    color: rgb(142, 142, 142);
+}
+
+.accountSettingsMainHeading span {
+    position: absolute;
+    display: inline-block;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    left: -25px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.accountSettingsMainHeading h5 {
     display: inline-block;
 }
 
-.accountSettingsMainHeading h6{
+.accountSettingsCat {
+    margin-top: 20px;
+    color: rgb(142, 142, 142);
+}
+
+.accountSettingsItemWrapper {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.accountSettingsCatHeading {
+    font-family: HelveticaNeue-Medium;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.accountSettingsEachItem {
+    font-family: HelveticaNeue-Light;
+    vertical-align: middle;
+    padding: 8px;
+}
+
+.accountSettingsItemKey {
+    flex: 1;
+    padding: 0rem !important;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.accountSettingsItemValue {
+    flex: 2;
+    padding: 0rem !important;
+    border-bottom: solid 1px rgb(194, 194, 194);
+    position: relative;
+}
+
+.accountSettingsItemEditButton {
+    position: absolute;
+    right: 0;
+    padding: 0;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.accountSettingsItemValueInput {
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    color: rgb(142, 142, 142);
+    width: 100%;
+    opacity: 1;
+    outline: none;
+}
+
+.accountSettingsItemValueInput:focus {
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    color: rgb(142, 142, 142);
+    width: 100%;
+    opacity: 1;
+}
+
+.accountSettingsItemValueInput:disabled {
+    color: rgb(59, 59, 59);
+    opacity: 1;
+    background: white;
+}
+
+.accountSettingsEachItem .impEmailKey {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 34px;
+}
+
+/* The switch - the box around the slider */
+
+.switch {
+    position: relative;
     display: inline-block;
+    width: 80px;
+    height: 30px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(32px);
+    -ms-transform: translateX(32px);
+    transform: translateX(50px);
+}
+
+/* Rounded sliders */
+
+.slider.round {
+    border-radius: 30px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.switch .sliderStatus {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+    font-family: Helvetica Neue;
+    font-size:10px;
+}
+
+.accountSettingsFooterDetail{
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    text-align: center;
+    color:rgb(171, 171, 171);
+    font-size: 11px;
+    padding-top:8px;
+    padding-bottom: 8px;
+    font-family: HelveticaNeue-Light;
 }
