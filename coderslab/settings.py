@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'practice.apps.PracticeConfig', #practice
     'questionscreen.apps.QuestionscreenConfig', #question screen
     'userprofile.apps.UserprofileConfig', #user profile
+    'accountsettings.apps.AccountsettingsConfig', #account settings
 ]
 
 MIDDLEWARE = [

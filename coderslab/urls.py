@@ -24,4 +24,5 @@ urlpatterns = [
     path('practice/', include('practice.urls')), # practice
     path('question/', include('questionscreen.urls')), #question screen
     path('user/', include('userprofile.urls')), #user profile
+    path('account/', include('accountsettings.urls')), #account setting
 ]
