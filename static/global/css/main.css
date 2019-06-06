@@ -86,7 +86,6 @@ html, body {
     background-color: white;
     display: flex;
     flex-direction: row;
-    max-width: 1210px;
 }
 
 #bodyWrapper>div {
@@ -706,45 +705,66 @@ html, body {
 }
 
 .profileDisplayWrapper .userIntro .userDisplayPicture {
-    flex:1;
+    flex: 1;
 }
 
-.profileDisplayWrapper .userDisplayPictureContainer{
+.profileDisplayWrapper .userDisplayPictureContainer {
     width: 100%;
     padding-top: 100%;
     position: relative;
     border-radius: 50%;
-    box-shadow: 0px 0px 4px rgb(128,128,128);
+    box-shadow: 0px 0px 4px rgb(128, 128, 128);
 }
 
-.profileDisplayWrapper .userIntro .userIntroDetails{
-    flex:2;
+.profileDisplayWrapper .userIntro .userIntroDetails {
+    flex: 2;
 }
 
-.profileDisplayWrapper .userIntroFullName h5{
+.profileDisplayWrapper .userIntroFullName h5 {
     line-height: 1;
     font-family: HelveticaNeue-Bold;
-    color:rgb(152, 152, 152);
-    text-shadow:0px 1px 2px rgb(178, 178, 178);
+    color: rgb(152, 152, 152);
+    text-shadow: 0px 1px 2px rgb(178, 178, 178);
 }
 
-.profileDisplayWrapper .userIntroDescription{
+.profileDisplayWrapper .userIntroDescription {
     font-family: HelveticaNeue-Light;
-    color:rgb(171, 171, 171);
+    color: rgb(171, 171, 171);
 }
 
-.profileDisplayWrapper .userIntroSocialIcons a{
+.profileDisplayWrapper .userIntroSocialIcons a {
     font-size: 20px;
-    color:rgb(136, 136, 136);
+    color: rgb(136, 136, 136);
 }
 
-.profileDisplayWrapper .userDetails{
+.profileDisplayWrapper .userDetails {
     box-shadow: 0px 0px 6px -1px rgb(178, 178, 178);
     border-radius: 3px;
-    padding:10px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.profileDisplayWrapper .userDetailsHeading{
-    color:grey;
-    margin-top:15px;
+.profileDisplayWrapper .userDetailsHeading {
+    color: rgb(151, 151, 151);
+    margin-top: 15px;
+    font-family: HelveticaNeue-Medium;
+}
+
+.profileDisplayWrapper .userDetailsEachItems {
+    padding-left: 30px;
+    color: rgb(151, 151, 151);
+    font-family: HelveticaNeue-Light;
+}
+
+.profileDisplayWrapper .userDetailsEachItems td {
+    color: rgb(151, 151, 151);
+    font-family: HelveticaNeue-Light;
+    padding:0px;
+}
+
+.profileDisplayWrapper .userDetailsEachItems a {
+    color: rgb(110, 110, 110);
+    padding-left: 2px;
+    padding-right: 2px;
 }
