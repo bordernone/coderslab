@@ -27,4 +27,5 @@ urlpatterns = [
     path('account/', include('accountsettings.urls')), #account setting
     path('contact-us/', include('contactpage.urls')), #contact page
     path('scoreboard/', include('scoreboard.urls')), #scoreboard
+    path('timeline/', include('timeline.urls')), #timeline
 ]

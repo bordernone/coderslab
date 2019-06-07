@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'accountsettings.apps.AccountsettingsConfig', #account settings
     'contactpage.apps.ContactpageConfig', #contact page
     'scoreboard.apps.ScoreboardConfig', #score board
+    'timeline.apps.TimelineConfig', #timeline
 ]
 
 MIDDLEWARE = [
