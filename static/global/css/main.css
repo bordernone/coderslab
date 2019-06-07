@@ -802,8 +802,8 @@ html, body {
     min-height: 500px;
 }
 
-.accountSettingsBox{
-    position:relative;
+.accountSettingsBox {
+    position: relative;
 }
 
 .accountSettingsMainHeading {
@@ -971,18 +971,93 @@ input:checked+.slider:before {
     line-height: 30px;
     color: white;
     font-family: Helvetica Neue;
-    font-size:10px;
+    font-size: 10px;
 }
 
-.accountSettingsFooterDetail{
+.accountSettingsFooterDetail {
     position: absolute;
-    bottom:0;
-    left:0;
-    right:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     text-align: center;
-    color:rgb(171, 171, 171);
+    color: rgb(171, 171, 171);
     font-size: 11px;
-    padding-top:8px;
+    padding-top: 8px;
     padding-bottom: 8px;
     font-family: HelveticaNeue-Light;
+}
+
+/* contact form */
+
+.contactFormWrapper {
+    padding-top: 50px!important;
+    padding-bottom: 50px!important;
+}
+
+.contactFormBox {
+    box-shadow: 0px 0px 6px -1px rgb(178, 178, 178);
+    border-radius: 3px;
+    padding: 15px;
+    padding-left: 40px;
+    padding-right: 30px;
+    color: gray;
+    position: relative;
+}
+
+.contactFormMainHeading {
+    font-family: Helvetica Neue;
+    color: gray;
+}
+
+.contactFormBackButton {
+    display: inline-block;
+    font-size: 1.25rem;
+    margin-left: -29px;
+    cursor: pointer;
+    padding: 2px;
+}
+
+.contactFormMainHeading h5 {
+    display: inline-block;
+}
+
+.contactFormInputLabel {
+    flex: 1;
+    line-height: 32px;
+    font-family: HelveticaNeue-Light;
+}
+
+.contactFormInputBox {
+    flex: 3;
+}
+
+.contactFormInputBox input {
+    font-size: .75rem;
+}
+
+.contactFormInputBox .formSubmitButtonContainer {
+    padding-left: 8%;
+    padding-right: 8%;
+    margin-bottom: 50px;
+}
+
+.contactFormFooterText {
+    bottom: 5px;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    font-family: HelveticaNeue-Light;
+    font-size: 12px;
+}
+
+/* scoreboard */
+
+.scoreboardWrapper {
+    padding-top:50px;
+    padding-bottom: 50px;
+}
+
+.scoreboardWrapper>div {
+    border: solid 1px red;
 }

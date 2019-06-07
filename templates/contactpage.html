@@ -1,0 +1,81 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block body %}
+
+<div id="bodyWrapper">
+
+    <div class="contactFormWrapper justify-content-center d-flex">
+        <div class="col-md-5 contactFormBox">
+            <div class="contactFormMainHeading">
+                <div class="contactFormBackButton">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <h5>Contact Us</h5>
+            </div>
+
+            <div class="contactFormContent">
+                <div class="contactFormInputGroup d-flex">
+                    <div class="p-2 contactFormInputLabel">
+                        Full Name:
+                    </div>
+
+                    <div class="p-2 contactFormInputBox">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+
+
+                <div class="contactFormInputGroup d-flex">
+                    <div class="p-2 contactFormInputLabel">
+                        Email:
+                    </div>
+
+                    <div class="p-2 contactFormInputBox">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+
+
+                <div class="contactFormInputGroup d-flex">
+                    <div class="p-2 contactFormInputLabel">
+                        Subject:
+                    </div>
+
+                    <div class="p-2 contactFormInputBox">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+
+                <div class="contactFormInputGroup d-flex">
+                    <div class="p-2 contactFormInputLabel">
+                        Message:
+                    </div>
+
+                    <div class="p-2 contactFormInputBox">
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                    </div>
+                </div>
+
+                <div class="contactFormInputGroup d-flex">
+                    <div class="p-2 contactFormInputLabel">
+                        
+                    </div>
+
+                    <div class="p-2 contactFormInputBox">
+                        <div class="form-group formSubmitButtonContainer">
+                            <button type="button" class="btn btn-block formSubmitButton">Sign Up</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contactFormFooterText">
+                    Please avoid sending spam emails.
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

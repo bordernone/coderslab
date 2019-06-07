@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'questionscreen.apps.QuestionscreenConfig', #question screen
     'userprofile.apps.UserprofileConfig', #user profile
     'accountsettings.apps.AccountsettingsConfig', #account settings
+    'contactpage.apps.ContactpageConfig', #contact page
+    'scoreboard.apps.ScoreboardConfig', #score board
 ]
 
 MIDDLEWARE = [
