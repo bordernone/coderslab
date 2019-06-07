@@ -1054,10 +1054,66 @@ input:checked+.slider:before {
 /* scoreboard */
 
 .scoreboardWrapper {
-    padding-top:50px;
-    padding-bottom: 50px;
+    padding-top: 50px!important;
+    padding-bottom: 50px!important;
+    padding-left: 20px!important;
+    padding-right: 20px!important;
 }
 
 .scoreboardWrapper>div {
-    border: solid 1px red;
+    color: rgb(142, 142, 142);
+}
+
+.scoreboardMainCatHeading {
+    font-family: HelveticaNeue-Medium;
+}
+
+.scoreboardCatWrapper {
+    box-shadow: 0px 0px 6px -1px rgb(178, 178, 178);
+    border-radius: 3px;
+    min-height: 30px;
+    margin-top: 20px;
+    padding-top:10px;
+    padding-bottom: 20px;
+}
+
+.scoreboardCatSubHeading {
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: block;
+    width: 100%;
+}
+
+.scoreboardScoreView>div {
+    padding: 0px;
+    padding-left: 30px;
+    padding-right: 10px;
+}
+
+.scoreboardCounter {
+    flex: 1;
+}
+
+.scoreboardDisplayPic {
+    flex: 2;
+}
+
+.scoreboardDisplayPicWrapper {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    box-shadow: 0px 0px 4px rgb(128, 128, 128);
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.scoreboardDisplayPicWrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.scoreboardDisplayName {
+    flex: 8;
 }
