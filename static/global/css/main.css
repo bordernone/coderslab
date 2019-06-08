@@ -1073,7 +1073,7 @@ input:checked+.slider:before {
     border-radius: 3px;
     min-height: 30px;
     margin-top: 20px;
-    padding-top:10px;
+    padding-top: 10px;
     padding-bottom: 20px;
 }
 
@@ -1116,4 +1116,59 @@ input:checked+.slider:before {
 
 .scoreboardDisplayName {
     flex: 8;
+}
+
+/*timeline*/
+
+.timelineTimerWrapper {
+    margin-top: 50px !important;
+    margin-bottom: 50px!important;
+    color: gray;
+}
+
+@media not screen and (max-width:620px) {
+    .timelineTimerWrapper {
+        justify-content: center!important;
+    }
+}
+
+.timelineTimerWrapper>div {
+    height: 100px;
+}
+
+.timelineTimerBox {
+    height: 100px;
+    width: 100px;
+    box-shadow: 0px 0px 4px rgb(128, 128, 128);
+    border-radius: 50%;
+    display: inline-block;
+    line-height: 100px;
+}
+
+.timelineTimerBox h4 {
+    line-height: 100px;
+    text-align: center;
+    font-family: 'Hoefler Text';
+    font-size: 40px;
+}
+
+.timelineTimerLabelBox {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.timelineTimerLabel h4 {
+    font-family: HelveticaNeue-Medium;
+}
+
+.timelineTimerBoxEach {
+    box-sizing: content-box;
+    padding: 10px;
+}
+
+.timelineTimerFooterTextBox{
+    display: block;
+    text-align: center;
+    font-family: HelveticaNeue-Light;
+    width: 100%;
 }

@@ -3,8 +3,65 @@
 {% block body %}
 
 <div id="bodyWrapper">
+    <div class="timelineMainWrapper">
+        <div class="row noMargin timelineTimerWrapper">
+            <div class="timelineTimerBoxEach">
+                <div class="timelineTimerBox">
+                    <h4>60</h4>
+                </div>
+                <div class="timelineTimerLabelBox">
+                    <div class="timelineTimerLabel">
+                        <h4>Days</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="timelineTimerBoxEach">
+                <div class="timelineTimerBox">
+                    <h4>10</h4>
+                </div>
+                <div class="timelineTimerLabelBox">
+                    <div class="timelineTimerLabel">
+                        <h4>Hours</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="timelineTimerBoxEach">
+                <div class="timelineTimerBox">
+                    <h4>20</h4>
+                </div>
+                <div class="timelineTimerLabelBox">
+                    <div class="timelineTimerLabel">
+                        <h4>Minutes</h4>
+                    </div>
+                </div>
+            </div>
 
+            <div class="timelineTimerFooterTextBox">
+                <h3>Until Next Round</h3>
+            </div>
+        </div>
 
+        <div class="row noMargin timelineWrapper" id="timelineWrapper">
+            <div class="col-sm-2 bg-success">
+
+            </div>
+
+            <div class="col-sm-2">
+
+            </div>
+
+            <div class="col-sm-2">
+
+            </div>
+        </div>
+    </div>
 </div>
 
+<!-- Load React. -->
+<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+<!-- Load our React component. -->
+<script src="{% static 'timeline/js/timelinewrapper.js' %}"></script>
 {% endblock %}
