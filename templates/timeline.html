@@ -41,27 +41,36 @@
             </div>
         </div>
 
-        <div class="row noMargin timelineWrapper" id="timelineWrapper">
-            <div class="col-sm-2 bg-success">
-
+        <div class="row noMargin timelineWrapper justify-content-around" id="timelineWrapper">
+            <div class="col-sm-4 d-flex justify-content-center align-tems-center">
+                <div class="timelineEachItem" id="timelineItem1">
+                    <h6>Round 1A</h6>
+                </div>
+            </div>
+            <div class="col-sm-4 d-flex justify-content-center align-tems-center">
+                <div class="timelineEachItem" id="timelineItem2">
+                    <h6>Round 1B</h6>
+                </div>
+            </div>
+            <div class="col-sm-4 d-flex justify-content-center align-tems-center">
+                <div class="timelineEachItem" id="timelineItem3">
+                    <h6>Round 2</h6>
+                </div>
             </div>
 
-            <div class="col-sm-2">
-
+            <div class="col-sm-4 d-flex justify-content-center align-tems-center">
+                <div class="timelineEachItem" id="timelineItem4">
+                    <h6>Final Round</h6>
+                </div>
             </div>
 
-            <div class="col-sm-2">
-
+            <div class="col-sm-4 d-flex justify-content-center align-tems-center">
+                <div class="timelineEachItem active" id="timelineItem5">
+                    <h6>Round 3</h6>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
-
-<!-- Load React. -->
-<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-
-<!-- Load our React component. -->
-<script src="{% static 'timeline/js/timelinewrapper.js' %}"></script>
 {% endblock %}

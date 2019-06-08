@@ -1122,7 +1122,6 @@ input:checked+.slider:before {
 
 .timelineTimerWrapper {
     margin-top: 50px !important;
-    margin-bottom: 50px!important;
     color: gray;
 }
 
@@ -1171,4 +1170,30 @@ input:checked+.slider:before {
     text-align: center;
     font-family: HelveticaNeue-Light;
     width: 100%;
+    margin-top:20px;
+}
+
+.timelineEachItem{
+    height: 150px;
+    width: 150px;
+    box-shadow: 0px 0px 4px rgb(128, 128, 128);
+    border-radius: 50%;
+    color:rgb(143, 142, 142);
+    z-index: 1;
+}
+
+.timelineEachItem.active{
+    box-shadow: 0px 0px 20px rgb(108, 173, 76);
+}
+
+.timelineEachItem h6{
+    text-align:center;
+    line-height: 150px;
+    font-family: HelveticaNeue-Medium;
+}
+
+.timelineWrapper>div{
+    padding:30px!important;
+    padding-top:50px!important;
+    padding-bottom: 50px!important;
 }

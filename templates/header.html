@@ -17,15 +17,22 @@
 
     <!-- Google platform library -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="43423819785-iu892odbkinrpsuerq54o7q747bd58un.apps.googleusercontent.com">
+    <meta name="google-signin-client_id"
+        content="43423819785-iu892odbkinrpsuerq54o7q747bd58un.apps.googleusercontent.com">
 
     <!-- static files -->
     <link rel="stylesheet" type="text/css" href="{% static 'global/css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'global/fonts/HoeflerText.css' %}">
+    {% if request.path == '/timeline/' %}
+    <script src="{% static 'timeline/js/jquery.connections.js' %}"></script>
+    <script src="{% static 'timeline/js/timeline.js' %}"></script>
+    <script src="{% static 'timeline/js/jquery.visible.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'timeline/css/timeline.css' %}">
+    {% endif %}
 </head>
 
 <body>
-    
+
     <div id="mainWrapper">
 
         <div id="headerWrapper" class="fixed-top">
