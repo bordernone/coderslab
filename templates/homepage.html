@@ -7,12 +7,15 @@
     <div class="homepageBodyMsg">
         <span class="welcomeText">Welcome,</span>
         <span class="conText">Coders Of Nepal</span>
-        <p>Participate and win upto 20,000 cash prizes. Show <br/>
+        <p>Participate and win upto 20,000 cash prizes. Show <br />
             your coding skills and get nationally recognized.</p>
-        
+
         <div class="homepageBodyBtnWrapper">
-            <button type="button" class="btn bodyGetStartedBtn">Get Started!</button>
-            <button type="button" class="btn bodyLearnMoreBtn">Learn more</button>
+            <div id="getStartedBtn">
+            </div>
+            <div id="learnMoreBtn">
+                <button type="button" class="btn bodyLearnMoreBtn">Learn more</button>
+            </div>
         </div>
     </div>
 
@@ -21,5 +24,13 @@
     </div>
 
 </div>
+
+<!-- Load React. -->
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+<!-- Load our React component. -->
+<script src="{% static 'homepage/js/homepage-react.js' %}"></script>
+
 
 {% endblock %}

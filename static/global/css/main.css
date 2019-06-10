@@ -140,7 +140,11 @@ html, body {
     display: block;
 }
 
-.homepageBodyBtnWrapper>button {
+.homepageBodyBtnWrapper>div{
+    display: inline-block;
+}
+
+.homepageBodyBtnWrapper button {
     padding-left: 20px;
     padding-right: 20px;
     font-family: HelveticaNeue-Light;

@@ -15,19 +15,22 @@
     <script src="{% static 'global/js/popper.min.js' %}"></script>
     <script src="{% static 'global/bootstrap/js/bootstrap.min.js' %}"></script>
 
-    <!-- Google platform library -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id"
-        content="43423819785-iu892odbkinrpsuerq54o7q747bd58un.apps.googleusercontent.com">
-
     <!-- static files -->
     <link rel="stylesheet" type="text/css" href="{% static 'global/css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'global/fonts/HoeflerText.css' %}">
+    <script src="{% static 'global/js/csrf.js' %}"></script>
     {% if request.path == '/timeline/' %}
     <script src="{% static 'timeline/js/jquery.connections.js' %}"></script>
     <script src="{% static 'timeline/js/timeline.js' %}"></script>
     <script src="{% static 'timeline/js/jquery.visible.min.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'timeline/css/timeline.css' %}">
+    {% endif %}
+
+    {% if request.path == '/register/' %}
+    <!-- Google platform library -->
+    <script src="https://apis.google.com/js/platform.js"></script>
+    <meta name="google-signin-client_id"
+        content="43423819785-efv9qqqm0vshbpic0grnl7aa60iba100.apps.googleusercontent.com">
     {% endif %}
 </head>
 

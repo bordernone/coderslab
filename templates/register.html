@@ -2,7 +2,6 @@
 {% load static %}
 {% block body %}
 
-
 <!-- Facebook login -->
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous"
@@ -17,34 +16,35 @@
                 <img src="{% static 'global/images/biglogo.png' %}" />
             </div>
             <div class="registerForm">
-                <form autocomplete="off" method="post" action="">
+                <form autocomplete="off" method="post" action="">{% csrf_token %}
                     <input autocomplete="false" name="hidden" type="text" style="display:none;">
                     <div class="form-group inputWithIconContainer">
-                        <input type="text" class="form-control inputWithIcon" id="usr1" placeholder="Pick a username"
-                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Pick a username'" />
+                        <input type="text" class="form-control inputWithIcon" id="usernameInp"
+                            placeholder="Pick a username" onfocus="this.placeholder = ''"
+                            onblur="this.placeholder = 'Pick a username'" />
 
                         <span class="fas fa-user inputIcon"></span>
                     </div>
                     <div class="form-group inputWithIconContainer">
-                        <input type="text" class="form-control inputWithIcon" id="email"
+                        <input type="text" class="form-control inputWithIcon" id="emailInp"
                             placeholder="Enter your email address" onfocus="this.placeholder = ''"
                             onblur="this.placeholder = 'Enter your email address'" />
                         <span class="fas fa-envelope inputIcon" style="top:9px; left:10px;"></span>
                     </div>
                     <div class="form-group inputWithIconContainer">
-                        <input type="text" class="form-control inputWithIcon" id="pwd1" placeholder="Choose a password"
-                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Choose a password'" />
+                        <input type="password" class="form-control inputWithIcon" id="passwordInp"
+                            placeholder="Choose a password" onfocus="this.placeholder = ''"
+                            onblur="this.placeholder = 'Choose a password'" />
                         <span class="fas fa-lock inputIcon"></span>
                     </div>
-                    <div class="form-group formSubmitButtonContainer">
+                    <div class="form-group formSubmitButtonContainer" id='signupBtnContainer'>
                         <button type="button" class="btn btn-block formSubmitButton">Sign Up</button>
                     </div>
                 </form>
             </div>
             <div class="signInOptionsWrapper">
                 <div class="signInWith">Sign in with:</div>
-                <div class="googleSignIn">
-                    <div class="g-signin2" data-width="90" data-height="30" data-onsuccess="onSignIn"></div>
+                <div class="googleSignIn" id=googleSignInContainer>
                 </div>
                 <div class="facebookSignIn">
                     <div class="fb-login-button" data-width="" data-size="medium" data-button-type="login_with"
@@ -55,5 +55,15 @@
     </div>
 
 </div>
+
+
+
+<!-- Load React. -->
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+<!-- Load our React component. -->
+<script src="{% static 'register/js/register-react.js' %}"></script>
+
 
 {% endblock %}
