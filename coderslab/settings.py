@@ -130,7 +130,7 @@ EMAIL_HOST_USER = 'coderslabio@gmail.com'
 EMAIL_HOST_PASSWORD = '5qlInjection'
 
 # Social Sign in
-GOOGLE_CLIENT_ID = '43423819785-efv9qqqm0vshbpic0grnl7aa60iba100'
+GOOGLE_CLIENT_ID = '43423819785-efv9qqqm0vshbpic0grnl7aa60iba100.apps.googleusercontent.com'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/

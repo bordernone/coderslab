@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from django.conf import settings
+from register.utils import isEmailValid
 import re
 
 # Create your views here.
@@ -19,6 +20,7 @@ def googleLogin(request):
             return JsonResponse({'error': 'Email is required'})
         else:
             email = request.POST['email']
+            token = request.POST['idtoken']
             if 'fullname' in request.POST: fullname = request.POST['fullname']
             if 'imgurl' in request.POST: imgurl = request.POST['imgurl']
             
@@ -42,7 +44,24 @@ def googleLogin(request):
 
                 # ID token is valid. Get the user's Google Account ID from the decoded token.
                 userid = idinfo['sub']
+
+                # TOKEN IS VALID. CHECK IF USER IS ALREADY REGISTERED
+                if User.objects.filter(email=email).exists():
+                    #this user exists
+                
+                else:
+                    if not fullname:
+                        fullname = ''
+                    
+                    #generate a username
+                    username = re.sub('[^A-Za-z0-9]', '', fullname) # Assuming it is a string
+                    while User.objects.filter(username=username).exists() or username == '':
+                        appendNum = str(random.randint(0,1000))
+                        username = username+appendNum
+                    
+                    password = userid
+
                 return HttpResponse(userid)
             except ValueError:
                 # Invalid token
-                return HttpResponse('Wrong')
+                return HttpResponse(ValueError)

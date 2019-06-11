@@ -162,10 +162,6 @@ class GoogleSignInBtn extends React.Component {
     onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
         var id_token = googleUser.getAuthResponse().id_token;
-        console.log('Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-        console.log('IDTOKEN: ' + id_token);
 
         // variables
         var fullname = profile.getName();
