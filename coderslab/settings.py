@@ -111,7 +111,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Auth Backend
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend', #default auth backend
-    'login.auth_backend_google.GoogleAuthBackend',
+    'login.auth_backend_google.GoogleAuthBackend', #google auth backend
+    'login.auth_backend_facebook.FacebookAuthBackend', #facebook auth backend
 )
 
 

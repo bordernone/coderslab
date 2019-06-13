@@ -18,6 +18,29 @@ logger = logging.getLogger(__name__)
 def loginPage(request):
     return render(request, 'login.html')
 
+def loginUser(request):
+    if request.method != 'POST':
+        return JsonResponse({'error':'must be a post request'}) if settings.DEBUG else JsonResponse({'error':'Something is not right. Try again in a moment'})
+    else:
+        if 'password' not in request.POST:
+            return JsonResponse({'error':'Invalid password', 'at':'password'})
+        password = request.POST['password']
+        if 'username' in request.POST:
+            username = request.POST['username']
+        elif 'email' in request.POST:
+            email = request.POST['email']
+            if User.objects.filter(email=email).exists():
+                username = User.objects.get(email=email).username
+            else:
+                return JsonResponse({'error':'User does not exist', 'at':'email'})
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return JsonResponse({'success':'logged in'})
+        else:
+            return JsonResponse({'error':'Wrong password', 'at':'password'})
+
+
 def googleLogin(request):
     if request.method != 'POST':
         return JsonResponse({'error': 'Not a post request'}) if settings.DEBUG else JsonResponse({'error':'Something went wrong! Take a coffee break while we fix it. '})
@@ -132,12 +155,12 @@ def facebookLogin(request):
 
         apiResponseJson = apiResponse.json()
         if 'data' in apiResponseJson:
-            reponseDataJson = apiResponseJson['data']
-            if 'user_id' not in reponseDataJson or 'app_id' not in reponseDataJson:
-                return JsonResponse({'error':'invalid token'}) if settings.DEBUG else JsonResponse({'error':'Something went wrong. Take a coffee break while we fix it.'})
-            if reponseDataJson['app_id'] != settings.FACEBOOK_APP_ID:
+            responseDataJson = apiResponseJson['data']
+            if 'user_id' not in responseDataJson or 'app_id' not in responseDataJson:
+                return JsonResponse(responseDataJson) if settings.DEBUG else JsonResponse({'error':'Something went wrong. Take a coffee break while we fix it.'})
+            if responseDataJson['app_id'] != settings.FACEBOOK_APP_ID:
                 return JsonResponse({'error':'App id does not match'}) if settings.DEBUG else JsonResponse({'error':'Something went wrong. Please try again'})
-            if reponseDataJson['is_valid'] != True:
+            if responseDataJson['is_valid'] != True:
                 return JsonResponse({'error':'Invalid token'}) if settings.DEBUG else JsonResponse({'error':'Something went wrong. Try again after some times'})
             
             # get profile information
@@ -177,8 +200,40 @@ def facebookLogin(request):
                 thisUser.last_name = last_name
                 thisUser.profile.profileImgUrl = imgurl
                 thisUser.save()
-            
-            return JsonResponse(profileRequestRes)
+
+                user = authenticate(email=email, userid=userid)
+                if user is not None:
+                    login(request, user)
+                    return JsonResponse({'success':'logged in'}) if settings.DEBUG else JsonResponse({'success':'logged in'})
+                else:
+                    return JsonResponse({'error':'Something went wrong'})
+            else:
+                #user doesn't exist, create and login
+                username=first_name+last_name
+                
+                username = re.sub(r'\W+', '', username) # removing all non alphanumeric characters except '_'
+                
+                i = 0
+                while not (isUsernameValid(username) == True):
+                    username = username + str(i)
+                    i = i + 1
+                
+                newUser = User.objects.create_user(username=username, email=email, is_active=False)
+                newUser.profile.facebookUserId = userid
+                newUser.first_name = first_name
+                newUser.last_name = last_name
+                newUser.profile.profileImgUrl = imgurl
+
+                newUser.is_active = True
+                newUser.save()
+
+                user = authenticate(email=email, userid=userid)
+
+                if user is not None:
+                    login(request, user)
+                    return JsonResponse({'success':'User created and logged in'}) if settings.DEBUG else JsonResponse({'success':'logged in'})
+                else:
+                    return JsonResponse({'error':'Something went wrong'}) 
         else:
             return JsonResponse(apiResponseJson) if settings.DEBUG else JsonResponse({'error':'Something went wrong.'})
     
