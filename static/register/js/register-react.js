@@ -160,22 +160,14 @@ class GoogleSignInBtn extends React.Component {
 
 
     onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
         var id_token = googleUser.getAuthResponse().id_token;
 
-        // variables
-        var fullname = profile.getName();
-        var imgurl = profile.getImageUrl();
-        var email = profile.getEmail();
         //making ajax request
         var csrftoken = getCookie('csrftoken');
         $.ajax({
             type: "POST",
             url: "/login/google/",
             data: {
-                fullname: fullname,
-                imgurl: imgurl,
-                email: email,
                 idtoken: id_token,
             },
             beforeSend: function (xhr, settings) {
@@ -203,3 +195,71 @@ class GoogleSignInBtn extends React.Component {
 
 const googleSignInContainer = document.querySelector('#googleSignInContainer');
 ReactDOM.render(e(GoogleSignInBtn), googleSignInContainer);
+
+
+// facebook login button
+const FACEBOOK_BUTTON_ID = 'facebook-sign-in-button';
+class FacebookSignInBtn extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.checkLoginState = this.checkLoginState.bind(this)
+    }
+
+    componentDidMount() {
+        window['checkLoginState'] = this.checkLoginState;
+
+        var btnElementHtml = '<div class="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="false" scope="public_profile,email" onlogin="checkLoginState"></div>';
+        var fbButton = document.getElementById(FACEBOOK_BUTTON_ID);
+        fbButton.innerHTML = btnElementHtml;
+    }
+
+    componentWillUnmount(){
+        delete window['checkLoginState'];
+    }
+
+    checkLoginState() {
+        var _this = this;
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+                var accessToken = response.authResponse.accessToken;
+                console.log(accessToken);
+                _this.onSignIn(accessToken);
+            }
+        });
+    }
+
+    onSignIn(accessToken) {
+        // make ajax request
+        var csrftoken = getCookie('csrftoken');
+        $.ajax({
+            type: "POST",
+            url: "/login/facebook/",
+            data: {
+                accesstoken: accessToken,
+            },
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            },
+            success: function (data, status, xhr) {
+                console.log(data);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    render() {
+        var _this = this;
+
+        return e("div", {
+            id: FACEBOOK_BUTTON_ID
+        });
+    }
+}
+
+const facebookSignInContainer = document.querySelector('#facebookSignInContainer');
+ReactDOM.render(e(FacebookSignInBtn), facebookSignInContainer);

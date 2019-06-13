@@ -2,12 +2,6 @@
 {% load static %}
 {% block body %}
 
-<!-- Facebook login -->
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=2276120986006308&autoLogAppEvents=1"></script>
-<!-- Facebook Login Ends -->
-
 <div id="bodyWrapper">
 
     <div class="row justify-content-center noMargin">
@@ -44,11 +38,9 @@
             </div>
             <div class="signInOptionsWrapper">
                 <div class="signInWith">Sign in with:</div>
-                <div class="googleSignIn" id=googleSignInContainer>
+                <div class="googleSignIn" id='googleSignInContainer'>
                 </div>
-                <div class="facebookSignIn">
-                    <div class="fb-login-button" data-width="" data-size="medium" data-button-type="login_with"
-                        data-auto-logout-link="false" data-use-continue-as="false"></div>
+                <div class="facebookSignIn" id='facebookSignInContainer'>
                 </div>
             </div>
         </div>

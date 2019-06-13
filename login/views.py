@@ -1,13 +1,21 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from django.conf import settings
-from register.utils import isEmailValid
+from register.utils import isEmailValid, isUsernameValid
 import re
+import hmac
+import hashlib
+import logging
+import requests as getRequests
+
+logger = logging.getLogger(__name__)
 
 # Create your views here.
-def login(request):
+def loginPage(request):
     return render(request, 'login.html')
 
 def googleLogin(request):
@@ -16,13 +24,8 @@ def googleLogin(request):
     else:
         if not 'idtoken' in request.POST or request.POST['idtoken'] == '':
             return JsonResponse({'error': 'Id_token not sent'}) if settings.DEBUG else JsonResponse({'error':'Something went wrong! Take a coffee break while we fix it.'})
-        elif not 'email' in request.POST or request.POST['email'] == '':
-            return JsonResponse({'error': 'Email is required'})
         else:
-            email = request.POST['email']
             token = request.POST['idtoken']
-            if 'fullname' in request.POST: fullname = request.POST['fullname']
-            if 'imgurl' in request.POST: imgurl = request.POST['imgurl']
             
             #verify token
             CLIENT_ID = settings.GOOGLE_CLIENT_ID
@@ -45,23 +48,137 @@ def googleLogin(request):
                 # ID token is valid. Get the user's Google Account ID from the decoded token.
                 userid = idinfo['sub']
 
-                # TOKEN IS VALID. CHECK IF USER IS ALREADY REGISTERED
-                if User.objects.filter(email=email).exists():
-                    #this user exists
-                
+                if 'email' not in idinfo:
+                    return JsonResponse({'error':'Email is required'})
                 else:
-                    if not fullname:
-                        fullname = ''
-                    
-                    #generate a username
-                    username = re.sub('[^A-Za-z0-9]', '', fullname) # Assuming it is a string
-                    while User.objects.filter(username=username).exists() or username == '':
-                        appendNum = str(random.randint(0,1000))
-                        username = username+appendNum
-                    
-                    password = userid
+                    email = idinfo['email']
 
-                return HttpResponse(userid)
+                    if 'given_name' in idinfo:
+                        firstName = idinfo['given_name']
+                    else:
+                        firstName = ''
+                    if 'family_name' in idinfo:
+                        lastName = idinfo['family_name']
+                    else:
+                        lastName = ''
+                    if 'picture' in idinfo:
+                        imgurl = idinfo['picture']
+
+                    # CHECK IF USER IS ALREADY REGISTERED
+                    if User.objects.filter(email=email).exists():
+                        thisUser = User.objects.get(email=email)
+                        #user exists, add user bio if provided
+                        
+                        thisUser.first_name = firstName
+                        thisUser.last_name = lastName
+                        thisUser.profile.profileImgUrl = imgurl
+
+                        username = thisUser.username
+                        if thisUser.profile.googleTokenId != userid:
+                            thisUser.profile.googleTokenId = userid
+
+                        thisUser.save()
+
+                        user = authenticate(email=email, token=userid)
+                        if user is not None:
+                            login(request, user)
+                            return JsonResponse({'success':'logged in'})
+                        else:
+                            return JsonResponse({'error': 'Cannot verify user credentials'})
+                    
+                    else:
+                        #user doesn't exist, create and login
+                        username=firstName+lastName
+                        
+                        username = re.sub(r'\W+', '', username) # removing all non alphanumeric characters except '_'
+                        
+                        i = 0
+                        while not (isUsernameValid(username) == True):
+                            username = username + str(i)
+                            i = i + 1
+                        
+                        newUser = User.objects.create_user(username=username, email=email, is_active=False)
+                        newUser.profile.googleTokenId = userid
+                        newUser.first_name = firstName
+                        newUser.last_name = lastName
+                        newUser.profile.profileImgUrl = imgurl
+
+                        newUser.is_active = True
+                        newUser.save()
+
+                        user = authenticate(email=email, token=userid)
+
+                        if user is not None:
+                            login(request, user)
+                            return JsonResponse({'success':'User created and logged in'}) if settings.DEBUG else JsonResponse({'success':'logged in'})
+                        else:
+                            return JsonResponse({'error':'Something went wrong'})
+
             except ValueError:
                 # Invalid token
                 return HttpResponse(ValueError)
+
+def facebookLogin(request):
+    if not request.method == 'POST':
+        return JsonResponse({'error':'must be a post request'}) if settings.DEBUG else JsonResponse({'error':'Something went wrong. Take a coffee break while we fix it.'})
+    else:
+        if 'accesstoken' not in request.POST:
+            return JsonResponse({'error':'no access token passed'}) if settings.DEBUG else JsonResponse({'error':'Something went wrong. Take a coffee break while we fix it.'})
+        
+        userAccessToken = request.POST['accesstoken']
+
+        payload = {'input_token': userAccessToken, 'access_token': settings.FACEBOOK_APP_ID + '|' + settings.FACEBOOK_APP_SECRET}
+        apiResponse = getRequests.get('https://graph.facebook.com/debug_token', params=payload)
+
+        apiResponseJson = apiResponse.json()
+        if 'data' in apiResponseJson:
+            reponseDataJson = apiResponseJson['data']
+            if 'user_id' not in reponseDataJson or 'app_id' not in reponseDataJson:
+                return JsonResponse({'error':'invalid token'}) if settings.DEBUG else JsonResponse({'error':'Something went wrong. Take a coffee break while we fix it.'})
+            if reponseDataJson['app_id'] != settings.FACEBOOK_APP_ID:
+                return JsonResponse({'error':'App id does not match'}) if settings.DEBUG else JsonResponse({'error':'Something went wrong. Please try again'})
+            if reponseDataJson['is_valid'] != True:
+                return JsonResponse({'error':'Invalid token'}) if settings.DEBUG else JsonResponse({'error':'Something went wrong. Try again after some times'})
+            
+            # get profile information
+            appsecret_proof = hmac.new(settings.FACEBOOK_APP_SECRET.encode('utf-8'), msg=(userAccessToken.encode('utf-8')), digestmod=hashlib.sha256).hexdigest()
+            payload = {'access_token':userAccessToken, 'appsecret_proof':appsecret_proof, 'fields':'email, first_name, last_name, picture.type(large)'}
+            profileRequest = getRequests.get('https://graph.facebook.com/me', params=payload)
+            profileRequestRes = profileRequest.json()
+
+            if 'error' in profileRequestRes:
+                logger.error('FACEBOOK LOGIN ATTEMPT FAILED')
+                logger.error(profileRequestRes)
+                if settings.DEBUG:
+                    return JsonResponse(profileRequestRes)
+                raise Http404
+
+            if not 'email' in profileRequestRes:
+                return JsonResponse({'error':'Email must be present'})
+            
+            email = profileRequestRes['email']
+            userid = responseDataJson['user_id']
+            first_name = ''
+            if 'first_name' in profileRequestRes:
+                first_name = profileRequestRes['first_name']
+            last_name = ''
+            if 'last_name' in profileRequestRes:
+                last_name = profileRequestRes['last_name']
+            imgurl=''
+            if 'picture' in profileRequestRes:
+                imgurl = profileRequestRes['picture']['data']['url']
+            
+            # check if user exists
+            if User.objects.filter(email=email).exists():
+                thisUser = User.objects.get(email=email)
+                
+                thisUser.profile.facebookUserId = userid
+                thisUser.first_name = first_name
+                thisUser.last_name = last_name
+                thisUser.profile.profileImgUrl = imgurl
+                thisUser.save()
+            
+            return JsonResponse(profileRequestRes)
+        else:
+            return JsonResponse(apiResponseJson) if settings.DEBUG else JsonResponse({'error':'Something went wrong.'})
+    
