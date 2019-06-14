@@ -22,21 +22,25 @@ def loginUser(request):
     if request.method != 'POST':
         return JsonResponse({'error':'must be a post request'}) if settings.DEBUG else JsonResponse({'error':'Something is not right. Try again in a moment'})
     else:
-        if 'password' not in request.POST:
-            return JsonResponse({'error':'Invalid password', 'at':'password'})
-        password = request.POST['password']
         if 'username' in request.POST:
+            if request.POST['username'] == '':
+                return JsonResponse({'error':'Enter username or email', 'at':'username'})
             username = request.POST['username']
         elif 'email' in request.POST:
+            if request.POST['email'] == '':
+                return JsonResponse({'error':'Enter username or email', 'at':'email'})
             email = request.POST['email']
             if User.objects.filter(email=email).exists():
                 username = User.objects.get(email=email).username
             else:
                 return JsonResponse({'error':'User does not exist', 'at':'email'})
+        if 'password' not in request.POST or request.POST['password'] == '':
+            return JsonResponse({'error':'Invalid password', 'at':'password'})
+        password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return JsonResponse({'success':'logged in'})
+            return JsonResponse({'success':True})
         else:
             return JsonResponse({'error':'Wrong password', 'at':'password'})
 

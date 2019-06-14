@@ -8,48 +8,39 @@ const NAVIGATIONLINKS = {
     fbpage: 'https://www.facebook.com/CodersLab-883282698685530',
 }
 const ELEMENTSID = {
-    usernameInput: '#usernameInp',
-    emailInput: '#emailInp',
+    usernameoremailInput: '#usernameoremailInp',
     passwordInput: '#passwordInp',
 }
 
-// sign up button
-class SignUpBtn extends React.Component {
+class LoginBtn extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             isLoading: false,
-            registerComplete: false,
-            successMsg: '',
         }
+
+        this.postLogin = this.postLogin.bind(this);
     }
 
     componentDidMount() {
         var _this = this;
+
         if (document.body.clientWidth < 640) {
-            $(ELEMENTSID.usernameInput).popover({ content: '', trigger: "manual", placement: 'top' });
-            $(ELEMENTSID.emailInput).popover({ content: '', trigger: "manual", placement: 'top' });
+            $(ELEMENTSID.usernameoremailInput).popover({ content: '', trigger: "manual", placement: 'top' });
             $(ELEMENTSID.passwordInput).popover({ content: '', trigger: "manual", placement: 'top' });
         } else {
-            $(ELEMENTSID.usernameInput).popover({ content: '', trigger: "manual" });
-            $(ELEMENTSID.emailInput).popover({ content: '', trigger: "manual" });
+            $(ELEMENTSID.usernameoremailInput).popover({ content: '', trigger: "manual" });
             $(ELEMENTSID.passwordInput).popover({ content: '', trigger: "manual" });
         }
-
         // adding on key press trigger
-        $(ELEMENTSID.usernameInput).keypress(function(e) {
+        $(ELEMENTSID.usernameoremailInput).keypress(function(e) {
             if (e.which === 13) {
-                _this.onBtnClick();
-            }
-        });
-        $(ELEMENTSID.emailInput).keypress(function(e) {
-            if (e.which === 13) {
-                _this.onBtnClick();
+                _this.onClickLogin();
             }
         });
         $(ELEMENTSID.passwordInput).keypress(function(e) {
             if (e.which === 13) {
-                _this.onBtnClick();
+                _this.onClickLogin();
             }
         });
     }
@@ -63,30 +54,42 @@ class SignUpBtn extends React.Component {
         $('input').popover('hide');
     }
 
-    onBtnClick() {
+    postLogin() {
+        var redirectTo = GetURLParameter('redirect');
+        if (redirectTo != 0){
+            window.location.href = '/' + redirectTo;
+        } else {
+            window.location.href = '/practice/';
+        }
+    }
+
+    onClickLogin() {
         var _this = this;
         this.setState({
             isLoading: true,
         });
 
-        // hide popover if open
         this.hideAllPopovers();
-
-        // getting all variables
-        var username = $(ELEMENTSID.usernameInput).val();
-        var email = $(ELEMENTSID.emailInput).val();
+        var usernameoremail = $(ELEMENTSID.usernameoremailInput).val();
         var password = $(ELEMENTSID.passwordInput).val();
+        if (usernameoremail.indexOf('@') > -1) {
+            var postReqKey = {
+                email: usernameoremail,
+                password: password
+            };
+        } else {
+            var postReqKey = {
+                username: usernameoremail,
+                password: password
+            };
+        }
 
         //making ajax request
         var csrftoken = getCookie('csrftoken');
         $.ajax({
             type: "POST",
-            url: "user/",
-            data: {
-                username: username,
-                email: email,
-                password: password,
-            },
+            url: "native/",
+            data: postReqKey,
             beforeSend: function(xhr, settings) {
                 if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
                     xhr.setRequestHeader("X-CSRFToken", csrftoken);
@@ -95,72 +98,66 @@ class SignUpBtn extends React.Component {
             success: function(data, status, xhr) {
                 var dataObj = data;
                 if (dataObj.hasOwnProperty('error')) {
-                    _this.setState({
-                        isLoading: false,
-                    });
+                    var errorMsg = dataObj.error;
                     if (dataObj.hasOwnProperty('at')) {
-                        if (dataObj.at == 'username') {
-                            _this.showPopoverMsg(ELEMENTSID.usernameInput, dataObj.error);
-                        } else if (dataObj.at == 'email') {
-                            _this.showPopoverMsg(ELEMENTSID.emailInput, dataObj.error);
-                        } else if (dataObj.at == 'password') {
-                            _this.showPopoverMsg(ELEMENTSID.passwordInput, dataObj.error);
+                        var occuredAt = dataObj.at;
+                        if (occuredAt == 'username' || occuredAt == 'email') {
+                            _this.showPopoverMsg(ELEMENTSID.usernameoremailInput, errorMsg);
+                        } else if (occuredAt == 'password') {
+                            _this.showPopoverMsg(ELEMENTSID.passwordInput, errorMsg);
                         } else {
-                            alert('Something went wrong. Please try again');
                             console.log(dataObj);
                         }
                     } else {
-                        alert('Something went wrong. Please try again');
                         console.log(dataObj);
                     }
                 } else if (dataObj.hasOwnProperty('success')) {
-                    _this.setState({
-                        registerComplete: true,
-                        isLoading: false,
-                        successMsg: dataObj.success,
-                    });
-                    console.log(dataObj)
+                    if (dataObj.success == true) {
+                        _this.postLogin();
+                    } else {
+                        console.log(dataObj);
+                    }
+                } else {
+                    console.log(data);
                 }
+
+                _this.setState({
+                    isLoading: false,
+                });
             },
             error: function(xhr, status, error) {
                 console.log(error);
+                _this.setState({
+                    isLoading: false,
+                });
             }
         });
     }
 
     render() {
         var _this = this;
-        if (this.state.isLoading == true) {
+        if (_this.state.isLoading == true) {
+            return e("button", {
+                type: "button",
+                className: "btn btn-block formSubmitButton",
+                disabled: true
+            }, "  ", React.createElement("span", {
+                className: "spinner-border spinner-border-sm"
+            }), " Sign In");
+        } else {
             return e("button", {
                 type: "button",
                 className: "btn btn-block formSubmitButton",
                 onClick: function onClick() {
-                    return _this.onBtnClick();
-                },
-                disabled: true
-            }, "  ", e("span", {
-                className: "spinner-border spinner-border-sm"
-            }), " Sign Up");
-        } else {
-            if (this.state.registerComplete == true) {
-                return e("div", {
-                    class: "alert alert-success"
-                }, React.createElement("strong", null, "Success!"), _this.state.successMsg);
-            } else {
-                return e("button", {
-                    type: "button",
-                    className: "btn btn-block formSubmitButton",
-                    onClick: function onClick() {
-                        return _this.onBtnClick();
-                    }
-                }, "Sign Up");
-            }
+                    return _this.onClickLogin();
+                }
+            }, "Sign In");
         }
     }
 }
 
-const signupBtnContainer = document.querySelector('#signupBtnContainer');
-ReactDOM.render(e(SignUpBtn), signupBtnContainer);
+const loginBtnContainer = document.querySelector('#loginBtnContainer');
+ReactDOM.render(e(LoginBtn), loginBtnContainer);
 
 // Google sign in button
 const GOOGLE_BUTTON_ID = 'google-sign-in-button';
