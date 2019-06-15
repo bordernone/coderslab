@@ -14,7 +14,7 @@
             <div class="row questionsWrapper justify-content-md-around">
                 {% for question in questions %}
                 {% if question.get_category_display == category %}
-                <div class="col-md-5 questionBox">
+                <div class="col-md-5 questionBox" onclick="showQuestion('{% url "questionscreen" question.title|slugify question.id %}')">
                     <div class="question-details">
                         <h4>{{ question.title }}</h4>
                         <span class="question-details-minor">Total Points: {{ question.points }}</span>

@@ -11,6 +11,8 @@
 <script src="{% static 'homepage/js/homepage-react.js' %}"></script>
 {% elif request.path == '/login/' %}
 <script src="{% static 'login/js/login-react.js' %}"></script>
+{% elif '/question/' in request.path %}
+<script src="{% static 'questionscreen/js/questionscreen-react.js' %}"></script>
 {% endif %}
 
 <div id="footerWrapper">

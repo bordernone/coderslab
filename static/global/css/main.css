@@ -590,24 +590,34 @@ body {
 .questionscreenWrapper .questionViewBox {
     border-radius: 2px;
     box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.46);
-    padding: 10px!important;
-    padding-left: 45px!important;
-    padding-right: 45px!important;
+    padding: 0px!important;
     margin-bottom: 20px;
 }
 
 .questionscreenWrapper .question-title .questionBackBtn {
     color: grey;
-    margin-left: -40px;
     display: inline-block;
 }
 
-.question-title h1 {
+.questionscreenWrapper .question-title{
+    padding-top: 10px;
+}
+
+#questionBackBtnContainer{
+    display: inline-block;
+}
+
+.questionscreenWrapper .question-title h1 {
     color: grey;
     display: inline;
     vertical-align: middle;
-    font-size: 18px;
+    font-size: 20px;
     margin: 0px!important;
+}
+
+.questionscreenWrapper .question-description{
+    padding-left: 45px;
+    padding-right: 45px;
 }
 
 .questionscreenWrapper .question-description p {
