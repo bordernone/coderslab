@@ -1,7 +1,7 @@
 # homepage/urls.py
 from django.urls import path
-from .views import practice
+from .views import practiceView
 
 urlpatterns = [
-    path('', practice, name='practice'),
+    path('', practiceView, name='practiceView'),
 ]

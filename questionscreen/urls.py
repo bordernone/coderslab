@@ -3,5 +3,5 @@ from django.urls import path
 from .views import questionscreen
 
 urlpatterns = [
-    path('', questionscreen, name='questionscreen'),
+    path('<slug:titleslug>/<int:id>/', questionscreen, name='questionscreen'),
 ]

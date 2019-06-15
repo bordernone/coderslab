@@ -16,7 +16,14 @@ class Profile(models.Model):
     receiveImpEmail = models.BooleanField(default=True)
     googleTokenId = models.CharField(max_length=500, blank=True)
     facebookUserId = models.CharField(max_length=500, blank=True)
+    socialLinkFacebook = models.CharField(max_length=500, blank=True)
+    socialLinkLinkedIn = models.CharField(max_length=500, blank=True)
+    socialLinkInsta = models.CharField(max_length=500, blank=True)
+    socialLinkTwitter = models.CharField(max_length=500, blank=True)
 
+    def  __str__(self):
+        return '%s' % self.user.username
+        
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:

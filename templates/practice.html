@@ -4,152 +4,35 @@
 
 <div id="bodyWrapper" class="container">
     <div class="practiceCatWrapper">
-        <div class="row catWrapper noMargin">
-            <div class="catTitle">
-                <h4>Round 1A Warm Up:</h4>
-            </div>
-
-            <div class="row questionsWrapper justify-content-md-around">
-                <div class="col-md-5 questionBox">
-                    <div class="question-details">
-                        <h4>Sum to infinity</h4>
-                        <span class="question-details-minor">Total Points: 30</span>
-                        <span class="question-details-minor">Extra: 10</span>
-                    </div>
-                    <div class="question-difficulty">
-                        <div class="question-difficulty-percent-wrapper">
-                            <div class="question-difficulty-percent">90%</div>
-                        </div>
-                        <span class="question-difficulty-minor">Success Rate</span>
-                    </div>
-                </div>
-                <div class="col-md-5 questionBox">
-                    <div class="question-details">
-                        <h4>Sum to infinity</h4>
-                        <span class="question-details-minor">Total Points: 30</span>
-                        <span class="question-details-minor">Extra: 10</span>
-                    </div>
-                    <div class="question-difficulty">
-                        <div class="question-difficulty-percent-wrapper">
-                            <div class="question-difficulty-percent">90%</div>
-                        </div>
-                        <span class="question-difficulty-minor">Success Rate</span>
-                    </div>
-                </div>
-                <div class="col-md-5 questionBox">
-                    <div class="question-details">
-                        <h4>Sum to infinity</h4>
-                        <span class="question-details-minor">Total Points: 30</span>
-                        <span class="question-details-minor">Extra: 10</span>
-                    </div>
-                    <div class="question-difficulty">
-                        <div class="question-difficulty-percent-wrapper">
-                            <div class="question-difficulty-percent">90%</div>
-                        </div>
-                        <span class="question-difficulty-minor">Success Rate</span>
-                    </div>
-                </div>
-                <div class="col-md-5 questionBox">
-                    <div class="question-details">
-                        <h4>Sum to infinity</h4>
-                        <span class="question-details-minor">Total Points: 30</span>
-                        <span class="question-details-minor">Extra: 10</span>
-                    </div>
-                    <div class="question-difficulty">
-                        <div class="question-difficulty-percent-wrapper">
-                            <div class="question-difficulty-percent">90%</div>
-                        </div>
-                        <span class="question-difficulty-minor">Success Rate</span>
-                    </div>
-                </div>
-                <div class="col-md-5 questionBox">
-                    <div class="question-details">
-                        <h4>Sum to infinity</h4>
-                        <span class="question-details-minor">Total Points: 30</span>
-                        <span class="question-details-minor">Extra: 10</span>
-                    </div>
-                    <div class="question-difficulty">
-                        <div class="question-difficulty-percent-wrapper">
-                            <div class="question-difficulty-percent">90%</div>
-                        </div>
-                        <span class="question-difficulty-minor">Success Rate</span>
-                    </div>
-                </div>
-                <div class="col-md-5 questionBox">
-                    <div class="question-details">
-                        <h4>Sum to infinity</h4>
-                        <span class="question-details-minor">Total Points: 30</span>
-                        <span class="question-details-minor">Extra: 10</span>
-                    </div>
-                    <div class="question-difficulty">
-                        <div class="question-difficulty-percent-wrapper">
-                            <div class="question-difficulty-percent">90%</div>
-                        </div>
-                        <span class="question-difficulty-minor">Success Rate</span>
-                    </div>
-                </div>
-                <div class="col-md-5 questionBox">
-                    <div class="question-details">
-                        <h4>Sum to infinity</h4>
-                        <span class="question-details-minor">Total Points: 30</span>
-                        <span class="question-details-minor">Extra: 10</span>
-                    </div>
-                    <div class="question-difficulty">
-                        <div class="question-difficulty-percent-wrapper">
-                            <div class="question-difficulty-percent">90%</div>
-                        </div>
-                        <span class="question-difficulty-minor">Success Rate</span>
-                    </div>
-                </div>
-                <div class="col-md-5 questionBox">
-                    <div class="question-details">
-                        <h4>Sum to infinity</h4>
-                        <span class="question-details-minor">Total Points: 30</span>
-                        <span class="question-details-minor">Extra: 10</span>
-                    </div>
-                    <div class="question-difficulty">
-                        <div class="question-difficulty-percent-wrapper">
-                            <div class="question-difficulty-percent">90%</div>
-                        </div>
-                        <span class="question-difficulty-minor">Success Rate</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% for category in cat %}
 
         <div class="row catWrapper noMargin">
             <div class="catTitle">
-                <h4>Mathematics:</h4>
+                <h4>{{ category }}:</h4>
             </div>
+
             <div class="row questionsWrapper justify-content-md-around">
+                {% for question in questions %}
+                {% if question.get_category_display == category %}
                 <div class="col-md-5 questionBox">
                     <div class="question-details">
-                        <h4>Sum to infinity</h4>
-                        <span class="question-details-minor">Total Points: 30</span>
-                        <span class="question-details-minor">Extra: 10</span>
+                        <h4>{{ question.title }}</h4>
+                        <span class="question-details-minor">Total Points: {{ question.points }}</span>
+                        <span class="question-details-minor">Extra: {{ question.subscore }}</span>
                     </div>
                     <div class="question-difficulty">
                         <div class="question-difficulty-percent-wrapper">
-                            <div class="question-difficulty-percent">90%</div>
+                            <div class="question-difficulty-percent">N/A</div>
                         </div>
                         <span class="question-difficulty-minor">Success Rate</span>
                     </div>
                 </div>
-                <div class="col-md-5 questionBox">
-                    <div class="question-details">
-                        <h4>Sum to infinity</h4>
-                        <span class="question-details-minor">Total Points: 30</span>
-                        <span class="question-details-minor">Extra: 10</span>
-                    </div>
-                    <div class="question-difficulty">
-                        <div class="question-difficulty-percent-wrapper">
-                            <div class="question-difficulty-percent">90%</div>
-                        </div>
-                        <span class="question-difficulty-minor">Success Rate</span>
-                    </div>
-                </div>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
+
+        {% endfor %}
     </div>
 </div>
 
