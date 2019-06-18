@@ -1155,6 +1155,7 @@ input:checked+.slider:before {
 
 .scoreboardDisplayPic {
     flex: 2;
+    cursor: pointer;
 }
 
 .scoreboardDisplayPicWrapper {
@@ -1170,10 +1171,13 @@ input:checked+.slider:before {
     position: absolute;
     top: 0;
     left: 0;
+    height: 100%;
+    width: 100%;
 }
 
 .scoreboardDisplayName {
     flex: 8;
+    cursor: pointer;
 }
 
 
@@ -1239,6 +1243,7 @@ input:checked+.slider:before {
     border-radius: 50%;
     color: rgb(143, 142, 142);
     z-index: 1;
+    cursor: pointer;
 }
 
 .timelineEachItem.active {

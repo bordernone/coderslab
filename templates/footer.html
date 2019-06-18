@@ -13,6 +13,10 @@
 <script src="{% static 'login/js/login-react.js' %}"></script>
 {% elif '/question/' in request.path %}
 <script src="{% static 'questionscreen/js/questionscreen-react.js' %}"></script>
+{% elif '/timeline/' in request.path %}
+<script src="{% static 'timeline/js/timeline-react.js' %}"></script>
+{% elif '/scoreboard/' in request.path %}
+<script src="{% static 'scoreboard/js/scoreboard-react.js' %}"></script>
 {% endif %}
 
 <div id="footerWrapper">

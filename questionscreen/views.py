@@ -15,7 +15,14 @@ def questionscreen(request, titleslug, id):
         else:
             raise Http404
     
-    title = question.title
-    if slugify(title) != titleslug:
-        return HttpResponseRedirect('/question/'+slugify(title)+'/'+str(id)+'/')
-    return render(request, 'questionscreen.html', {'question':question})
+    if question.public == True:
+        title = question.title
+        if slugify(title) != titleslug:
+            return HttpResponseRedirect('/question/'+slugify(title)+'/'+str(id)+'/')
+        return render(request, 'questionscreen.html', {'question':question})
+    else:
+        # not ready for publication
+        if settings.DEBUG:
+            return HttpResponse('Not ready for publication')
+        else:
+            raise Http404

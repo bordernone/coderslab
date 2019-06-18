@@ -13,7 +13,7 @@ class Questions(models.Model):
         ('1A', 'Round 1A'),
     )
     category = models.CharField(max_length=20, choices=CATEGORIES)
-
+    public = models.BooleanField(default=False)
 
     def __str__(self):
         return '%s' % self.title
