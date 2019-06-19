@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import userProfile
+from .views import userProfile, userProfileJson
 
 urlpatterns = [
-    path('', userProfile, name='userProfile'),
+    path('<username>/', userProfile, name='userProfile'),
+    path('profile/json/', userProfileJson, name='userProfileJson'),
 ]

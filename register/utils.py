@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 
 def isUsernameValid(username):
     #check if username exists
+    username = username.lower()
     if User.objects.filter(username=username).exists():
         return 'This username is taken. Try another one'
     
@@ -21,6 +22,7 @@ def isUsernameValid(username):
             
 def isEmailValid(email):
     #check if email exists
+    email = email.lower()
     if User.objects.filter(email=email).exists():
         return 'There is already an account with this email address'
     
@@ -38,3 +40,9 @@ def isPasswordValid(password):
 		return 'Password must be at least 5 characters long'
 	else:
 		return True
+
+def cleanUsername(username):
+    return username.lower()
+
+def cleanEmail(email):
+    return email.lower()

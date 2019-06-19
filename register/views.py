@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import EmailMessage
 import re
-from .utils import isUsernameValid, isEmailValid, isPasswordValid
+from .utils import isUsernameValid, isEmailValid, isPasswordValid, cleanUsername, cleanEmail
 from .tokens import account_activation_token
 
 # register page
@@ -28,8 +28,8 @@ def registerUser(request):
         elif not 'password' in request.POST or request.POST['password'] == '':
             return JsonResponse({'error':'Password is required', 'at': 'password'})
         else:
-            username = request.POST['username']
-            email = request.POST['email']
+            username = cleanUsername(request.POST['username']) #lowercase username
+            email = cleanEmail(request.POST['email'])
             password = request.POST['password']
 
             if not isUsernameValid(username) == True:

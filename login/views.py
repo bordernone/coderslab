@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from django.conf import settings
-from register.utils import isEmailValid, isUsernameValid
+from register.utils import isEmailValid, isUsernameValid, cleanEmail, cleanUsername
 import re
 import hmac
 import hashlib
@@ -25,11 +25,11 @@ def loginUser(request):
         if 'username' in request.POST:
             if request.POST['username'] == '':
                 return JsonResponse({'error':'Enter username or email', 'at':'username'})
-            username = request.POST['username']
+            username = cleanUsername(request.POST['username'])
         elif 'email' in request.POST:
             if request.POST['email'] == '':
                 return JsonResponse({'error':'Enter username or email', 'at':'email'})
-            email = request.POST['email']
+            email = cleanEmail(request.POST['email'])
             if User.objects.filter(email=email).exists():
                 username = User.objects.get(email=email).username
             else:
@@ -78,7 +78,7 @@ def googleLogin(request):
                 if 'email' not in idinfo:
                     return JsonResponse({'error':'Email is required'})
                 else:
-                    email = idinfo['email']
+                    email = cleanEmail(idinfo['email'])
 
                     if 'given_name' in idinfo:
                         firstName = idinfo['given_name']
@@ -123,7 +123,8 @@ def googleLogin(request):
                         while not (isUsernameValid(username) == True):
                             username = username + str(i)
                             i = i + 1
-                        
+                        username = cleanUsername(username)
+                        email = cleanEmail(email)
                         newUser = User.objects.create_user(username=username, email=email, is_active=False)
                         newUser.profile.googleTokenId = userid
                         newUser.first_name = firstName
@@ -183,7 +184,7 @@ def facebookLogin(request):
             if not 'email' in profileRequestRes:
                 return JsonResponse({'error':'Email must be present'})
             
-            email = profileRequestRes['email']
+            email = cleanEmail(profileRequestRes['email'])
             userid = responseDataJson['user_id']
             first_name = ''
             if 'first_name' in profileRequestRes:
@@ -221,7 +222,8 @@ def facebookLogin(request):
                 while not (isUsernameValid(username) == True):
                     username = username + str(i)
                     i = i + 1
-                
+                username = cleanUsername(username)
+                email= cleanEmail(email)
                 newUser = User.objects.create_user(username=username, email=email, is_active=False)
                 newUser.profile.facebookUserId = userid
                 newUser.first_name = first_name

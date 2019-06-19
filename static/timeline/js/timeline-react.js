@@ -57,8 +57,8 @@ class Countdown extends React.Component {
             var days = Math.floor(remaining / (1000 * 60 * 60 * 24));
             var hours = Math.floor((remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-            
-            if (remaining >= 0){
+
+            if (remaining >= 0) {
                 _this.setState({
                     countdown: {
                         days: days,

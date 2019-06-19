@@ -9,24 +9,36 @@
             <div class="userIntro d-flex">
                 <div class="p-2 userDisplayPicture">
                     <div class="userDisplayPictureContainer">
-                        <img src="http://127.0.0.1:8000/static/global/images/biglogo.png">
+                        <img src="{% if user.profile.profileImgUrl|length > 0 %}{{ user.profile.profileImgUrl }}{% else %}http://127.0.0.1:8000/static/global/images/biglogo.png{% endif %}">
                     </div>
                 </div>
                 <div class="p-2 userIntroDetails d-flex flex-column">
                     <div class="p-2 flex-grow-1">
                         <div class="userIntroFullName">
-                            <h5>Bishnu Dev</h5>
+                            <h5>
+                                {% if user.first_name|length > 0 %}
+                                    {% with fullname=user.first_name|add:' '|add:user.last_name %}
+                                        {{ fullname }}
+                                    {% endwith %}
+                                {% else %}
+                                    No Name
+                                {% endif %}
+                            </h5>
                         </div>
                         <div class="userIntroDescription">
-                            There's clearly nothing here.
+                            {% if user.profile.bio|length > 0 %}
+                                {{ user.profile.bio }}
+                            {% else %}
+                                There's clearly nothing here.
+                            {% endif %}
                         </div>
                     </div>
 
                     <div class="p-2 userIntroSocialIcons">
-                        <a href="#"><span class="fab fa-facebook-square"></span></a>
-                        <a href="#"><span class="fab fa-linkedin"></span></a>
-                        <a href="#"><span class="fab fa-instagram"></span></a>
-                        <a href="#"><span class="fab fa-twitter"></span></a>
+                        <a href="{{ user.profile.socialLinkFacebook }}"><span class="fab fa-facebook-square"></span></a>
+                        <a href="{{ user.profile.socialLinkLinkedIn }}"><span class="fab fa-linkedin"></span></a>
+                        <a href="{{ user.profile.socialLinkInsta }}"><span class="fab fa-instagram"></span></a>
+                        <a href="{{ user.profile.socialLinkTwitter }}"><span class="fab fa-twitter"></span></a>
                     </div>
                 </div>
             </div>
@@ -39,11 +51,33 @@
                             <tbody>
                                 <tr>
                                     <td>Location:</td>
-                                    <td>Kathmandu, Nepal <a href="#"><i class="fas fa-pencil-alt"></i></a></td>
+                                    <td>
+                                        {% if user.profile.location|length > 0 %}
+                                            {{ user.profile.location }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+
+                                        {% if request.user.is_authenticated and request.user.username == user.username %}
+                                        <span id="locationEditBtnContainer">
+                                        </span>
+                                        {% endif %}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Website:</td>
-                                    <td>https://www.coderslab.io/ <a href="#"><i class="fas fa-pencil-alt"></i></a></td>
+                                    <td>
+                                        {% if user.profile.website|length > 0 %}
+                                            {{ user.profile.website }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+
+                                        {% if request.user.is_authenticated and request.user.username == user.username %}
+                                        <span id="websiteEditBtnContainer">
+                                        </span>
+                                        {% endif %}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -58,12 +92,33 @@
                             <tbody>
                                 <tr>
                                     <td>School:</td>
-                                    <td>Kaasthamandap A-Level Academy <a href="#"><i class="fas fa-pencil-alt"></i></a>
+                                    <td>
+                                        {% if user.profile.school|length > 0 %}
+                                            {{ user.profile.school }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+
+                                        {% if request.user.is_authenticated and request.user.username == user.username %}
+                                        <span id="schoolEditBtnContainer">
+                                        </span>
+                                        {% endif %}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>College:</td>
-                                    <td>N/A <a href="#"><i class="fas fa-pencil-alt"></i></a></td>
+                                    <td>
+                                        {% if user.profile.college|length > 0 %}
+                                            {{ user.profile.college }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                            
+                                        {% if request.user.is_authenticated and request.user.username == user.username %}
+                                        <span id="collegeEditBtnContainer">
+                                        </span>
+                                        {% endif %}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -77,7 +132,18 @@
                             <tbody>
                                 <tr>
                                     <td>Work:</td>
-                                    <td>Founder at CodersLab <a href="#"><i class="fas fa-pencil-alt"></i></a></td>
+                                    <td>
+                                        {% if user.profile.work|length > 0 %}
+                                            {{ user.profile.work }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+
+                                        {% if request.user.is_authenticated and request.user.username == user.username %}
+                                        <span id="workEditBtnContainer">
+                                        </span>
+                                        {% endif %}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -88,5 +154,49 @@
     </div>
 
 </div>
+
+{% block profile_details_2_modal %}
+<div class="modal" id="profile_details_2_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h6 class="modal-title">Edit Basic Info</h6>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="locationInp">Location:</label>
+                        <input type="text" class="form-control" id="locationInp" placeholder="Your location here" name="locationInp" value={this.state.locationInp} onChange={_this.handleInpChange()} />
+                    </div>
+                    <div class="form-group">
+                        <label for="websiteInp">Website:</label>
+                        <input type="text" class="form-control" id="websiteInp" placeholder="Your website url" name="websiteInp" value={this.state.websiteInp} onChange={_this.handleInpChange()} />
+                    </div>
+                    <div class="form-group">
+                        <label for="schoolInp">School:</label>
+                        <input type="text" class="form-control" id="schoolInp" placeholder="Your school's name" name="schoolInp" value={this.state.schoolInp} onChange={_this.handleInpChange()} />
+                    </div>
+                    <div class="form-group">
+                        <label for="collegeInp">College:</label>
+                        <input type="text" class="form-control" id="collegeInp" placeholder="Your college's name" name="collegeInp" value={this.state.collegeInp} onChange={_this.handleInpChange()} />
+                    </div>
+                    <div class="form-group">
+                        <label for="workInp">Work:</label>
+                        <input type="text" class="form-control" id="workInp" placeholder="Your work" name="workInp" value={this.state.workInp} onChange={_this.handleInpChange()} />
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
 
 {% endblock %}

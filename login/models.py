@@ -8,7 +8,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profileImgUrl = models.CharField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
-    bio = models.TextField(max_length=300, blank=True)
+    bio = models.TextField(max_length=80, blank=True)
     website = models.CharField(max_length=100, blank=True)
     school = models.CharField(max_length=50, blank=True)
     college = models.CharField(max_length=50, blank=True)
