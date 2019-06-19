@@ -66,6 +66,8 @@ class Countdown extends React.Component {
                         minutes: minutes,
                     },
                 });
+            } else {
+                console.log(remaining)
             }
         }, 5000);
     }

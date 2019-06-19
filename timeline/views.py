@@ -9,7 +9,7 @@ def timelineView(request):
     return render(request, 'timeline.html')
 
 def nextRoundTime(request):
-    today = date.today()
+    today = datetime.now()
     allRounds = Rounds.objects.filter(startdatetime__gt=today)
     nextRoundStartdatetime = allRounds[0].startdatetime
     

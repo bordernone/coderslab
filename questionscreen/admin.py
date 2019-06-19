@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import submissions
+from .models import Submissions
 
 # Register your models here.
-admin.site.register(submissions)
+admin.site.register(Submissions)

@@ -1114,12 +1114,11 @@ input:checked+.slider:before {
 .scoreboardWrapper {
     padding-top: 50px!important;
     padding-bottom: 50px!important;
-    padding-left: 20px!important;
-    padding-right: 20px!important;
 }
 
 .scoreboardWrapper>div {
     color: rgb(142, 142, 142);
+    margin-bottom: 20px;
 }
 
 .scoreboardMainCatHeading {
