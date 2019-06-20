@@ -7,7 +7,7 @@ class backBtn extends React.Component {
     }
 
     onBtnClick(){
-        var redirectTo = GetURLParameter('redirect');
+        var redirectTo = GetURLParameter('next');
         if (redirectTo != 0){
             window.location.href = redirectTo;
         } else {

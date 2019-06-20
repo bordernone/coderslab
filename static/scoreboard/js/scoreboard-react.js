@@ -52,8 +52,8 @@ class scoreboardCompetitionUser extends React.Component {
         });
     }
 
-    itemClicked(){
-        window.location.href="/user/";
+    itemClicked(username){
+        window.location.href="/user/"+username+'/';
     }
 
     render() {
@@ -68,7 +68,7 @@ class scoreboardCompetitionUser extends React.Component {
             }, index + 1, "."), e("div", {
                 className: "p-2 scoreboardDisplayPic",
                 onClick: function onClick() {
-                    return _this.itemClicked();
+                    return _this.itemClicked(user.username);
                 },
             }, e("div", {
                 className: "scoreboardDisplayPicWrapper"
@@ -77,7 +77,7 @@ class scoreboardCompetitionUser extends React.Component {
             }))), e("div", {
                 className: "p-2 scoreboardDisplayName d-flex align-items-center",
                 onClick: function onClick() {
-                    return _this.itemClicked();
+                    return _this.itemClicked(user.username);
                 }
             }, user.username))
         );
@@ -138,8 +138,8 @@ class OverallUsersScoreboardView extends React.Component{
         });
     }
 
-    itemClicked(){
-        window.location.href="/user/";
+    itemClicked(username){
+        window.location.href="/user/"+username+'/';
     }
 
     render() {
@@ -154,7 +154,7 @@ class OverallUsersScoreboardView extends React.Component{
             }, index + 1, "."), e("div", {
                 className: "p-2 scoreboardDisplayPic",
                 onClick: function onClick() {
-                    return _this.itemClicked();
+                    return _this.itemClicked(user.username);
                 },
             }, e("div", {
                 className: "scoreboardDisplayPicWrapper"
@@ -163,7 +163,7 @@ class OverallUsersScoreboardView extends React.Component{
             }))), e("div", {
                 className: "p-2 scoreboardDisplayName d-flex align-items-center",
                 onClick: function onClick() {
-                    return _this.itemClicked();
+                    return _this.itemClicked(user.username);
                 }
             }, user.username))
         );

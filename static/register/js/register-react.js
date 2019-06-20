@@ -184,9 +184,9 @@ class GoogleSignInBtn extends React.Component {
     }
 
     postLogin() {
-        var redirectTo = GetURLParameter('redirect');
+        var redirectTo = GetURLParameter('next');
         if (redirectTo != 0){
-            window.location.href = '/' + redirectTo;
+            window.location.href = redirectTo;
         } else {
             window.location.href = '/practice/';
         }
@@ -270,9 +270,9 @@ class FacebookSignInBtn extends React.Component {
     }
 
     postLogin() {
-        var redirectTo = GetURLParameter('redirect');
+        var redirectTo = GetURLParameter('next');
         if (redirectTo != 0){
-            window.location.href = '/' + redirectTo;
+            window.location.href = redirectTo;
         } else {
             window.location.href = '/practice/';
         }

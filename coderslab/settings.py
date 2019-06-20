@@ -129,6 +129,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# login and register URL
+LOGIN_URL = '/login/'
+
 # Email
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'

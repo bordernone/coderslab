@@ -9,7 +9,7 @@
                 <img src="{% static 'global/images/biglogo.png' %}" />
             </div>
             <div class="loginForm">
-                <form autocomplete="off" method="post" action="">
+                <form autocomplete="off" method="post" action="">{% csrf_token %}
                     <input autocomplete="false" name="hidden" type="text" style="display:none;">
                     <div class="form-group inputWithIconContainer">
                         <input type="text" class="form-control inputWithIcon" id="usernameoremailInp"

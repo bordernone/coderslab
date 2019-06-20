@@ -3,6 +3,17 @@
 const e = React.createElement;
 const profileEditModal2Element = '#profile_details_2_modal';
 
+
+const ELEMENTSID = {
+    inputs: {
+        location: '#locationInp',
+        website: '#websiteInp',
+        school: '#schoolInp',
+        college: '#collegeInp',
+        work: '#workInp',
+    },
+}
+
 class profileEditModal2 extends React.Component {
     constructor(props) {
         super(props);
@@ -21,6 +32,7 @@ class profileEditModal2 extends React.Component {
 
     componentDidMount() {
         this.setCurrentInputFields();
+        this.setInputPopovers();
     }
 
     setCurrentInputFields() {
@@ -53,6 +65,71 @@ class profileEditModal2 extends React.Component {
                 console.log(error);
             }
         });
+    }
+
+    onFormSubmit() {
+        var _this = this;
+
+        _this.hideAllPopovers()
+        //making ajax request
+        var payload = {
+            location: _this.state.locationInp,
+            website: _this.state.websiteInp,
+            school: _this.state.schoolInp,
+            college: _this.state.collegeInp,
+            work: _this.state.workInp,
+        };
+
+        var csrftoken = getCookie('csrftoken');
+        $.ajax({
+            type: "POST",
+            url: "/user/profile/update/",
+            data: payload,
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            },
+            success: function (dataObj, status, xhr) {
+                if (dataObj.hasOwnProperty('success')) {
+                    location.reload();
+                } else if (dataObj.hasOwnProperty('error')) {
+                    var errorMsg = dataObj.error;
+                    if (dataObj.hasOwnProperty("at")) {
+                        var at = dataObj.at;
+                        _this.showPopoverMsg(ELEMENTSID.inputs[at], errorMsg);
+                    } else {
+                        alert(console.log(errorMsg));
+                    }
+                } else {
+                    console.log(dataObj);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    setInputPopovers() {
+        if (document.body.clientWidth < 640) {
+            for (var inputField in ELEMENTSID) {
+                $(inputField).popover({ content: '', trigger: "manual", placement: 'top' });
+            }
+        } else {
+            for (var inputField in ELEMENTSID) {
+                $(inputField).popover({ content: '', trigger: "manual" });
+            }
+        }
+    }
+
+    showPopoverMsg(id, message) {
+        $(id).attr('data-content', message);
+        $(id).popover('show');
+    }
+
+    hideAllPopovers() {
+        $('input').popover('hide');
     }
 
     render() {
@@ -137,7 +214,9 @@ class profileEditModal2 extends React.Component {
         }, e("button", {
             type: "button",
             className: "btn btn-primary",
-            "data-dismiss": "modal"
+            onClick: function () {
+                _this.onFormSubmit();
+            },
         }, "Submit"))));
     }
 }

@@ -2,6 +2,7 @@
 {% load static %}
 {% block body %}
 
+{% csrf_token %}
 <div id="bodyWrapper" class="container">
 
     <div class="row justify-content-center profilePageWrapper noMargin">
@@ -157,44 +158,6 @@
 
 {% block profile_details_2_modal %}
 <div class="modal" id="profile_details_2_modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h6 class="modal-title">Edit Basic Info</h6>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="locationInp">Location:</label>
-                        <input type="text" class="form-control" id="locationInp" placeholder="Your location here" name="locationInp" value={this.state.locationInp} onChange={_this.handleInpChange()} />
-                    </div>
-                    <div class="form-group">
-                        <label for="websiteInp">Website:</label>
-                        <input type="text" class="form-control" id="websiteInp" placeholder="Your website url" name="websiteInp" value={this.state.websiteInp} onChange={_this.handleInpChange()} />
-                    </div>
-                    <div class="form-group">
-                        <label for="schoolInp">School:</label>
-                        <input type="text" class="form-control" id="schoolInp" placeholder="Your school's name" name="schoolInp" value={this.state.schoolInp} onChange={_this.handleInpChange()} />
-                    </div>
-                    <div class="form-group">
-                        <label for="collegeInp">College:</label>
-                        <input type="text" class="form-control" id="collegeInp" placeholder="Your college's name" name="collegeInp" value={this.state.collegeInp} onChange={_this.handleInpChange()} />
-                    </div>
-                    <div class="form-group">
-                        <label for="workInp">Work:</label>
-                        <input type="text" class="form-control" id="workInp" placeholder="Your work" name="workInp" value={this.state.workInp} onChange={_this.handleInpChange()} />
-                    </div>
-                </form>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
 </div>
 {% endblock %}
 
