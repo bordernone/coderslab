@@ -834,12 +834,11 @@ body {
     padding: 0px;
 }
 
-.profileDisplayWrapper .userDetailsEachItems a {
+.userProfileEditBtn{
     color: rgb(110, 110, 110);
     padding-left: 2px;
     padding-right: 2px;
 }
-
 
 /*account settings */
 

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from .utils import isLocationValid, updateProfileLocation, isWebsiteValid, updateProfileWebsite, isSchoolValid, updateProfileSchool, isCollegeValid, updateProfileCollege, isWorkValid, updateProfileWork
+from .utils import isLocationValid, updateProfileLocation, isWebsiteValid, updateProfileWebsite, isSchoolValid, updateProfileSchool, isCollegeValid, updateProfileCollege, isWorkValid, updateProfileWork, isFirst_nameValid, updateProfileFirst_name, isLast_nameValid, updateProfileLast_name, isBioValid, updateProfileBio, isFacebookprofileurlValid, updateFacebookprofileurl, isLinkedinprofileurlValid, updateLinkedinprofileurl, isInstagramprofileurlValid, updateInstagramprofileurl, isTwitterprofileurlValid, updateTwitterprofileurl
 import re
 
 # Create your views here.
@@ -115,5 +115,78 @@ def editProfileDetails(request):
             updateProfileWork(username, work)
         else:
             return JsonResponse({'error':isWorkValid(work), 'at': 'work'})
+
+    #updating first name
+    if 'first_name' in request.POST:
+        first_name = request.POST['first_name']
+        if isFirst_nameValid(first_name) == True:
+            updateProfileFirst_name(username, first_name)
+        elif first_name == '':
+            updateProfileFirst_name(username, first_name)
+        else:
+            return JsonResponse({'error':isFirst_nameValid(first_name), 'at': 'first_name'})
+
+    #updating last name
+    if 'last_name' in request.POST:
+        last_name = request.POST['last_name']
+        if isLast_nameValid(last_name) == True:
+            updateProfileLast_name(username, last_name)
+        elif last_name == '':
+            updateProfileLast_name(username, last_name)
+        else:
+            return JsonResponse({'error':isLast_nameValid(last_name), 'at': 'last_name'})
+
+    #updating bio
+    if 'bio' in request.POST:
+        bio = request.POST['bio']
+        if isBioValid(bio) == True:
+            updateProfileBio(username, bio)
+        elif bio == '':
+            updateProfileBio(username, bio)
+        else:
+            return JsonResponse({'error':isBioValid(bio), 'at': 'bio'})
+
+    #updating facebookprofileurl
+    if 'facebookprofileurl' in request.POST:
+        facebookprofileurl = request.POST['facebookprofileurl']
+        if isFacebookprofileurlValid(facebookprofileurl) == True:
+            updateFacebookprofileurl(username, facebookprofileurl)
+        elif facebookprofileurl == '':
+            updateFacebookprofileurl(username, facebookprofileurl)
+        else:
+            return JsonResponse({'error':isFacebookprofileurlValid(facebookprofileurl), 'at': 'facebookprofileurl'})
+
+
+    #updating linkedinprofileurl
+    if 'linkedinprofileurl' in request.POST:
+        linkedinprofileurl = request.POST['linkedinprofileurl']
+        if isLinkedinprofileurlValid(linkedinprofileurl) == True:
+            updateLinkedinprofileurl(username, linkedinprofileurl)
+        elif linkedinprofileurl == '':
+            updateLinkedinprofileurl(username, linkedinprofileurl)
+        else:
+            return JsonResponse({'error':isLinkedinprofileurlValid(linkedinprofileurl), 'at': 'linkedinprofileurl'})
+
+
+    #updating instagramprofileurl
+    if 'instagramprofileurl' in request.POST:
+        instagramprofileurl = request.POST['instagramprofileurl']
+        if isInstagramprofileurlValid(instagramprofileurl) == True:
+            updateInstagramprofileurl(username, instagramprofileurl)
+        elif instagramprofileurl == '':
+            updateInstagramprofileurl(username, instagramprofileurl)
+        else:
+            return JsonResponse({'error':isInstagramprofileurlValid(instagramprofileurl), 'at': 'instagramprofileurl'})
+
+
+    #updating twitterprofileurl
+    if 'twitterprofileurl' in request.POST:
+        twitterprofileurl = request.POST['twitterprofileurl']
+        if isTwitterprofileurlValid(twitterprofileurl) == True:
+            updateTwitterprofileurl(username, twitterprofileurl)
+        elif twitterprofileurl == '':
+            updateTwitterprofileurl(username, twitterprofileurl)
+        else:
+            return JsonResponse({'error':isTwitterprofileurlValid(twitterprofileurl), 'at': 'twitterprofileurl'})
 
     return JsonResponse({'success':True})

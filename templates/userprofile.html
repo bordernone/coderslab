@@ -10,7 +10,8 @@
             <div class="userIntro d-flex">
                 <div class="p-2 userDisplayPicture">
                     <div class="userDisplayPictureContainer">
-                        <img src="{% if user.profile.profileImgUrl|length > 0 %}{{ user.profile.profileImgUrl }}{% else %}http://127.0.0.1:8000/static/global/images/biglogo.png{% endif %}">
+                        <img
+                            src="{% if user.profile.profileImgUrl|length > 0 %}{{ user.profile.profileImgUrl }}{% else %}http://127.0.0.1:8000/static/global/images/biglogo.png{% endif %}">
                     </div>
                 </div>
                 <div class="p-2 userIntroDetails d-flex flex-column">
@@ -18,19 +19,24 @@
                         <div class="userIntroFullName">
                             <h5>
                                 {% if user.first_name|length > 0 %}
-                                    {% with fullname=user.first_name|add:' '|add:user.last_name %}
-                                        {{ fullname }}
-                                    {% endwith %}
+                                {% with fullname=user.first_name|add:' '|add:user.last_name %}
+                                {{ fullname }}
+                                {% endwith %}
                                 {% else %}
-                                    No Name
+                                No Name
+                                {% endif %}
+
+                                {% if request.user.is_authenticated and request.user.username == user.username %}
+                                <span id="namesocialEditBtnContainer">
+                                </span>
                                 {% endif %}
                             </h5>
                         </div>
                         <div class="userIntroDescription">
                             {% if user.profile.bio|length > 0 %}
-                                {{ user.profile.bio }}
+                            {{ user.profile.bio }}
                             {% else %}
-                                There's clearly nothing here.
+                            There's clearly nothing here.
                             {% endif %}
                         </div>
                     </div>
@@ -54,9 +60,9 @@
                                     <td>Location:</td>
                                     <td>
                                         {% if user.profile.location|length > 0 %}
-                                            {{ user.profile.location }}
+                                        {{ user.profile.location }}
                                         {% else %}
-                                            N/A
+                                        N/A
                                         {% endif %}
 
                                         {% if request.user.is_authenticated and request.user.username == user.username %}
@@ -69,9 +75,9 @@
                                     <td>Website:</td>
                                     <td>
                                         {% if user.profile.website|length > 0 %}
-                                            {{ user.profile.website }}
+                                        {{ user.profile.website }}
                                         {% else %}
-                                            N/A
+                                        N/A
                                         {% endif %}
 
                                         {% if request.user.is_authenticated and request.user.username == user.username %}
@@ -95,9 +101,9 @@
                                     <td>School:</td>
                                     <td>
                                         {% if user.profile.school|length > 0 %}
-                                            {{ user.profile.school }}
+                                        {{ user.profile.school }}
                                         {% else %}
-                                            N/A
+                                        N/A
                                         {% endif %}
 
                                         {% if request.user.is_authenticated and request.user.username == user.username %}
@@ -110,11 +116,11 @@
                                     <td>College:</td>
                                     <td>
                                         {% if user.profile.college|length > 0 %}
-                                            {{ user.profile.college }}
+                                        {{ user.profile.college }}
                                         {% else %}
-                                            N/A
+                                        N/A
                                         {% endif %}
-                            
+
                                         {% if request.user.is_authenticated and request.user.username == user.username %}
                                         <span id="collegeEditBtnContainer">
                                         </span>
@@ -135,9 +141,9 @@
                                     <td>Work:</td>
                                     <td>
                                         {% if user.profile.work|length > 0 %}
-                                            {{ user.profile.work }}
+                                        {{ user.profile.work }}
                                         {% else %}
-                                            N/A
+                                        N/A
                                         {% endif %}
 
                                         {% if request.user.is_authenticated and request.user.username == user.username %}
@@ -155,6 +161,55 @@
     </div>
 
 </div>
+
+{% block profile_details_1_modal %}
+<!-- The Modal -->
+<div class="modal" id="profile_details_1_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h6>Update your profile</h6>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="first_name">Full Name:</label>
+                        <input type="text" class="form-control" placeholder="First Name" id="first_name" value={_this.state.firstnameInp} onChange={_this.changed()} /><br />
+                        <input type="text" class="form-control" placeholder="Last Name" id="last_name" value={_this.state.firstnameInp} onChange={_this.changed()} />
+                    </div>
+                    <div class="form-group">
+                        <label for="userbio">Bio:</label>
+                        <textarea class="form-control" id="userbio" rows="3" value={_this.state.firstnameInp} onChange={_this.changed()}></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="fb_profile_url">Social Profiles:</label>
+                        <input type="text" class="form-control" placeholder="Facebook profile url"
+                            id="fb_profile_url" value={_this.state.firstnameInp} onChange={_this.changed()} /><br />
+                        <input type="text" class="form-control" placeholder="LinkedIn profile url"
+                            id="linkedin_profile_url" value={_this.state.firstnameInp} onChange={_this.changed()} /><br />
+                        <input type="text" class="form-control" placeholder="Instagram profile url"
+                            id="insta_profile_url" value={_this.state.firstnameInp} onChange={_this.changed()} /><br />
+                        <input type="text" class="form-control" placeholder="Twitter profile url"
+                            id="twitter_profile_url" value={_this.state.firstnameInp} onChange={_this.changed()} />
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="profilePicFile" />
+                        <label class="custom-file-label" for="profilePicFile">Choose a profile picture</label>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
 
 {% block profile_details_2_modal %}
 <div class="modal" id="profile_details_2_modal">

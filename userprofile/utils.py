@@ -55,3 +55,81 @@ def updateProfileWork(username, work):
     thisUser = User.objects.get(username=username)
     thisUser.profile.work = work
     thisUser.save()
+
+def isFirst_nameValid(first_name):
+    if re.match("^[A-Za-z0-9][A-Za-z0-9_,. -]*[A-Za-z0-9]$", first_name):
+        return True
+    else:
+        return 'Invalid Characters'
+
+def updateProfileFirst_name(username, first_name):
+    thisUser = User.objects.get(username=username)
+    thisUser.first_name = first_name
+    thisUser.save()
+
+def isLast_nameValid(last_name):
+    if re.match("^[A-Za-z0-9][A-Za-z0-9_,. -]*[A-Za-z0-9]$", last_name):
+        return True
+    else:
+        return 'Invalid Characters'
+
+def updateProfileLast_name(username, last_name):
+    thisUser = User.objects.get(username=username)
+    thisUser.last_name = last_name
+    thisUser.save()
+
+def isBioValid(bio):
+    if re.match("^[A-Za-z0-9][A-Za-z0-9_,. -]*[A-Za-z0-9]$", bio):
+        return True
+    else:
+        return 'Invalid Characters'
+
+def updateProfileBio(username, bio):
+    thisUser = User.objects.get(username=username)
+    thisUser.profile.bio = bio
+    thisUser.save()
+
+def isFacebookprofileurlValid(facebookprofileurl):
+    if re.match("^(http://|https://)((www\.facebook\.com)|(www\.fb\.com)|(facebook\.com)|(fb\.com))/.*$", facebookprofileurl):
+        return True
+    else:
+        return 'Enter a valid url'
+
+def updateFacebookprofileurl(username, facebookprofileurl):
+    thisUser = User.objects.get(username=username)
+    thisUser.profile.socialLinkFacebook = facebookprofileurl
+    thisUser.save()
+
+def isLinkedinprofileurlValid(linkedinprofileurl):
+    if re.match("^(http://|https://)((.*\.linkedin\.com)|(linkedin\.com))/.*$", linkedinprofileurl):
+        return True
+    else:
+        return 'Enter a valid url'
+
+def updateLinkedinprofileurl(username, linkedinprofileurl):
+    thisUser = User.objects.get(username=username)
+    thisUser.profile.socialLinkLinkedIn = linkedinprofileurl
+    thisUser.save()
+
+def isInstagramprofileurlValid(instagramprofileurl):
+    if re.match("^(http://|https://)((.*\.instagram\.com)|(instagram\.com))/.*$", instagramprofileurl):
+        return True
+    else:
+        return 'Enter a valid url'
+
+def updateInstagramprofileurl(username, instagramprofileurl):
+    thisUser = User.objects.get(username=username)
+    thisUser.profile.socialLinkInsta = instagramprofileurl
+    thisUser.save()
+
+
+def isTwitterprofileurlValid(twitterprofileurl):
+    if re.match("^(http://|https://)((.*\.twitter\.com)|(twitter\.com))/.*$", twitterprofileurl):
+        return True
+    else:
+        return 'Enter a valid url'
+
+def updateTwitterprofileurl(username, twitterprofileurl):
+    thisUser = User.objects.get(username=username)
+    thisUser.profile.socialLinkTwitter = twitterprofileurl
+    thisUser.save()
