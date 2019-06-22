@@ -357,6 +357,14 @@ class profileEditModal1 extends React.Component {
         $('input').popover('hide');
     }
 
+    navigationToAvatarDelete() {
+        window.location.href = "/avatar/delete/?next="+window.location.href;
+    }
+
+    navigationToAvatarChange() {
+        window.location.href = "/avatar/change/?next="+window.location.href;
+    }
+
     render() {
         var _this = this;
 
@@ -433,20 +441,27 @@ class profileEditModal1 extends React.Component {
             value: _this.state.twitterprofileurlInp,
             onChange: function (event) { _this.setState({ twitterprofileurlInp: event.target.value }) },
         })), e("div", {
-            className: "custom-file"
-        }, e("input", {
-            type: "file",
-            className: "custom-file-input",
-            id: "profilePicFile"
-        }), e("label", {
-            className: "custom-file-label",
-            htmlFor: "profilePicFile"
-        }, "Choose a profile picture")))), e("div", {
+            className: "form-group userProfileAvatarEditBtnWrapper"
+        }, React.createElement("div", {
+            className: "btn-group"
+        }, React.createElement("button", {
+            type: "button",
+            className: "btn btn-primary",
+            onClick: function(){
+                _this.navigationToAvatarChange();
+            },
+        }, "Change Avatar"), React.createElement("button", {
+            type: "button",
+            className: "btn btn-danger",
+            onClick: function(){
+                _this.navigationToAvatarDelete();
+            },
+        }, "Delete Avatar"))))), e("div", {
             className: "modal-footer"
         }, e("button", {
             type: "button",
             className: "btn btn-primary",
-            onClick: function(){
+            onClick: function () {
                 _this.onFormSubmit();
             },
         }, "Submit"))));

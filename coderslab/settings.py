@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'contactpage.apps.ContactpageConfig', #contact page
     'scoreboard.apps.ScoreboardConfig', #score board
     'timeline.apps.TimelineConfig', #timeline
+    'avatar', #avatar library
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,6 +77,10 @@ TEMPLATES = [
         },
     },
 ]
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.request",
+)
 
 WSGI_APPLICATION = 'coderslab.wsgi.application'
 
@@ -151,3 +157,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = BASE_DIR + "/media"
+
+#AVATAR
+AVATAR_CHANGE_TEMPLATE = 'avatar_change.html'
+AVATAR_DELETE_TEMPLATE = 'avatar_delete.html'
+AVATAR_CLEANUP_DELETED = True

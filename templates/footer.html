@@ -4,6 +4,7 @@
 <!-- Load React. -->
 <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+<script src="{% static 'global/js/react-components.js' %}"></script>
 
 <!-- Load the React component. -->
 {% if request.path == '/register/' %}
@@ -20,6 +21,10 @@
 <script src="{% static 'scoreboard/js/scoreboard-react.js' %}"></script>
 {% elif '/user/' in request.path %}
 <script src="{% static 'userprofile/js/userprofile-react.js' %}"></script>
+{% elif request.path == '/avatar/change/' %}
+<script src="{% static 'userprofile/js/avatar-change-react.js' %}"></script>
+{% elif request.path == '/avatar/delete/' %}
+<script src="{% static 'userprofile/js/avatar-delete-react.js' %}"></script>
 {% endif %}
 
 <div id="footerWrapper">

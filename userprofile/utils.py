@@ -79,7 +79,7 @@ def updateProfileLast_name(username, last_name):
     thisUser.save()
 
 def isBioValid(bio):
-    if re.match("^[A-Za-z0-9][A-Za-z0-9_,. -]*[A-Za-z0-9]$", bio):
+    if re.match("^[A-Za-z0-9][A-Za-z0-9_,\. '-]*[A-Za-z0-9.*]$", bio):
         return True
     else:
         return 'Invalid Characters'

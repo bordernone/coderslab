@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
     height: 100%;
     width: 100%;
     min-width: 300px;
@@ -296,7 +295,6 @@ body {
     height: 5px;
 }
 
-
 /* register */
 
 .registerWrapper {
@@ -441,7 +439,6 @@ body {
     display: inline-block;
 }
 
-
 /* login */
 
 .loginWrapper {
@@ -481,7 +478,6 @@ body {
         padding-right: 0px;
     }
 }
-
 
 /* practice */
 
@@ -577,7 +573,6 @@ body {
     white-space: nowrap;
 }
 
-
 /* question screen */
 
 .questionscreenWrapper {
@@ -599,11 +594,11 @@ body {
     display: inline-block;
 }
 
-.questionscreenWrapper .question-title{
+.questionscreenWrapper .question-title {
     padding-top: 10px;
 }
 
-#questionBackBtnContainer{
+#questionBackBtnContainer {
     display: inline-block;
 }
 
@@ -615,7 +610,7 @@ body {
     margin: 0px!important;
 }
 
-.questionscreenWrapper .question-description{
+.questionscreenWrapper .question-description {
     padding-left: 45px;
     padding-right: 45px;
 }
@@ -742,7 +737,6 @@ body {
     font-size: 14px;
 }
 
-
 /* user profile */
 
 .profilePageWrapper {
@@ -834,10 +828,18 @@ body {
     padding: 0px;
 }
 
-.userProfileEditBtn{
+.userProfileEditBtn {
     color: rgb(110, 110, 110);
     padding-left: 2px;
     padding-right: 2px;
+}
+
+.userProfileAvatarEditBtnWrapper {
+    text-align: center;
+}
+
+.userProfileAvatarEditBtnWrapper button {
+    border: 0;
 }
 
 /*account settings */
@@ -951,7 +953,6 @@ body {
     line-height: 34px;
 }
 
-
 /* The switch - the box around the slider */
 
 .switch {
@@ -1005,7 +1006,6 @@ input:checked+.slider:before {
     transform: translateX(50px);
 }
 
-
 /* Rounded sliders */
 
 .slider.round {
@@ -1041,7 +1041,6 @@ input:checked+.slider:before {
     padding-bottom: 8px;
     font-family: HelveticaNeue-Light;
 }
-
 
 /* contact form */
 
@@ -1106,7 +1105,6 @@ input:checked+.slider:before {
     font-family: HelveticaNeue-Light;
     font-size: 12px;
 }
-
 
 /* scoreboard */
 
@@ -1177,7 +1175,6 @@ input:checked+.slider:before {
     flex: 8;
     cursor: pointer;
 }
-
 
 /*timeline*/
 
@@ -1258,4 +1255,99 @@ input:checked+.slider:before {
     padding: 30px!important;
     padding-top: 50px!important;
     padding-bottom: 50px!important;
+}
+
+/* avatar change */
+
+.avatarChangeWrapper {
+    padding: 0px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border-radius: 3px;
+    max-width: 410px;
+    -webkit-box-shadow: 0px 0px 6px -1px rgb(178, 178, 178);
+    -moz-box-shadow: 0px 0px 6px -1px rgb(178, 178, 178);
+    box-shadow: 0px 0px 6px -1px rgb(178, 178, 178);
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.avatarChangeWrapper h5 {
+    color: gray;
+}
+
+.avatarChangeWrapper p, label, input {
+    color: gray;
+}
+
+.avatarChangeWrapper img {
+    border-radius: 50%;
+}
+
+.avatarChangeWrapper button {
+    border: 0px;
+    background-color: #009FD0 !important;
+    cursor: pointer;
+}
+
+.avatarChangeWrapper button:hover {
+    border: 0px;
+    background-color: #009FD0 !important;
+    cursor: pointer;
+}
+
+.formSubmitBtnWrapper {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.avatarAllAvatars {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.avatarUpload {
+    margin-bottom: 20px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.avatarUpload .custom-file input {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    margin: 0;
+    opacity: 0;
+}
+
+.avatarUploadFileWrapper {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.avatarChangeTopBar {
+    font-size: 20px;
+    font-family: Helvetica Neue;
+    color: gray;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.avatarUploadFileWrapper .custom-file> :first-child {
+    display: none;
+}
+
+.avatarDeleteContent {
+    padding: 20px;
+}
+
+.avatarChangeTopBar>div>span {
+    cursor: pointer;
 }

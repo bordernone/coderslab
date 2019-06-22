@@ -1,0 +1,48 @@
+{% extends 'header.html' %}
+{% load static %}
+{% load i18n avatar_tags %}
+{% block body %}
+
+<div id="bodyWrapper" class="container">
+    <div class="row noMargin justify-content-center">
+        <div class="col avatarChangeWrapper">
+            <div class="avatarChangeTopBar d-flex">
+                <div class="p-2" id="avatarChangeBackBtnWrapper"></div>
+                <div class="p-2 flex-grow-1">Change Your Avatar</div>
+            </div>
+
+            <div class="avatarAllAvatars">
+                {% if not avatars %}
+                <p>{% trans "You haven't uploaded an avatar yet. Please upload one now." %}</p>
+                {% else %}
+                <h5>Previous Uploads:</h5>
+                <form method="POST" action="{% url 'avatar_change' %}">
+                    <ul>
+                        {{ primary_avatar_form }}
+                    </ul>
+                    {% csrf_token %}
+                    <div class="formSubmitBtnWrapper">
+                        <button type="submit" class="btn btn-primary formSubmitButton btn-block">Change</button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+            <div class="avatarUpload">
+                <h5>Upload a New One:</h5>
+                <form enctype="multipart/form-data" method="POST" action="{% url 'avatar_add' %}">
+                    <div class="avatarUploadFileWrapper">
+                        <div class="custom-file">
+                            {{ upload_avatar_form }}
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                    </div>
+                    {% csrf_token %}
+                    <div class="formSubmitBtnWrapper">
+                        <button type="submit" class="btn btn-primary formSubmitButton btn-block">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

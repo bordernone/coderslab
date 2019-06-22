@@ -1,0 +1,37 @@
+{% extends 'header.html' %}
+{% load static %}
+{% load i18n avatar_tags %}
+{% block body %}
+
+
+<div id="bodyWrapper" class="container">
+    <div class="row noMargin justify-content-center">
+        <div class="col avatarChangeWrapper">
+            <div class="avatarChangeTopBar d-flex">
+                <div class="p-2" id="avatarDeleteBackBtnWrapper"></div>
+                <div class="p-2 flex-grow-1">Delete Your Avatar</div>
+            </div>
+
+            <div class="avatarDeleteContent">
+                {% if not avatars %}
+                {% url 'avatar_change' as avatar_change_url %}
+                <p>You have no avatars to delete. Please <a href="{{ avatar_change_url }}?next={{ request.GET.next }}">upload
+                        one</a>
+                    now.</p>
+                {% else %}
+                <p>{% trans "Please select the avatars that you like to delete." %}</p>
+                <form method="POST" action="{% url 'avatar_delete' %}">
+                    <ul>
+                        {{ delete_avatar_form }}
+                    </ul>
+                    {% csrf_token %}
+                    <div class="formSubmitBtnWrapper">
+                        <button type="submit" class="btn btn-danger formSubmitButton btn-block">Delete</button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

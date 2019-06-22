@@ -1,5 +1,6 @@
 {% extends 'header.html' %}
 {% load static %}
+{% load avatar_tags %}
 {% block body %}
 
 {% csrf_token %}
@@ -10,8 +11,13 @@
             <div class="userIntro d-flex">
                 <div class="p-2 userDisplayPicture">
                     <div class="userDisplayPictureContainer">
-                        <img
-                            src="{% if user.profile.profileImgUrl|length > 0 %}{{ user.profile.profileImgUrl }}{% else %}http://127.0.0.1:8000/static/global/images/biglogo.png{% endif %}">
+                            {% if user|has_avatar %}
+                            {% avatar user %}                            
+                            {% elif user.profile.profileImgUrl|length > 0 %}
+                        <img src="{{ user.profile.profileImgUrl }}" />
+                            {% else %}
+                        <img src="{% static 'global/images/biglogo.png' %}" />
+                            {% endif %}
                     </div>
                 </div>
                 <div class="p-2 userIntroDetails d-flex flex-column">
