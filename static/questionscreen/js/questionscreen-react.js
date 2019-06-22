@@ -1,7 +1,7 @@
 'use strict';
 
 const e = React.createElement;
-class backBtn extends React.Component {
+class questionBackBtn extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -24,10 +24,10 @@ class backBtn extends React.Component {
                 _this.onBtnClick();
             }
         }, React.createElement("li", {
-            class: "fas fa-arrow-left"
+            className: "fas fa-arrow-left"
         }));
     }
 }
 
 const backBtnContainer = document.querySelector('#questionBackBtnContainer');
-ReactDOM.render(e(backBtn), backBtnContainer);
+ReactDOM.render(e(questionBackBtn), backBtnContainer);
