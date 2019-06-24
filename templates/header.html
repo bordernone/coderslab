@@ -6,7 +6,8 @@
     <title>CodersLab</title>
 
     <!-- Bootstrap CDN & font awesome -->
-    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'
+        integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
     <link rel="stylesheet" href="{% static 'global/bootstrap/css/bootstrap.min.css' %}">
     <script src="{% static 'global/js/jquery.min.js' %}"></script>
     <script src="{% static 'global/js/popper.min.js' %}"></script>
@@ -23,10 +24,12 @@
     <script src="{% static 'timeline/js/jquery.connections.js' %}"></script>
     <script src="{% static 'timeline/js/timeline.js' %}"></script>
     <script src="{% static 'timeline/js/jquery.visible.min.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'timeline/css/timeline.css' %}"> {% endif %} {% if request.path == '/register/' or request.path == '/login/' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'timeline/css/timeline.css' %}"> {% endif %}
+    {% if request.path == '/register/' or request.path == '/login/' %}
     <!-- Google platform library -->
     <script src="https://apis.google.com/js/platform.js"></script>
-    <meta name="google-signin-client_id" content="43423819785-efv9qqqm0vshbpic0grnl7aa60iba100.apps.googleusercontent.com"> {% endif %}
+    <meta name="google-signin-client_id"
+        content="43423819785-efv9qqqm0vshbpic0grnl7aa60iba100.apps.googleusercontent.com"> {% endif %}
 </head>
 
 <body>
@@ -34,7 +37,7 @@
     {% if request.path == '/register/' or request.path == '/login/' %}
 
     <script>
-        window.fbAsyncInit = function() {
+        window.fbAsyncInit = function () {
             FB.init({
                 appId: '350903085617384',
                 cookie: true,
@@ -45,7 +48,7 @@
             FB.AppEvents.logPageView();
         };
 
-        (function(d, s, id) {
+        (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) {
                 return;
@@ -57,7 +60,8 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
     <div id="fb-root"></div>
-    <script crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=350903085617384&autoLogAppEvents=1"></script>
+    <script crossorigin="anonymous"
+        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=350903085617384&autoLogAppEvents=1"></script>
     {% endif %}
 
     <div id="mainWrapper">
@@ -74,7 +78,9 @@
 
                 <div class="headerNav">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                            aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -85,6 +91,16 @@
                                 <a class="nav-item nav-link" href="/scoreboard/">Scoreboard</a>
                                 <a class="nav-item nav-link" href="/user/{{ request.user.username }}/">Profile</a>
                                 <a class="nav-item nav-link" href="/account/">Settings</a>
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right navbarDropdown">
+                                        <a class="dropdown-item" href="#">Avatar</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Logout</a>
+                                    </div>
+                                </div>
                                 {% else %}
                                 <a class="nav-item nav-link" href="/practice/">Practice</a>
                                 <a class="nav-item nav-link" href="/register/">Register</a>

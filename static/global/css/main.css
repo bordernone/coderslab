@@ -81,6 +81,25 @@ html, body {
     text-shadow: 0px 3px 4px rgba(0, 0, 0, 0.16);
 }
 
+.navbarDropdown {
+    border-top: 0px;
+    box-shadow: 0px 5px 8px rgb(179, 179, 179);
+    border-radius: 0px;
+    color: gray;
+}
+
+.navbarDropdown a {
+    color: gray;
+}
+
+.navbarDropdown a:hover{
+    color:gray;
+}
+
+.headerNav .dropdown .btn-link{
+    color:gray;
+}
+
 #bodyWrapper {
     padding-top: 60px;
     flex-grow: 1;
@@ -143,6 +162,7 @@ html, body {
 
 .homepageBodyBtnWrapper>div {
     display: inline-block;
+    margin-bottom: 15px;
 }
 
 .homepageBodyBtnWrapper button {
@@ -858,26 +878,30 @@ html, body {
 }
 
 .accountSettingsBox {
-    position: relative;
+    padding: 0px !important;
 }
 
 .accountSettingsMainHeading {
-    position: relative;
     color: rgb(142, 142, 142);
+    padding: 10px;
+    padding-top: 12px;
 }
 
 .accountSettingsMainHeading span {
-    position: absolute;
     display: inline-block;
     font-size: 1.25rem;
     line-height: 1.2;
-    left: -25px;
     cursor: pointer;
-    z-index: 1;
 }
 
 .accountSettingsMainHeading h5 {
     display: inline-block;
+    padding-left: 8px;
+}
+
+.accountSettingsBoxContent {
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .accountSettingsCat {
@@ -951,6 +975,16 @@ html, body {
 .accountSettingsEachItem .impEmailKey {
     font-family: Arial, Helvetica, sans-serif;
     line-height: 34px;
+}
+
+@media only screen and (max-width: 425px) {
+    .accountSettingsBoxContent {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .accountSettingsItemWrapper {
+        margin-right: 0px;
+    }
 }
 
 /* The switch - the box around the slider */

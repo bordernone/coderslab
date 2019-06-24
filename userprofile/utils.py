@@ -133,3 +133,19 @@ def updateTwitterprofileurl(username, twitterprofileurl):
     thisUser = User.objects.get(username=username)
     thisUser.profile.socialLinkTwitter = twitterprofileurl
     thisUser.save()
+
+def updateUsername(username, newUsername):
+    thisUser = User.objects.get(username=username)
+    if username != newUsername:
+        thisUser.username = newUsername
+        thisUser.save()
+
+def updatePassword(username, newPassword):
+    thisUser = User.objects.get(username=username)
+    thisUser.set_password(newPassword)
+    thisUser.save()
+
+def updateReceiveImpEmail(username, receiveImgEmail):
+    thisUser = User.objects.get(username=username)
+    thisUser.profile.receiveImpEmail = receiveImgEmail
+    thisUser.save()

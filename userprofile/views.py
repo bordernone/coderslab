@@ -3,10 +3,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from .utils import isLocationValid, updateProfileLocation, isWebsiteValid, updateProfileWebsite, isSchoolValid, updateProfileSchool, isCollegeValid, updateProfileCollege, isWorkValid, updateProfileWork, isFirst_nameValid, updateProfileFirst_name, isLast_nameValid, updateProfileLast_name, isBioValid, updateProfileBio, isFacebookprofileurlValid, updateFacebookprofileurl, isLinkedinprofileurlValid, updateLinkedinprofileurl, isInstagramprofileurlValid, updateInstagramprofileurl, isTwitterprofileurlValid, updateTwitterprofileurl
+from .utils import isLocationValid, updateProfileLocation, isWebsiteValid, updateProfileWebsite, isSchoolValid, updateProfileSchool, isCollegeValid, updateProfileCollege, isWorkValid, updateProfileWork, isFirst_nameValid, updateProfileFirst_name, isLast_nameValid, updateProfileLast_name, isBioValid, updateProfileBio, isFacebookprofileurlValid, updateFacebookprofileurl, isLinkedinprofileurlValid, updateLinkedinprofileurl, isInstagramprofileurlValid, updateInstagramprofileurl, isTwitterprofileurlValid, updateTwitterprofileurl, updateUsername, updatePassword, updateReceiveImpEmail
+from register.utils import isUsernameValid, isPasswordValid
 import re
 
-# Create your views here.
 def userProfile(request, username):
     try:
         thisUser = User.objects.get(username=username)
@@ -38,6 +38,7 @@ def userProfileJson(request):
     userJson = {
         'first_name': thisUser.first_name,
         'last_name': thisUser.last_name,
+        'email': thisUser.email,
         'profileImgUrl': thisUser.profile.profileImgUrl,
         'username': thisUser.username,
         'bio': thisUser.profile.bio,
@@ -52,6 +53,11 @@ def userProfileJson(request):
         'socialLinkInsta': thisUser.profile.socialLinkInsta,
         'socialLinkTwitter': thisUser.profile.socialLinkTwitter,
     }
+
+    if 'q' in request.GET:
+        requestQuery = request.GET['q']
+        if requestQuery in userJson:
+            return JsonResponse({requestQuery: userJson[requestQuery]})
 
     return JsonResponse(userJson)
 
@@ -188,5 +194,37 @@ def editProfileDetails(request):
             updateTwitterprofileurl(username, twitterprofileurl)
         else:
             return JsonResponse({'error':isTwitterprofileurlValid(twitterprofileurl), 'at': 'twitterprofileurl'})
+
+    #updating username
+    if 'username' in request.POST:
+        newUsername = request.POST['username']
+        if newUsername != username:
+            if isUsernameValid(newUsername) == True:
+                updateUsername(username, newUsername)
+            else:
+                return JsonResponse({'error':isUsernameValid(newUsername), 'at': 'username'})
+
+
+    #updating username
+    if 'password' in request.POST:
+        newPassword = request.POST['password']
+        if newPassword != '****':
+            if isPasswordValid(newPassword) == True:
+                updatePassword(username, newPassword)
+            else:
+                return JsonResponse({'error':isPasswordValid(newPassword), 'at': 'password'})
+
+    
+    #updating username
+    if 'receiveImpEmail' in request.POST:
+        receiveImpEmail = request.POST['receiveImpEmail']
+        if receiveImpEmail == True or receiveImpEmail == False or receiveImpEmail == 'true' or receiveImpEmail == 'false':
+            if receiveImpEmail == 'true':
+                receiveImpEmail = True
+            elif receiveImpEmail == 'false':
+                receiveImpEmail = False
+            updateReceiveImpEmail(username, receiveImpEmail)
+        else:
+            return JsonResponse({'error':"Invalid", 'at': 'receiveImpEmail'})
 
     return JsonResponse({'success':True})
