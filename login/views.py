@@ -1,6 +1,6 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from google.oauth2 import id_token
 from google.auth.transport import requests
@@ -242,4 +242,3 @@ def facebookLogin(request):
                     return JsonResponse({'error':'Something went wrong'}) 
         else:
             return JsonResponse(apiResponseJson) if settings.DEBUG else JsonResponse({'error':'Something went wrong.'})
-    

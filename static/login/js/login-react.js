@@ -164,6 +164,9 @@ const GOOGLE_BUTTON_ID = 'google-sign-in-button';
 class GoogleSignInBtn extends React.Component {
     constructor(props) {
         super(props);
+
+        this.postLogin = this.postLogin.bind(this);
+        this.onSignIn = this.onSignIn.bind(this);
     }
 
     componentDidMount() {
@@ -177,10 +180,18 @@ class GoogleSignInBtn extends React.Component {
         );
     }
 
+    postLogin() {
+        var redirectTo = GetURLParameter('next');
+        if (redirectTo != 0){
+            window.location.href = redirectTo;
+        } else {
+            window.location.href = '/practice/';
+        }
+    }
 
     onSignIn(googleUser) {
         var id_token = googleUser.getAuthResponse().id_token;
-
+        var _this = this;
         //making ajax request
         var csrftoken = getCookie('csrftoken');
         $.ajax({
@@ -195,7 +206,12 @@ class GoogleSignInBtn extends React.Component {
                 }
             },
             success: function(data, status, xhr) {
-                console.log(data);
+                if (data.hasOwnProperty('success')){
+                    _this.postLogin();
+                } else {
+                    console.log(data);
+                    alert('Something went wrong! Please try again');
+                }
             },
             error: function(xhr, status, error) {
                 console.log(error);
@@ -223,6 +239,7 @@ class FacebookSignInBtn extends React.Component {
         super(props);
 
         this.checkLoginState = this.checkLoginState.bind(this)
+        this.onSignIn = this.onSignIn.bind(this);
     }
 
     componentDidMount() {
@@ -248,7 +265,17 @@ class FacebookSignInBtn extends React.Component {
         });
     }
 
+    postLogin() {
+        var redirectTo = GetURLParameter('next');
+        if (redirectTo != 0){
+            window.location.href = redirectTo;
+        } else {
+            window.location.href = '/practice/';
+        }
+    }
+
     onSignIn(accessToken) {
+        var _this = this;
         // make ajax request
         var csrftoken = getCookie('csrftoken');
         $.ajax({
@@ -263,7 +290,12 @@ class FacebookSignInBtn extends React.Component {
                 }
             },
             success: function(data, status, xhr) {
-                console.log(data);
+                if (data.hasOwnProperty('success')){
+                    _this.postLogin();
+                } else {
+                    console.log(data);
+                    alert('Something went wrong! Try again in a moment');
+                }
             },
             error: function(xhr, status, error) {
                 console.log(error);

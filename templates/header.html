@@ -24,12 +24,18 @@
     <script src="{% static 'timeline/js/jquery.connections.js' %}"></script>
     <script src="{% static 'timeline/js/timeline.js' %}"></script>
     <script src="{% static 'timeline/js/jquery.visible.min.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'timeline/css/timeline.css' %}"> {% endif %}
+    <link rel="stylesheet" type="text/css" href="{% static 'timeline/css/timeline.css' %}"> 
+    {% endif %}
     {% if request.path == '/register/' or request.path == '/login/' %}
     <!-- Google platform library -->
     <script src="https://apis.google.com/js/platform.js"></script>
     <meta name="google-signin-client_id"
-        content="43423819785-efv9qqqm0vshbpic0grnl7aa60iba100.apps.googleusercontent.com"> {% endif %}
+        content="43423819785-efv9qqqm0vshbpic0grnl7aa60iba100.apps.googleusercontent.com"> 
+        {% endif %}
+    {% if '/question/' in request.path %}
+    <script src="{% static 'global/src-noconflict/ace.js' %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static 'questionscreen/js/questionscreen.js' %}" type="text/javascript" ></script>
+    {% endif %}
 </head>
 
 <body>
@@ -96,9 +102,11 @@
                                         aria-expanded="false">
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right navbarDropdown">
-                                        <a class="dropdown-item" href="#">Avatar</a>
+                                        <a class="dropdown-item" href="#">Rules</a>
+                                        <a class="dropdown-item" href="#">Resources</a>
+                                        <a class="dropdown-item" href="/avatar/change/">Avatar</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Logout</a>
+                                        <a class="dropdown-item" href="/logout/">Logout</a>
                                     </div>
                                 </div>
                                 {% else %}

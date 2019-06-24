@@ -31,4 +31,5 @@ urlpatterns = [
     path('scoreboard/', include('scoreboard.urls')), #scoreboard
     path('timeline/', include('timeline.urls')), #timeline
     path('avatar/', include('avatar.urls')), # avatar library 
+    path('logout/', include('logout.urls')), #logout
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #media files

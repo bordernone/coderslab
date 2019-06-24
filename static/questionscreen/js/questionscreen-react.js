@@ -6,9 +6,9 @@ class questionBackBtn extends React.Component {
         super(props);
     }
 
-    onBtnClick(){
+    onBtnClick() {
         var redirectTo = GetURLParameter('next');
-        if (redirectTo != 0){
+        if (redirectTo != 0) {
             window.location.href = redirectTo;
         } else {
             window.location.href = '/practice/';
@@ -20,7 +20,7 @@ class questionBackBtn extends React.Component {
         return e("button", {
             type: "button",
             className: "btn btn-link questionBackBtn",
-            onClick: function(){
+            onClick: function () {
                 _this.onBtnClick();
             }
         }, React.createElement("li", {
@@ -31,3 +31,31 @@ class questionBackBtn extends React.Component {
 
 const backBtnContainer = document.querySelector('#questionBackBtnContainer');
 ReactDOM.render(e(questionBackBtn), backBtnContainer);
+
+
+class QuestionScreenCodeEditor extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount(){
+        var _this = this;
+        $(document).ready(function(){
+            _this.initializeEditor();
+        })
+    }
+
+    initializeEditor(){
+        var editor = ace.edit('questionScreenEditor');
+        editor.setTheme("ace/theme/dracula"); 
+    }
+
+    render() {
+        var _this = this;
+
+        return React.createElement("div", null, false);
+    }
+}
+
+const questionScreenCodeEditorContainer = document.querySelector('#questionScreenEditor');
+ReactDOM.render(React.createElement(QuestionScreenCodeEditor), questionScreenCodeEditorContainer);

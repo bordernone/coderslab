@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'contactpage.apps.ContactpageConfig', #contact page
     'scoreboard.apps.ScoreboardConfig', #score board
     'timeline.apps.TimelineConfig', #timeline
+    'logout.apps.LogoutConfig', #logout
     'avatar', #avatar library
 ]
 

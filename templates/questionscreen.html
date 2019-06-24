@@ -7,15 +7,17 @@
         <div class="col-md-8 questionViewBox">
             <div class="question-title">
                 <div id="questionBackBtnContainer">
-                    
+
                 </div>
                 <h1>{{ question.title }}</h1>
             </div>
 
             <div class="question-description">
-                {% autoescape off %}
-                {{ question.content }}
-                {% endautoescape %}
+                <p>
+                    {% autoescape off %}
+                    {{ question.content }}
+                    {% endautoescape %}
+                </p>
             </div>
         </div>
         <div class="col-md-3 question-right-sidebar">
@@ -85,6 +87,37 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="questionScreenEditorHeading">
+                <h4>Code Editor:</h4>
+            </div>
+
+            <div id="questionScreenEditorContainer">
+                <div>
+                    <div class="questionScreenEditor" id="questionScreenEditor"></div>
+                    <div class="questionScreenEditorSubmission justify-content-md-around d-flex">
+                        <div class="col-sm-3 questionScreenProgrammingLanguageContainer">
+                            <div class="form-group questionScreenSubmissionLanguage">
+                                <label for="sel1">Programming Language:</label>
+                                <select class="form-control" id="sel1">
+                                    <option>Python</option>
+                                    <option>C++</option>
+                                    <option>Javascript</option>
+                                    <option>Java</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 questionScreenSubmitBtnContainer">
+                            <div class="form-group formSubmitButtonContainer">
+                                <button type="button" class="btn btn-block formSubmitButton">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
