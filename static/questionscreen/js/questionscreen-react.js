@@ -38,16 +38,16 @@ class QuestionScreenCodeEditor extends React.Component {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         var _this = this;
-        $(document).ready(function(){
+        $(document).ready(function () {
             _this.initializeEditor();
         })
     }
 
-    initializeEditor(){
+    initializeEditor() {
         var editor = ace.edit('questionScreenEditor');
-        editor.setTheme("ace/theme/dracula"); 
+        editor.setTheme("ace/theme/dracula");
     }
 
     render() {
@@ -59,3 +59,29 @@ class QuestionScreenCodeEditor extends React.Component {
 
 const questionScreenCodeEditorContainer = document.querySelector('#questionScreenEditor');
 ReactDOM.render(React.createElement(QuestionScreenCodeEditor), questionScreenCodeEditorContainer);
+
+class QuestionScreenSubmissionBtn extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    onBtnClick(){
+
+    }
+
+    render() {
+        var _this = this;
+
+        return React.createElement("button", {
+            type: "button",
+            class: "btn btn-block formSubmitButton",
+            onClick: function(){
+                _this.onBtnClick();
+            },
+        }, "Submit");
+    }
+}
+
+
+const questionScreenSubmissionBtnContainer = document.querySelector('#questionScreenSubmissionBtnWrapper');
+ReactDOM.render(React.createElement(QuestionScreenSubmissionBtn), questionScreenSubmissionBtnContainer);
