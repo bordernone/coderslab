@@ -1,6 +1,6 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
-from .models import Competitions, Rounds
+from contest.models import Competitions, Rounds
 from datetime import date, datetime
 import re
 
@@ -10,7 +10,7 @@ def timelineView(request):
 
 def nextRoundTime(request):
     today = datetime.now()
-    allRounds = Rounds.objects.filter(startdatetime__gt=today)
+    allRounds = Rounds.objects.filter(startdatetime__gt=today).order_by('startdatetime')
     nextRoundStartdatetime = allRounds[0].startdatetime
     
     # convert into milliseconds

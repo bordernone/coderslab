@@ -4,7 +4,7 @@
 
 <div id="bodyWrapper" class="container">
     <div class="row noMargin questionscreenWrapper justify-content-md-around">
-        <div class="col-md-8 questionViewBox">
+        <div class="col-md-8 questionViewBox" data-question-id="{{ question.id }}" data-question-contest="{{ iscontest }}" id="thisquestion">
             <div class="question-title">
                 <div id="questionBackBtnContainer">
 
@@ -25,7 +25,7 @@
 
                 <div class="p-2 flex-grow-1 questionSubmissionsWrapper">
                     <div class="questionSubmissionsView">
-                        2304
+                        {{ totalsubmissions }}
                     </div>
                     <div class="totalSubmissionsText">Total Submissions</div>
                 </div>
@@ -33,7 +33,7 @@
                 <div class="p-2 d-flex questionSubmissionsStatsWrapper">
                     <div class="p-2 flex-fill">
                         <div class="questionSubmissionsSuccessRate">
-                            98%
+                            {{ successrate }}%
                         </div>
                         <div class="questionSubmissionsStatsLabel">
                             Success Rate
@@ -41,7 +41,7 @@
                     </div>
                     <div class="p-2 flex-fill">
                         <div class="questionSubmissionsFailureRate">
-                            2%
+                            {{ failurerate }}%
                         </div>
                         <div class="questionSubmissionsStatsLabel">
                             Failure Rate
@@ -75,7 +75,7 @@
                 <div class="p-2 flex-fill">
                     <div class="scoreDisplayBox">
                         <div class="scoreDisplay">
-                            40
+                            {{ usermaxscore }}
                         </div>
                         <div class="scoreDisplayLabel">
                             Your Score
@@ -83,7 +83,7 @@
                     </div>
 
                     <div class="userSubmissionsCountDisplay">
-                        Your Submissions: 2
+                        Your Submissions: {{ totalusersubmissions }}
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                         <div class="col-sm-3 questionScreenProgrammingLanguageContainer">
                             <div class="form-group questionScreenSubmissionLanguage">
                                 <label for="sel1">Programming Language:</label>
-                                <select class="form-control" id="sel1">
+                                <select class="form-control" id="programminglanguage">
                                     <option>Python</option>
                                     <option>C++</option>
                                     <option>Javascript</option>

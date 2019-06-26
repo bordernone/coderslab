@@ -157,6 +157,10 @@ class Timeline extends React.Component {
         });
     }
 
+    navigateToContest(contestid, roundid){
+        window.location.href=`/contest/contest/${contestid}/round/${roundid}/`;
+    }
+
     render() {
         var _this = this;
         return e("div", {
@@ -166,27 +170,42 @@ class Timeline extends React.Component {
             className: "col-sm-4 d-flex justify-content-center align-tems-center"
         }, e("div", {
             className: "timelineEachItem",
-            id: "timelineItem1"
+            id: "timelineItem1",
+            onClick: function(){
+                _this.navigateToContest(1, 1);
+            },
         }, e("h6", null, "Round 1A"))), e("div", {
             className: "col-sm-4 d-flex justify-content-center align-tems-center"
         }, e("div", {
             className: "timelineEachItem",
-            id: "timelineItem2"
+            id: "timelineItem2",
+            onClick: function(){
+                _this.navigateToContest(1, 2);
+            },
         }, e("h6", null, "Round 1B"))), e("div", {
             className: "col-sm-4 d-flex justify-content-center align-tems-center"
         }, e("div", {
             className: "timelineEachItem",
-            id: "timelineItem3"
+            id: "timelineItem3",
+            onClick: function(){
+                _this.navigateToContest(1, 3);
+            },
         }, e("h6", null, "Round 2"))), e("div", {
             className: "col-sm-4 d-flex justify-content-center align-tems-center"
         }, e("div", {
             className: "timelineEachItem",
-            id: "timelineItem4"
+            id: "timelineItem4",
+            onClick: function(){
+                _this.navigateToContest(1, 5);
+            },
         }, e("h6", null, "Final Round"))), e("div", {
             className: "col-sm-4 d-flex justify-content-center align-tems-center"
         }, e("div", {
             className: "timelineEachItem",
-            id: "timelineItem5"
+            id: "timelineItem5",
+            onClick: function(){
+                _this.navigateToContest(1, 4);
+            },
         }, e("h6", null, "Round 3"))));
     }
 }

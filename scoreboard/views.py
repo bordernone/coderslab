@@ -1,7 +1,7 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.core.serializers import serialize
-from timeline.models import Rounds, RoundSubmissions
+from contest.models import Rounds, RoundSubmissions
 from questionscreen.models import Submissions
 from datetime import date
 from .utils import userObjFromId

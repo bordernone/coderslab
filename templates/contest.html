@@ -4,17 +4,14 @@
 
 <div id="bodyWrapper" class="container">
     <div class="practiceCatWrapper">
-        {% for category in cat %}
-
         <div class="row catWrapper noMargin">
             <div class="catTitle">
-                <h4>{{ category }}:</h4>
+                <h4>{{roundname}}: <small>{% if isActive == True %}<kbd style="background-color:#4CAF50;">Active</kbd>{% else %}<kbd>Inactive</kbd>{% endif %}</small></h4>
             </div>
 
             <div class="row questionsWrapper justify-content-md-around">
-                {% for question in questions %}
-                {% if question.get_category_display == category %}
-                <div class="col-md-5 questionBox" onclick="showQuestion('{% url "questionscreen" question.title|slugify question.id "0" %}')">
+                {% for question, successrate in questions %}
+                <div class="col-md-5 questionBox" onclick="showQuestion('{% url "questionscreen" question.title|slugify question.id "1" %}')">
                     <div class="question-details">
                         <h4>{{ question.title }}</h4>
                         <span class="question-details-minor">Total Points: {{ question.points }}</span>
@@ -22,17 +19,14 @@
                     </div>
                     <div class="question-difficulty">
                         <div class="question-difficulty-percent-wrapper">
-                            <div class="question-difficulty-percent">N/A</div>
+                            <div class="question-difficulty-percent">{{ successrate }}</div>
                         </div>
                         <span class="question-difficulty-minor">Success Rate</span>
                     </div>
                 </div>
-                {% endif %}
                 {% endfor %}
             </div>
         </div>
-
-        {% endfor %}
     </div>
 </div>
 
