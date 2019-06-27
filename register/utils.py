@@ -3,6 +3,10 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
 def isUsernameValid(username):
+    # check if username == 'profile' since it is being used as url
+    if username.lower() == 'profile':
+        return 'Please choose another username'
+        
     #check if username exists
     username = username.lower()
     if User.objects.filter(username=username).exists():

@@ -67,6 +67,7 @@ class QuestionScreenSubmissionBtn extends React.Component {
 
         this.state = {
             isLoading: false,
+            hasSubmitted: false,
         };
 
 
@@ -116,7 +117,11 @@ class QuestionScreenSubmissionBtn extends React.Component {
                 },
                 success: function (dataObj, status, xhr) {
                     console.log(dataObj);
-
+                    if (dataObj.hasOwnProperty('success')) {
+                        _this.setState({
+                            hasSubmitted:true,
+                        });
+                    }
                     _this.setState({
                         isLoading: false,
                     });
@@ -162,7 +167,11 @@ class QuestionScreenSubmissionBtn extends React.Component {
                 },
                 success: function (dataObj, status, xhr) {
                     console.log(dataObj);
-
+                    if (dataObj.hasOwnProperty('success')) {
+                        _this.setState({
+                            hasSubmitted:true,
+                        });
+                    }
                     _this.setState({
                         isLoading: false,
                     });
@@ -181,7 +190,22 @@ class QuestionScreenSubmissionBtn extends React.Component {
     render() {
         var _this = this;
 
-        if (_this.state.isLoading == false) {
+        if (_this.state.isLoading == true) {
+            return React.createElement("button", {
+                className: "btn btn-block formSubmitButton",
+                type: "button",
+            }, React.createElement("span", {
+                className: "spinner-border spinner-border-sm"
+            }), " Submit");
+        } else if (_this.state.hasSubmitted == true) {
+            return React.createElement("button", {
+                type: "button",
+                className: "btn btn-block formSubmitButton",
+                onClick: function () {
+                    _this.onBtnClick();
+                },
+            }, "Submit Again");
+        } else {
             return React.createElement("button", {
                 type: "button",
                 className: "btn btn-block formSubmitButton",
@@ -189,16 +213,6 @@ class QuestionScreenSubmissionBtn extends React.Component {
                     _this.onBtnClick();
                 },
             }, "Submit");
-        } else {
-            return React.createElement("button", {
-                className: "btn btn-block formSubmitButton",
-                type: "button",
-                onClick: function () {
-                    return _this.onBtnClick();
-                }
-            }, React.createElement("span", {
-                className: "spinner-border spinner-border-sm"
-            }), " Submit");
         }
     }
 }

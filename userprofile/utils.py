@@ -1,4 +1,7 @@
 from django.contrib.auth.models import User
+from contest.models import RoundSubmissions
+from contest.utils import getUserObjFromUsername
+from questionscreen.models import Submissions
 import re
 
 def isLocationValid(location):
@@ -149,3 +152,19 @@ def updateReceiveImpEmail(username, receiveImgEmail):
     thisUser = User.objects.get(username=username)
     thisUser.profile.receiveImpEmail = receiveImgEmail
     thisUser.save()
+
+def userTotalScoreContest(username):
+    user = getUserObjFromUsername(username)
+    allSubmissionsOfThisUser = RoundSubmissions.objects.filter(user=user, passed=True)
+    score = 0
+    for submission in allSubmissionsOfThisUser:
+        score = score + submission.score
+    return score
+
+def userTotalScorePractice(username):
+    user = getUserObjFromUsername(username)
+    allSubmissionsOfThisUser = Submissions.objects.filter(user=user, passed=True)
+    score = 0
+    for submission in allSubmissionsOfThisUser:
+        score = score + submission.score
+    return score

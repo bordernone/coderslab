@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from .utils import isLocationValid, updateProfileLocation, isWebsiteValid, updateProfileWebsite, isSchoolValid, updateProfileSchool, isCollegeValid, updateProfileCollege, isWorkValid, updateProfileWork, isFirst_nameValid, updateProfileFirst_name, isLast_nameValid, updateProfileLast_name, isBioValid, updateProfileBio, isFacebookprofileurlValid, updateFacebookprofileurl, isLinkedinprofileurlValid, updateLinkedinprofileurl, isInstagramprofileurlValid, updateInstagramprofileurl, isTwitterprofileurlValid, updateTwitterprofileurl, updateUsername, updatePassword, updateReceiveImpEmail
+from .utils import isLocationValid, updateProfileLocation, isWebsiteValid, updateProfileWebsite, isSchoolValid, updateProfileSchool, isCollegeValid, updateProfileCollege, isWorkValid, updateProfileWork, isFirst_nameValid, updateProfileFirst_name, isLast_nameValid, updateProfileLast_name, isBioValid, updateProfileBio, isFacebookprofileurlValid, updateFacebookprofileurl, isLinkedinprofileurlValid, updateLinkedinprofileurl, isInstagramprofileurlValid, updateInstagramprofileurl, isTwitterprofileurlValid, updateTwitterprofileurl, updateUsername, updatePassword, updateReceiveImpEmail, userTotalScoreContest, userTotalScorePractice
 from register.utils import isUsernameValid, isPasswordValid
 import re
 
@@ -35,6 +35,11 @@ def userProfileJson(request):
         else:
             raise Http404
     
+    # get users total score
+    userTotalContestScore = userTotalScoreContest(username)
+    userTotalPracticeScore = userTotalScorePractice(username)
+    userTotalScore = userTotalPracticeScore + userTotalContestScore
+
     userJson = {
         'first_name': thisUser.first_name,
         'last_name': thisUser.last_name,
@@ -52,6 +57,9 @@ def userProfileJson(request):
         'socialLinkLinkedIn': thisUser.profile.socialLinkLinkedIn,
         'socialLinkInsta': thisUser.profile.socialLinkInsta,
         'socialLinkTwitter': thisUser.profile.socialLinkTwitter,
+        'contestScore': userTotalContestScore,
+        'practiceScore':userTotalPracticeScore,
+        'totalScore':userTotalScore
     }
 
     if 'q' in request.GET:

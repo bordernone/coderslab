@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.core.serializers import serialize
 from contest.models import Rounds, RoundSubmissions
 from questionscreen.models import Submissions
-from datetime import date
+from datetime import date, datetime
 from .utils import userObjFromId
 import re
 from avatar.utils import get_primary_avatar
@@ -12,11 +12,17 @@ from operator import itemgetter
 
 # Create your views here.
 def scoreboard(request):
-    return render(request, 'scoreboard.html')
+    today = datetime.now()
+    allPastRounds = Rounds.objects.filter(startdatetime__lte=today).order_by('startdatetime').reverse()
+    if allPastRounds.count() > 0:
+        mostRecentRound = allPastRounds[0].roundName
+    else:
+        mostRecentRound = 'No Recent Contests'
+    return render(request, 'scoreboard.html', {'roundname': mostRecentRound})
 
 def recentCompetitionUserScoreboard(request):
-    today = date.today()
-    allPastRounds = Rounds.objects.filter(startdatetime__lt=today).reverse()
+    today = datetime.now()
+    allPastRounds = Rounds.objects.filter(startdatetime__lte=today).order_by('startdatetime').reverse()
     if allPastRounds.count() > 0:
         mostRecentRound = allPastRounds[0]
 
