@@ -134,12 +134,48 @@ class QuestionScreenSubmissionBtn extends React.Component {
 
     sendSubmissionPractice() {
         var _this = this;
-        alert('Not setup yet');
+        var solutionCode = editor.getValue();
+        var questionId = document.getElementById('thisquestion').getAttribute('data-question-id');
+        var programmingLanguage = $('#programminglanguage').val();
+        var payload = {
+            'solutioncode': solutionCode,
+            'questionid': questionId,
+            'programminglanguage': programmingLanguage,
+        };
 
+        if (solutionCode.length < 10) {
+            alert('Please try again');
+            _this.setState({
+                isLoading: false,
+            });
+        } else {
+            //making ajax request
+            var csrftoken = getCookie('csrftoken');
+            $.ajax({
+                type: "POST",
+                url: "/practice/submit/",
+                data: payload,
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                },
+                success: function (dataObj, status, xhr) {
+                    console.log(dataObj);
 
-        _this.setState({
-            isLoading: false,
-        });
+                    _this.setState({
+                        isLoading: false,
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+
+                    _this.setState({
+                        isLoading: false,
+                    });
+                }
+            });
+        }
     }
 
     render() {
@@ -155,13 +191,13 @@ class QuestionScreenSubmissionBtn extends React.Component {
             }, "Submit");
         } else {
             return React.createElement("button", {
-                class: "btn btn-block formSubmitButton",
+                className: "btn btn-block formSubmitButton",
                 type: "button",
                 onClick: function () {
                     return _this.onBtnClick();
                 }
             }, React.createElement("span", {
-                class: "spinner-border spinner-border-sm"
+                className: "spinner-border spinner-border-sm"
             }), " Submit");
         }
     }

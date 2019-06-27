@@ -19,26 +19,31 @@ def recentCompetitionUserScoreboard(request):
     allPastRounds = Rounds.objects.filter(startdatetime__lt=today).reverse()
     if allPastRounds.count() > 0:
         mostRecentRound = allPastRounds[0]
-        top20Users = RoundSubmissions.objects.filter(roundquestion__thisround__id=mostRecentRound.id).order_by('-score', 'submitted_at')
-        users = []
-        for user in top20Users:
-            users.append(userObjFromId(user.user_id))
+
+        # now editing
+        thisRoundSubmissions = RoundSubmissions.objects.filter(roundquestion__thisround__id=mostRecentRound.id, passed=True).order_by('-score', 'submitted_at')
+        users = {}
+        for submission in thisRoundSubmissions:
+            thisUser = submission.user
+            if thisUser.id not in users.keys():
+                if has_avatar(thisUser) == True:
+                    userAvatarUrl = get_primary_avatar(thisUser.username).get_absolute_url()
+                elif thisUser.profile.profileImgUrl != '':
+                    userAvatarUrl = thisUser.profile.profileImgUrl
+                else:
+                    userAvatarUrl = ''
+                users[thisUser.id] = {
+                        'userid': thisUser.id,
+                        'profileImgUrl': userAvatarUrl,
+                        'first_name': thisUser.first_name,
+                        'last_name': thisUser.last_name,
+                        'username': thisUser.username,
+                    } 
+                
+        competitionUsers = list(users.values())
+
+        # editing ends
         
-        competitionUsers = []
-        for user in users:
-            if has_avatar(user) == True:
-                userAvatarUrl = get_primary_avatar(user.username).get_absolute_url()
-            elif user.profile.profileImgUrl != '':
-                userAvatarUrl = user.profile.profileImgUrl
-            else:
-                userAvatarUrl = ''
-            competitionUsers.append({
-                'userid': user.id,
-                'profileImgUrl': userAvatarUrl,
-                'first_name': user.first_name,
-                'last_name': user.last_name,
-                'username': user.username,
-            })
             
         return JsonResponse({'users':competitionUsers})
     else:
@@ -50,7 +55,7 @@ def overallUserScoreboard(request):
     users = []
     for submission in allsubmissions:
         score = 0
-        isSuccess = submission.success
+        isSuccess = submission.passed
         gotSubscore = submission.gotSubscore
         if isSuccess:
             score = submission.question.points

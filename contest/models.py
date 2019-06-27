@@ -38,6 +38,7 @@ class RoundSubmissions(models.Model):
     score = models.IntegerField(blank=True)
     submitted_at = models.DateTimeField(auto_now=True)
     passed = models.BooleanField(default=False)
+    gotSubscore = models.BooleanField(default=False)
     content = models.TextField(blank=True)
     programminglanguage = models.CharField(max_length=50)
     
