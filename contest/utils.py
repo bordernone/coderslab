@@ -46,7 +46,10 @@ def contestQuestionSuccessRate(id):
     question = getQuestionObjFromId(id)
     totalSubmissions = RoundSubmissions.objects.filter(roundquestion=question).count()
     totalSuccessfulSubmissions = RoundSubmissions.objects.filter(roundquestion=question, passed=True).count()
-    return int((totalSuccessfulSubmissions/totalSubmissions)*100)
+    if totalSuccessfulSubmissions > 0:
+        return int((totalSuccessfulSubmissions/totalSubmissions)*100)
+    else:
+        return 0
 
 def contestUserMaxScore(username, questionid):
     user = getUserObjFromUsername(username)

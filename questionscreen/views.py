@@ -2,6 +2,8 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template.defaultfilters import slugify
 from practice.models import Questions
+from .models import Submissions
+from practice.utils import practiceQuestionSuccessRate, practiceUserMaxScore, practiceTotalUserSubmissions
 from contest.models import RoundQuestions, RoundSubmissions
 from contest.utils import contestQuestionSuccessRate, contestUserMaxScore, contestTotalUserSubmissions
 from django.conf import settings
@@ -23,7 +25,20 @@ def questionscreen(request, titleslug, id, iscontest=None):
             title = question.title
             if slugify(title) != titleslug:
                 return HttpResponseRedirect('/question/'+slugify(title)+'/'+str(id)+'/')
-            return render(request, 'questionscreen.html', {'question':question, 'iscontest':iscontest})
+
+            # get total submissions and other informations
+            totalSubmissions = Submissions.objects.filter(question=question).count()
+            successRate = practiceQuestionSuccessRate(question.id)
+            failureRate = 100 - successRate
+            if request.user.is_authenticated:
+                username = request.user.username
+                userMaxScore = practiceUserMaxScore(username, question.id)
+                totalUserSubmissions = practiceTotalUserSubmissions(username, question.id)
+            else:
+                userMaxScore = 'N/A'
+                totalUserSubmissions = 'N/A'
+
+            return render(request, 'questionscreen.html', {'question':question, 'iscontest':iscontest, 'totalsubmissions':totalSubmissions, 'successrate': successRate, 'failurerate': failureRate, 'usermaxscore':userMaxScore, 'totalusersubmissions':totalUserSubmissions})
         else:
             # not ready for publication
             if settings.DEBUG:
@@ -45,7 +60,7 @@ def questionscreen(request, titleslug, id, iscontest=None):
             if slugify(title) != titleslug:
                 return HttpResponseRedirect('/question/'+slugify(title)+'/'+str(id)+'/1/')
 
-            # get total submissions
+            # get total submissions and other informations
             totalSubmissions = RoundSubmissions.objects.filter(roundquestion=question).count()
             successRate = contestQuestionSuccessRate(question.id)
             failureRate = 100-successRate

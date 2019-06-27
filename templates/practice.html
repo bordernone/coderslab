@@ -4,7 +4,7 @@
 
 <div id="bodyWrapper" class="container">
     <div class="practiceCatWrapper">
-        {% for category in cat %}
+        {% for category, questions in cat %}
 
         <div class="row catWrapper noMargin">
             <div class="catTitle">
@@ -12,7 +12,7 @@
             </div>
 
             <div class="row questionsWrapper justify-content-md-around">
-                {% for question in questions %}
+                {% for question, successrate in questions %}
                 {% if question.get_category_display == category %}
                 <div class="col-md-5 questionBox" onclick="showQuestion('{% url "questionscreen" question.title|slugify question.id "0" %}')">
                     <div class="question-details">
@@ -22,7 +22,7 @@
                     </div>
                     <div class="question-difficulty">
                         <div class="question-difficulty-percent-wrapper">
-                            <div class="question-difficulty-percent">N/A</div>
+                            <div class="question-difficulty-percent">{{ successrate }}</div>
                         </div>
                         <span class="question-difficulty-minor">Success Rate</span>
                     </div>

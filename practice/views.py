@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Questions
 from questionscreen.models import Submissions
-from .utils import getQuestionObjFromId
+from .utils import getQuestionObjFromId, practiceQuestionSuccessRate
 from contest.utils import getUserObjFromUsername
 import re
 from django.core import serializers
@@ -13,10 +13,26 @@ def practiceView(request):
     allQuestions = Questions.objects.filter(public=True)
     allCats = Questions.objects.filter(public=True).values_list('category', flat=True).distinct()
     catsName = []
+    index = 0
+    catQuestions = []
     for cats in allCats:
-        catsName.append(Questions.objects.filter(category=cats)[0].get_category_display())
-    return render(request, 'practice.html', {'cat':catsName, 'questions':allQuestions})
+        thisCatQuestions = Questions.objects.filter(public=True, category=cats)
 
+        # success rate for each questions
+        questionSuccessRates = []
+        for question in thisCatQuestions:
+            successRate = practiceQuestionSuccessRate(question.id)
+            questionSuccessRates.append(int(successRate))
+        
+        if thisCatQuestions.count() > 0:
+            thisCatQuestions = zip(thisCatQuestions, questionSuccessRates)
+            categoryName = Questions.objects.filter(category=cats)[0].get_category_display()
+            catQuestions.append(thisCatQuestions)
+            catsName.append(categoryName)
+    
+    categoryAndQuestions = zip(catsName, catQuestions)
+    return render(request, 'practice.html', {'cat':categoryAndQuestions})
+    
 @login_required
 def submitSolution(request):
     if request.method != 'POST':
