@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from .email_login_credentials import EMAIL_ADDRESS, PASSWORD
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -144,8 +145,8 @@ LOGIN_URL = '/login/'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'coderslabio@gmail.com'
-EMAIL_HOST_PASSWORD = '5qlInjection'
+EMAIL_HOST_USER = EMAIL_ADDRESS
+EMAIL_HOST_PASSWORD = PASSWORD
 
 # Social Sign in
 GOOGLE_CLIENT_ID = '43423819785-efv9qqqm0vshbpic0grnl7aa60iba100.apps.googleusercontent.com'
