@@ -1,9 +1,58 @@
 {% block header %}{% endblock %}
 {% block footer %}
 {% load static %}
+<div id="footerWrapper">
+    <div id="footerNavWrapper">
+        <div class="row">
+            <div class="col">
+                <span class="footerNavTitle">About Us:</span>
+                <ul style="list-style: none;">
+                    <li><a href="/contact-us/">Contact form</a></li>
+                    <li><a href="">Privacy Policy</a></li>
+                    <li><a href="">Terms & Conditions</a></li>
+                    <li><a href="">Site Map</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <span class="footerNavTitle">CodersLab:</span>
+                <ul style="list-style: none;">
+                    <li><a href="">Volunteer</a></li>
+                    <li><a href="">Blog</a></li>
+                    <li><a href="">Sponsors</a></li>
+                    <li><a href="">Developers</a></li>
+                    <li><a href="">More resources</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <span class="footerNavTitle">Get updates to your inbox:</span>
+                <div id="subscribeBoxContainer">
+                    <div class="subscribeBox">
+                        <input type="text" class="form-control" id="pwd" placeholder="Enter your email address" />
+                        <button type="button" class="btn btn-link"><span class="fas fa-arrow-right"></span></button>
+                    </div>
+                </div>
+                <div class="socialIcons">
+                    <a href="https://www.facebook.com/CodersLab-883282698685530" class="facebook"><span
+                            class="fab fa-facebook-f"></span></a>
+                    <a href="" class="linkedin"><span class="fab fa-linkedin"></span></a>
+                    <a href="" class="instagram"><span class="fab fa-instagram"></span></a>
+                    <a href="" class="twitter"><span class="fab fa-twitter"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottonNavGradient">
+    </div>
+</div>
+
+</div>
+
+
 <!-- Load React. -->
 <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+<!-- React Components -->
 <script src="{% static 'global/js/react-components.js' %}"></script>
 
 <!-- Load the React component. -->
@@ -40,49 +89,9 @@
 <script src="{% static 'recoveraccount/js/recover-complete-react.js' %}"></script>
 {% endif %}
 
-<div id="footerWrapper">
-    <div id="footerNavWrapper">
-        <div class="row">
-            <div class="col">
-                <span class="footerNavTitle">About Us:</span>
-                <ul style="list-style: none;">
-                    <li><a href="/contact-us/">Contact form</a></li>
-                    <li><a href="">Privacy Policy</a></li>
-                    <li><a href="">Terms & Conditions</a></li>
-                    <li><a href="">Site Map</a></li>
-                </ul>
-            </div>
-            <div class="col">
-                <span class="footerNavTitle">CodersLab:</span>
-                <ul style="list-style: none;">
-                    <li><a href="">Volunteer</a></li>
-                    <li><a href="">Blog</a></li>
-                    <li><a href="">Sponsors</a></li>
-                    <li><a href="">Developers</a></li>
-                    <li><a href="">More resources</a></li>
-                </ul>
-            </div>
-            <div class="col">
-                <span class="footerNavTitle">Get updates to your inbox:</span>
-                <div class="subscribeBox">
-                    <input type="text" class="form-control" id="pwd" placeholder="Enter your email address" />
-                    <button type="button" class="btn btn-link"><span class="fas fa-arrow-right"></span></button>
-                </div>
-                <div class="socialIcons">
-                    <a href="https://www.facebook.com/CodersLab-883282698685530" class="facebook"><span class="fab fa-facebook-f"></span></a>
-                    <a href="" class="linkedin"><span class="fab fa-linkedin"></span></a>
-                    <a href="" class="instagram"><span class="fab fa-instagram"></span></a>
-                    <a href="" class="twitter"><span class="fab fa-twitter"></span></a>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- Footer React Components -->
+<script src="{% static 'global/js/footer-react.js' %}"></script>
 
-    <div class="bottonNavGradient">
-    </div>
-</div>
-
-</div>
 
 </body>
 

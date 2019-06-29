@@ -33,4 +33,5 @@ urlpatterns = [
     path('avatar/', include('avatar.urls')), # avatar library 
     path('contest/', include('contest.urls')), #contest
     path('logout/', include('logout.urls')), #logout
+    path('misc/', include('misc.urls')), #misc 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #media files
