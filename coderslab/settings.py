@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'timeline.apps.TimelineConfig', #timeline
     'contest.apps.ContestConfig', #contest
     'logout.apps.LogoutConfig', #logout
+    'misc.apps.MiscConfig', #misc
     'avatar', #avatar library
 ]
 

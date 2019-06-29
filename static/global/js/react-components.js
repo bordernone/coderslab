@@ -7,12 +7,12 @@ class backBtn extends React.Component {
         this.onBtnClick = this.onBtnClick.bind(this);
     }
 
-    onBtnClick(){
+    onBtnClick() {
         var _this = this;
         var redirectTo = GetURLParameter('next');
-        if (redirectTo != 0){
+        if (redirectTo != 0) {
             window.location.href = redirectTo;
-        } else if (_this.props.defaultredirect){
+        } else if (_this.props.defaultredirect) {
             window.location.href = _this.props.defaultredirect;
         } else {
             window.location.href = '/account/';
@@ -24,7 +24,7 @@ class backBtn extends React.Component {
 
         return React.createElement("span", {
             className: "fas fa-arrow-left",
-            onClick: function(){
+            onClick: function () {
                 _this.onBtnClick();
             },
         });
@@ -54,7 +54,7 @@ class GoogleSignInBtn extends React.Component {
 
     postLogin() {
         var redirectTo = GetURLParameter('next');
-        if (redirectTo != 0){
+        if (redirectTo != 0) {
             window.location.href = redirectTo;
         } else {
             window.location.href = '/practice/';
@@ -73,20 +73,20 @@ class GoogleSignInBtn extends React.Component {
             data: {
                 idtoken: id_token,
             },
-            beforeSend: function(xhr, settings) {
+            beforeSend: function (xhr, settings) {
                 if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
                     xhr.setRequestHeader("X-CSRFToken", csrftoken);
                 }
             },
-            success: function(data, status, xhr) {
-                if (data.hasOwnProperty('success')){
+            success: function (data, status, xhr) {
+                if (data.hasOwnProperty('success')) {
                     _this.postLogin();
                 } else {
                     console.log(data);
                     alert('Something went wrong! Please try again');
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.log(error);
                 alert('Something went wrong! Please try again');
             }
@@ -127,7 +127,7 @@ class FacebookSignInBtn extends React.Component {
 
     checkLoginState() {
         var _this = this;
-        FB.getLoginStatus(function(response) {
+        FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
                 var accessToken = response.authResponse.accessToken;
                 console.log(accessToken);
@@ -138,7 +138,7 @@ class FacebookSignInBtn extends React.Component {
 
     postLogin() {
         var redirectTo = GetURLParameter('next');
-        if (redirectTo != 0){
+        if (redirectTo != 0) {
             window.location.href = redirectTo;
         } else {
             window.location.href = '/practice/';
@@ -155,20 +155,20 @@ class FacebookSignInBtn extends React.Component {
             data: {
                 accesstoken: accessToken,
             },
-            beforeSend: function(xhr, settings) {
+            beforeSend: function (xhr, settings) {
                 if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
                     xhr.setRequestHeader("X-CSRFToken", csrftoken);
                 }
             },
-            success: function(data, status, xhr) {
-                if (data.hasOwnProperty('success')){
+            success: function (data, status, xhr) {
+                if (data.hasOwnProperty('success')) {
                     _this.postLogin();
                 } else {
                     console.log(data);
                     alert('Something went wrong! Try again in a moment');
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.log(error);
             }
         });
@@ -180,5 +180,169 @@ class FacebookSignInBtn extends React.Component {
         return React.createElement("div", {
             id: FACEBOOK_BUTTON_ID
         });
+    }
+}
+
+class FooterSubscription extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            inputValue: '',
+            isLoading: false,
+            completed: false,
+        }
+
+        this.ELEMENTSID = {
+            emailInput: '#subscribeEmailInput',
+        }
+
+        this.processSubscription = this.processSubscription.bind(this);
+        this.onBtnClick = this.onBtnClick.bind(this);
+    }
+
+    componentDidMount(){
+        this.setupPopover();
+    }
+
+    onBtnClick() {
+        this.processSubscription();
+    }
+
+    setupPopover(){
+        $(this.ELEMENTSID.emailInput).popover({
+            content: '', placement: 'top', trigger: 'manual',
+        })
+    }
+
+    showPopoverMsg(id, message) {
+        $(id).attr('data-content', message);
+        $(id).popover('show');
+    }
+
+    hideAllPopovers() {
+        $('input').popover('hide');
+    }
+
+    processSubscription() {
+        var _this = this;
+
+        // hide popovers
+        _this.hideAllPopovers();
+
+        let emailAddress = _this.state.inputValue
+        var postReqKey = {
+            email: emailAddress
+        }
+        //making ajax request
+        var csrftoken = getCookie('csrftoken');
+        $.ajax({
+            type: "POST",
+            url: "/misc/subscribe/",
+            data: postReqKey,
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            },
+            success: function (data, status, xhr) {
+                var dataObj = data;
+                if (dataObj.hasOwnProperty('error')) {
+                    var errorMsg = dataObj.error;
+                    if (dataObj.hasOwnProperty('at')) {
+                        var occuredAt = dataObj.at;
+                        if (occuredAt == 'email') {
+                            _this.showPopoverMsg(_this.ELEMENTSID.emailInput, errorMsg);
+                        } else {
+                            console.log(dataObj);
+                        }
+                    } else {
+                        console.log(dataObj);
+                    }
+                } else if (dataObj.hasOwnProperty('success')) {
+                    if (dataObj.success == true) {
+                        _this.setState({
+                            completed:true,
+                        })
+                    } else {
+                        console.log(dataObj);
+                    }
+                } else {
+                    console.log(data);
+                }
+
+                _this.setState({
+                    isLoading: false,
+                });
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                _this.setState({
+                    isLoading: false,
+                });
+            }
+        });
+    }
+
+    render() {
+        var _this = this;
+
+        if (_this.state.isLoading == true) {
+            return React.createElement("div", {
+                className: "subscribeBox"
+            }, React.createElement("input", {
+                type: "email",
+                className: "form-control",
+                placeholder: "Enter your email address",
+                value: _this.state.value,
+                disabled: true,
+                id: 'subscribeEmailInput',
+            }), React.createElement("button", {
+                type: "button",
+                className: "btn btn-link",
+            }, React.createElement("span", {
+                className: "spinner-border text-secondary"
+            })));
+        } if (_this.state.completed == true) {
+            return React.createElement("div", {
+                className: "subscribeBox"
+            }, React.createElement("input", {
+                type: "email",
+                className: "form-control",
+                placeholder: "Enter your email address",
+                value: _this.state.value,
+                disabled: true,
+                id: 'subscribeEmailInput',
+            }), React.createElement("button", {
+                type: "button",
+                className: "btn btn-link",
+            }, React.createElement("span", {
+                className: "fas fa-check text-success"
+            })));
+        } else {
+            return React.createElement("div", {
+                className: "subscribeBox"
+            }, React.createElement("input", {
+                type: "email",
+                className: "form-control",
+                placeholder: "Enter your email address",
+                value: _this.state.value,
+                id: 'subscribeEmailInput',
+                onChange: function(event) {
+                    let value = event.target.value;
+                    _this.setState({
+                        inputValue: value,
+                    });
+                }
+            }), React.createElement("button", {
+                type: "button",
+                className: "btn btn-link",
+                onClick: function() {
+                    _this.onBtnClick();
+                }
+            }, React.createElement("span", {
+                className: "fas fa-arrow-right"
+            })));
+        }
     }
 }
