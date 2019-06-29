@@ -431,8 +431,12 @@ html, body {
     margin-bottom: 0.5rem;
 }
 
-.signInOptionsWrapper {
-    padding-bottom: 15px;
+.signInAccountRecover {
+    text-align: center;
+}
+
+.signInAccountRecover a {
+    text-decoration: underline;
 }
 
 .signInWith {
@@ -1437,4 +1441,45 @@ input:checked+.slider:before {
 
 .avatarChangeTopBar>div>span {
     cursor: pointer;
+}
+
+.contentCenterWrapperSM{
+    box-shadow: 0px 0px 6px -1px rgb(178, 178, 178);
+    border-radius: 3px;
+    padding:0px !important;
+    color: gray;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.contentCenterHeadTopWBBckBtn{
+    padding:5px;
+    flex-shrink: 0;
+    font-size:18px;
+    padding-left:10px;
+    vertical-align: center;
+    cursor: pointer;
+}
+
+.contentCenterHeadTopWB{
+    padding:4px;
+}
+
+.contentCenterHeadTopWBTitle{
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+
+.contentCenterHeadTopWBTitle h6{
+    font-size: 20px;
+    vertical-align: center;
+    padding-top:7px;
+    padding-bottom: 7px;
+    padding-left: 5px;
+}
+
+.contentCenterBodyWrapper{
+    padding-left:40px;
+    padding-right: 40px;
+    font-family: HelveticaNeue-Light;
 }

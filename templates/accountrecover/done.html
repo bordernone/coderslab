@@ -1,0 +1,30 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block body %}
+
+<div id="bodyWrapper" class="container">
+
+    <div class="row justify-content-center noMargin">
+        <div class="col-lg-5 contentCenterWrapperSM">
+            <div class="contentCenterHeadTopWB d-flex">
+                <div class="contentCenterHeadTopWBBckBtn" id="recoverAccountDoneBackBtnContainer">
+                    <span class="fas fa-arrow-left"></span>
+                </div>
+                <div class="contentCenterHeadTopWBTitle">
+                    <h6>Account Recovery</h6>
+                </div>
+            </div>
+
+            <div class="contentCenterBodyWrapper">
+                <p>
+                    Dear User, <br/><br/>
+                    An email has been dispatched to your inbox, if the provided email address was correct. Please check your email inbox for further instruction.<br/><br/>
+                    If you believe there was an error, please <a href="{% url 'contactpage' %}">contact us</a> as soon as possible.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

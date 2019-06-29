@@ -1,0 +1,50 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block body %}
+{% load htmlattributes %}
+
+<div id="bodyWrapper" class="container">
+
+    <div class="row justify-content-center noMargin">
+        <div class="col registerWrapper">
+            <div class="formLogo center-block">
+                <img src="{% static 'global/images/biglogo.png' %}" />
+            </div>
+            <div class="registerForm">
+                <form autocomplete="off" method="post">{% csrf_token %}
+                    <input autocomplete="false" name="hidden" type="text" style="display:none;">
+                    {% if form.new_password1.errors %}
+                        {% for error in form.new_password1.errors %}
+                        <div class="alert-light small">
+                            {{ error }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="form-group inputWithIconContainer">
+                        {{ form.new_password1|add_attr:"class=form-control inputWithIcon, placeholder=New Password" }}
+                        <span class="fas fa-user inputIcon"></span>
+                    </div>
+                    
+                    {% if form.new_password2.errors %}
+                    {% for error in form.new_password2.errors %}
+                    <div class="alert-light small">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+                    <div class="form-group inputWithIconContainer">
+                        {{ form.new_password2|add_attr:"class=form-control inputWithIcon, placeholder=Confirm Password" }}
+                        <span class="fas fa-user inputIcon"></span>
+                    </div>
+
+                    <div class="form-group formSubmitButtonContainer" id='passwordResetConfirmBtnContainer'>
+                        <button type="submit" class="btn btn-block formSubmitButton">Reset password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

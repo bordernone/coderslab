@@ -1,0 +1,44 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block body %}
+{% load htmlattributes %}
+
+<div id="bodyWrapper" class="container">
+
+    <div class="row justify-content-center noMargin">
+        <div class="col registerWrapper">
+            <div class="formLogo center-block">
+                <img src="{% static 'global/images/biglogo.png' %}" />
+            </div>
+            <div class="registerForm">
+                <form autocomplete="off" method="post">{% csrf_token %}
+                    <input autocomplete="false" name="hidden" type="text" style="display:none;">
+                    {% if form.email.errors %}
+                        {% for error in form.email.errors %}
+                        <div class="alert-light">
+                            {{ error }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="form-group inputWithIconContainer">
+                        {{ form.email|add_attr:"class=form-control inputWithIcon, placeholder=Enter your email address" }}
+                        <span class="fas fa-user inputIcon"></span>
+                    </div>
+                    <div class="form-group formSubmitButtonContainer" id='recoverBtnContainer'>
+                        <button type="submit" class="btn btn-block formSubmitButton">Recover account</button>
+                    </div>
+                </form>
+            </div>
+            <div class="signInOptionsWrapper">
+                <div class="signInWith">Sign in with:</div>
+                <div class="googleSignIn" id="googleSignInContainer">
+                </div>
+                <div class="facebookSignIn" id="facebookSignInContainer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

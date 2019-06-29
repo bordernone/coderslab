@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'homepage.apps.HomepageConfig', #homepage
+    'homepage.templatetags', # template tags
     'register.apps.RegisterConfig', #register
     'login.apps.LoginConfig', #login
     'practice.apps.PracticeConfig', #practice

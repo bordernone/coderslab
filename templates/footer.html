@@ -7,7 +7,9 @@
 <script src="{% static 'global/js/react-components.js' %}"></script>
 
 <!-- Load the React component. -->
+{% if request.user.is_authenticated %}
 <script src="{% static 'global/js/header-react.js' %}"></script>
+{% endif %}
 {% if request.path == '/register/' %}
 <script src="{% static 'register/js/register-react.js' %}"></script>
 {% elif request.path == '/' %}
@@ -30,6 +32,12 @@
 <script src="{% static 'accountsettings/js/accountsettings-react.js' %}"></script>
 {% elif request.path == '/contact-us/' %}
 <script src="{% static 'contactpage/js/contactpage-react.js' %}"></script>
+{% elif request.path == '/login/recover/' %}
+<script src="{% static 'recoveraccount/js/recover-account-react.js' %}"></script>
+{% elif request.path == '/login/recover/done/' %}
+<script src="{% static 'recoveraccount/js/recover-done-react.js' %}"></script>
+{% elif request.path == '/login/recover/complete/' %}
+<script src="{% static 'recoveraccount/js/recover-complete-react.js' %}"></script>
 {% endif %}
 
 <div id="footerWrapper">

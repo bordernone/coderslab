@@ -242,3 +242,6 @@ def facebookLogin(request):
                     return JsonResponse({'error':'Something went wrong'}) 
         else:
             return JsonResponse(apiResponseJson) if settings.DEBUG else JsonResponse({'error':'Something went wrong.'})
+
+def recoverAccountView(request):
+    return render(request, 'recoveraccount.html')
