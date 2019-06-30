@@ -95,23 +95,23 @@
                                 <a class="nav-item nav-link" href="/timeline/">Timeline</a>
                                 <a class="nav-item nav-link" href="/scoreboard/">Scoreboard</a>
                                 <a class="nav-item nav-link" href="/user/{{ request.user.username }}/">Profile</a>
-                                <a class="nav-item nav-link" href="/account/">Settings</a>
+                                <a class="nav-item nav-link" href="{% url 'accountsettings' %}?next={{ request.path }}">Settings</a>
                                 <div class="dropdown">
                                     <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"
                                         aria-expanded="false">
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right navbarDropdown">
-                                        <a class="dropdown-item" href="#" id="navMyScoreContainer">My Score:</a>
+                                        <a class="dropdown-item" href="{% url 'usersubmissionsview' %}?next={{ request.path }}" id="navMyScoreContainer">My Score:</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Rules</a>
                                         <a class="dropdown-item" href="#">Resources</a>
-                                        <a class="dropdown-item" href="/avatar/change/">Avatar</a>
+                                        <a class="dropdown-item" href="{% url 'avatar_change' %}?next={{ request.path }}">Avatar</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="/logout/">Logout</a>
                                     </div>
                                 </div>
                                 {% else %}
-                                <a class="nav-item nav-link" href="/practice/">Practice</a>
+                                <a class="nav-item nav-link" href="{% url 'practiceView' %}">Practice</a>
                                 <a class="nav-item nav-link" href="/register/">Register</a>
                                 <a class="nav-item nav-link" href="/login/">Login</a>
                                 <a class="nav-item nav-link" href="#">Rules</a>

@@ -6,7 +6,8 @@ from practice.models import Questions
 class Submissions(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Questions, on_delete=models.CASCADE)
-    passed = models.BooleanField(default=False)
+    passed = models.BooleanField(blank=True)
+    checked = models.BooleanField(default=False)
     gotSubscore = models.BooleanField(default=False)
     submitted_at = models.DateTimeField(auto_now=True)
     content = models.TextField(blank=True)

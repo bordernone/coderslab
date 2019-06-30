@@ -372,6 +372,10 @@ html, body {
     margin: 0 !important;
 }
 
+.noBorder {
+    border: none;
+}
+
 .inputWithIconContainer {
     position: relative;
     margin-bottom: 0.7rem;
@@ -793,7 +797,7 @@ html, body {
     width: 100%;
 }
 
-.questionScreenProgrammingLanguageContainer{
+.questionScreenProgrammingLanguageContainer {
     text-align: center;
     white-space: nowrap;
 }
@@ -1443,43 +1447,61 @@ input:checked+.slider:before {
     cursor: pointer;
 }
 
-.contentCenterWrapperSM{
+.contentCenterWrapperSM {
     box-shadow: 0px 0px 6px -1px rgb(178, 178, 178);
     border-radius: 3px;
-    padding:0px !important;
+    padding: 0px !important;
     color: gray;
     margin-top: 30px;
     margin-bottom: 30px;
 }
 
-.contentCenterHeadTopWBBckBtn{
-    padding:5px;
+.contentCenterHeadTopWBBckBtn {
+    padding: 5px;
     flex-shrink: 0;
-    font-size:18px;
-    padding-left:10px;
+    font-size: 18px;
+    padding-left: 10px;
     vertical-align: center;
     cursor: pointer;
 }
 
-.contentCenterHeadTopWB{
-    padding:4px;
+.contentCenterHeadTopWB {
+    padding: 4px;
 }
 
-.contentCenterHeadTopWBTitle{
+.contentCenterHeadTopWBTitle {
     flex-shrink: 0;
     flex-grow: 1;
 }
 
-.contentCenterHeadTopWBTitle h6{
+.contentCenterHeadTopWBTitle h6 {
     font-size: 20px;
     vertical-align: center;
-    padding-top:7px;
+    padding-top: 7px;
     padding-bottom: 7px;
     padding-left: 5px;
 }
 
-.contentCenterBodyWrapper{
-    padding-left:40px;
+.contentCenterBodyWrapper {
+    padding-left: 40px;
     padding-right: 40px;
     font-family: HelveticaNeue-Light;
+    padding-bottom: 20px;
+}
+
+/* user submissions */
+
+.loadMoreSubmissionsContainer {
+    text-align: center;
+}
+
+.submissionsDisplayDiv tr {
+    cursor: pointer;
+}
+
+.contentCenterWrapperSMExtraInfo {
+    padding-left: 40px;
+    padding-right: 40px;
+    font-family: HelveticaNeue-Light;
+    padding-bottom: 20px;
 }

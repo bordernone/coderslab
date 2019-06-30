@@ -1,0 +1,91 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block body %}
+<div id="bodyWrapper" class="container">
+    <div class="row justify-content-center noMargin">
+        <div class="col-lg-5 contentCenterWrapperSM">
+
+            <div class="contentCenterHeadTopWB d-flex">
+                <div class="contentCenterHeadTopWBBckBtn" id="userSubmissionsBackBtnContainer">
+                    <span class="fas fa-arrow-left"></span>
+                </div>
+                <div class="contentCenterHeadTopWBTitle">
+                    <h6>Your submissions</h6>
+                </div>
+            </div>
+
+            <div id="userSubmissionsContainer">
+                <div>
+                    <div class="contentCenterWrapperSMExtraInfo d-flex justify-content-end">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="switchContest" name="example">
+                            <label class="custom-control-label" for="switchContest"><small>Show Contest
+                                    Submissions</small></label>
+                        </div>
+                    </div>
+
+                    <div class="contentCenterBodyWrapper">
+                        <div class="submissionsDisplayDiv">
+                            <table class="table text-secondary table-hover">
+                                <tbody>
+                                    {% for submission in submissions %}
+
+                                    {% if submission.checked == False %}
+                                    <tr class="d-flex">
+                                        <td class="flex-grow-1">
+                                            {% if submission.question.title %}
+                                            {{ submission.question.title }}
+                                            {% else %}
+                                            {{ submission.roundquestion.title }}
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <small class="text-warning">(Pending)</small>
+                                        </td>
+                                    </tr>
+                                    {% elif submission.passed == False %}
+                                    <tr class="d-flex">
+                                        <td class="flex-grow-1">
+                                            {% if submission.question.title %}
+                                            {{ submission.question.title }}
+                                            {% else %}
+                                            {{ submission.roundquestion.title }}
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <small class="text-danger">
+                                                <li class="fas fa-times"></li>
+                                            </small>
+                                        </td>
+                                    </tr>
+                                    {% else %}
+                                    <tr class="d-flex">
+                                        <td class="flex-grow-1">
+                                            {% if submission.question.title %}
+                                            {{ submission.question.title }}
+                                            {% else %}
+                                            {{ submission.roundquestion.title }}
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <small class="text-success">
+                                                <li class="fas fa-check"></li>
+                                            </small>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="loadMoreSubmissionsContainer">
+                            <button type="button" class="btn btn-light text-secondary">Load more</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

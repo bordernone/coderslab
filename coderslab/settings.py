@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'contest.apps.ContestConfig', #contest
     'logout.apps.LogoutConfig', #logout
     'misc.apps.MiscConfig', #misc
+    'usersubmissions.apps.UsersubmissionsConfig', #user submissions
     'avatar', #avatar library
 ]
 
