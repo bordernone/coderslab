@@ -14,9 +14,12 @@ import requests as getRequests
 
 logger = logging.getLogger(__name__)
 
-# Create your views here.
+
 def loginPage(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/practice/')
     return render(request, 'login.html')
+
 
 def loginUser(request):
     if request.method != 'POST':
