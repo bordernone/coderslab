@@ -39,3 +39,6 @@ def subscribe(request):
                     return JsonResponse({'success':True})
             else:
                 return JsonResponse({'error':'Invalid email', 'at':'email'})
+
+def privacyPolicyView(request):
+    return render(request, 'privacy-policy.html')
