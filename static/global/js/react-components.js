@@ -201,7 +201,7 @@ class FooterSubscription extends React.Component {
         this.onBtnClick = this.onBtnClick.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.setupPopover();
     }
 
@@ -209,7 +209,7 @@ class FooterSubscription extends React.Component {
         this.processSubscription();
     }
 
-    setupPopover(){
+    setupPopover() {
         $(this.ELEMENTSID.emailInput).popover({
             content: '', placement: 'top', trigger: 'manual',
         })
@@ -262,7 +262,7 @@ class FooterSubscription extends React.Component {
                 } else if (dataObj.hasOwnProperty('success')) {
                     if (dataObj.success == true) {
                         _this.setState({
-                            completed:true,
+                            completed: true,
                         })
                     } else {
                         console.log(dataObj);
@@ -328,7 +328,7 @@ class FooterSubscription extends React.Component {
                 placeholder: "Enter your email address",
                 value: _this.state.value,
                 id: 'subscribeEmailInput',
-                onChange: function(event) {
+                onChange: function (event) {
                     let value = event.target.value;
                     _this.setState({
                         inputValue: value,
@@ -337,12 +337,103 @@ class FooterSubscription extends React.Component {
             }), React.createElement("button", {
                 type: "button",
                 className: "btn btn-link",
-                onClick: function() {
+                onClick: function () {
                     _this.onBtnClick();
                 }
             }, React.createElement("span", {
                 className: "fas fa-arrow-right"
             })));
         }
+    }
+}
+
+class SiteCookieConsent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            shouldDisplayConsentPrompt: false,
+        }
+
+        this.COOKIECONSENTKEY = 'coderslabcookieconsent';
+
+        this.shouldDisplay = this.shouldDisplay.bind(this);
+    }
+
+    componentDidMount() {
+        this.shouldDisplay();
+    }
+
+    shouldDisplay() {
+        var _this = this;
+        if (this.getCookie(this.COOKIECONSENTKEY) != '') {
+            _this.setState({
+                shouldDisplayConsentPrompt: false,
+            });
+        } else {
+            _this.setState({
+                shouldDisplayConsentPrompt: true,
+            });
+        }
+    }
+
+    onAcceptBtnClick() {
+        this.setCookie(this.COOKIECONSENTKEY, true, 30);
+        this.shouldDisplay();
+    }
+
+    getCookie(key) {
+        var name = key + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    setCookie(key, value, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = key + "=" + value + ";" + expires + ";path=/";
+    }
+
+
+    render() {
+        var _this = this;
+
+        if (_this.state.shouldDisplayConsentPrompt == true) {
+            return React.createElement("div", {
+                className: "siteCookieConsentWrapper"
+            }, React.createElement("div", {
+                className: "siteCookieConsentText"
+            }, React.createElement("span", {
+                className: "fas fa-bell"
+            }), " By accessing this site, i agree to the ", React.createElement("a", {
+                href: "/misc/privacy-policy/"
+            }, "Privacy Policy"), " and ", React.createElement("a", {
+                href: "#"
+            }, "Terms & Conditions"), "."), React.createElement("div", {
+                className: "siteCookieConsentButton"
+            }, React.createElement("button", {
+                type: "button",
+                className: "btn btn-success btn-sm",
+                onClick: function () {
+                    _this.onAcceptBtnClick();
+                }
+            }, React.createElement("span", {
+                className: "fas fa-check"
+            }), " Accept")));
+        } else {
+            return React.createElement('div', null);
+        }
+
     }
 }
