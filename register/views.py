@@ -53,6 +53,7 @@ def registerUser(request):
                 })
                 to_email = email
                 email = EmailMessage(mail_subject, message, to=[to_email])
+                email.content_subtype = 'html'
                 email.send()
                 return JsonResponse({'success':'Please check your email inbox for confirmation'})
 
