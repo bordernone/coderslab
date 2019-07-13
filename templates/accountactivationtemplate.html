@@ -166,13 +166,13 @@
 																<span style="line-height: 21px; font-size: 18px;">
 																	Notification
 																	Regarding Your Account
-																	<div style="display:none;">
+																	<span style="display:none;">
 																		Sent at: {% now "jS F Y H:i" %}
-																	</div>
+																	</span>
 																</span>
-																<div style="display:none;">
+																<span style="display:none;">
 																	Sent at: {% now "jS F Y H:i" %}
-																</div>
+																</span>
 															</strong></span></p>
 												</div>
 											</div>
@@ -212,9 +212,9 @@
 															style="color: #ffffff !important; font-size: 14px; line-height: 16px;">
 															To confirm your registration at CodersLab.io, please click
 															the button below.
-															<div style="display:none;">
+															<span style="display:none;">
 																Sent at: {% now "jS F Y H:i" %}
-															</div>
+															</span>
 														</span>
 													</p>
 												</div>
@@ -241,9 +241,9 @@
 														style="font-size: 14px; line-height: 16px; margin: 0;color:#FFFFFF !important;">
 														Alternatively, you can follow the link below to active your
 														account.
-														<div style="display:none;">
+														<span style="display:none;">
 															Sent at: {% now "jS F Y H:i" %}
-														</div>
+														</span>
 														<br />
 														<br />
 														<a href="http://{{ domain }}{% url 'activate' uidb64=uid token=token %}"
@@ -263,25 +263,25 @@
 														style="font-size: 14px; line-height: 16px; margin: 0;color:#FFFFFF !important;">
 														If you have not tried registering at our website, please ignore
 														this email.
-														<div style="display:none;">
+														<span style="display:none;">
 															Sent at: {% now "jS F Y H:i" %}
-														</div>
+														</span>
 														<br />
 														<br />
 														Best,
-														<div style="display:none;">
+														<span style="display:none;">
 															Sent at: {% now "jS F Y H:i" %}
-														</div>
+														</span>
 														<br />
 														CodersLab.io Team
-														<div style="display:none;">
+														<span style="display:none;">
 															Sent at: {% now "jS F Y H:i" %}
-														</div>
+														</span>
 														<br />
 														+977-9614751978
-														<div style="display:none;">
+														<span style="display:none;">
 															Sent at: {% now "jS F Y H:i" %}
-														</div>
+														</span>
 													</p>
 												</div>
 											</div>
@@ -329,8 +329,8 @@
 																		style="vertical-align: top; display: inline-block; text-align: center;"
 																		valign="top">
 																		<td style="word-break: break-word; vertical-align: top; padding-bottom: 5px; padding-right: 3px; padding-left: 3px;"
-																			valign="top"><a
-																				href="https://www.facebook.com/"
+																			valign="top">
+																			<a href="{% url 'socialfbpage' %}"
 																				target="_blank"><img alt="Facebook"
 																					height="32"
 																					src="http://{{ domain }}{% static 'global/images/facebook@2x.png' %}"
@@ -338,7 +338,7 @@
 																					title="Facebook" width="32" /></a>
 																		</td>
 																		<td style="word-break: break-word; vertical-align: top; padding-bottom: 5px; padding-right: 3px; padding-left: 3px;"
-																			valign="top"><a href="https://twitter.com/"
+																			valign="top"><a href="{% url 'socialtwitterpage' %}"
 																				target="_blank"><img alt="Twitter"
 																					height="32"
 																					src="http://{{ domain }}{% static 'global/images/twitter@2x.png' %}"
@@ -347,7 +347,7 @@
 																		</td>
 																		<td style="word-break: break-word; vertical-align: top; padding-bottom: 5px; padding-right: 3px; padding-left: 3px;"
 																			valign="top"><a
-																				href="https://instagram.com/"
+																				href="{% url 'socialinstagrampage' %}"
 																				target="_blank"><img alt="Instagram"
 																					height="32"
 																					src="http://{{ domain }}{% static 'global/images/instagram@2x.png' %}"
@@ -356,7 +356,7 @@
 																		</td>
 																		<td style="word-break: break-word; vertical-align: top; padding-bottom: 5px; padding-right: 3px; padding-left: 3px;"
 																			valign="top"><a
-																				href="https://www.linkedin.com/"
+																				href="{% url 'sociallinkedinpage' %}"
 																				target="_blank"><img alt="LinkedIn"
 																					height="32"
 																					src="http://{{ domain }}{% static 'global/images/linkedin@2x.png' %}"

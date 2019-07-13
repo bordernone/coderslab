@@ -156,6 +156,12 @@ GOOGLE_CLIENT_ID = '43423819785-efv9qqqm0vshbpic0grnl7aa60iba100.apps.googleuser
 FACEBOOK_APP_ID = '350903085617384'
 FACEBOOK_APP_SECRET = 'a8c9ee9f7b8547247c78a954322a76fd'
 
+# Social Urls
+SOCIAL_FACEBOOK_PAGE_URL = 'https://www.facebook.com/CodersLab-883282698685530'
+SOCIAL_LINKEDIN_URL = ''
+SOCIAL_INSTA_URL = ''
+SOCIAL_TWITTER_URL = ''
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 

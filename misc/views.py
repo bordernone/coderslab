@@ -42,3 +42,15 @@ def subscribe(request):
 
 def privacyPolicyView(request):
     return render(request, 'privacy-policy.html')
+
+def socialFbPage(request):
+    return HttpResponseRedirect(settings.SOCIAL_FACEBOOK_PAGE_URL)
+
+def socialLinkedinPage(request):
+    return HttpResponseRedirect(settings.SOCIAL_LINKEDIN_URL)
+
+def socialInstagramPage(request):
+    return HttpResponseRedirect(settings.SOCIAL_INSTA_URL)
+
+def socialTwitterPage(request):
+    return HttpResponseRedirect(settings.SOCIAL_TWITTER_URL)
