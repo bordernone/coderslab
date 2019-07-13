@@ -34,6 +34,14 @@ def registerUser(request):
             email = cleanEmail(request.POST['email'])
             password = request.POST['password']
 
+            # check if email exists but account is inactive
+            if User.objects.filter(email=email).exists() == True:
+                tempUser = User.objects.get(email=email)
+                if tempUser.is_active == False:
+                    current_site = get_current_site(request)
+                    sendActivationEmail(current_site, tempUser)
+                    return JsonResponse({'success':'Please check your email inbox for confirmation'})
+
             if not isUsernameValid(username) == True:
                 return JsonResponse({'error': isUsernameValid(username), 'at': 'username'})
             elif not isEmailValid(email) == True:
@@ -44,17 +52,7 @@ def registerUser(request):
                 newUser = User.objects.create_user(username=username, email=email, password=password, is_active=False)
                 newUser.save()
                 current_site = get_current_site(request)
-                mail_subject = 'Activate Your CodersLab.io Account.'
-                message = render_to_string('accountactivationtemplate.html', {
-                    'user': newUser,
-                    'domain': current_site.domain,
-                    'uid':urlsafe_base64_encode(force_bytes(newUser.pk)),
-                    'token':account_activation_token.make_token(newUser),
-                })
-                to_email = email
-                email = EmailMessage(mail_subject, message, to=[to_email])
-                email.content_subtype = 'html'
-                email.send()
+                sendActivationEmail(current_site, newUser)
                 return JsonResponse({'success':'Please check your email inbox for confirmation'})
 
 def activate(request, uidb64, token):
@@ -66,7 +64,45 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        # return redirect('home')
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
+
+def sendActivationEmailAgain(request):
+    if request.method != 'POST':
+        if settings.DEBUG:
+            return JsonResponse({"error": 'Must be a post request'})
+        else:
+            raise Http404
+    else:
+        if not 'email' in request.POST:
+            if settings.DEBUG:
+                return JsonResponse({'error': 'Email not passed'})
+            else:
+                raise Http404
+        else:
+            emailAddress = request.POST['email']
+            if User.objects.filter(email=emailAddress).exists():
+                thisUser = User.objects.get(email=emailAddress)
+                if thisUser.is_active:
+                    if settings.DEBUG:
+                        return JsonResponse({'error':'User already active'})
+                    else:
+                        raise Http404
+                else:
+                    current_site = get_current_site(request)
+                    sendActivationEmail(current_site, thisUser)
+                    return JsonResponse({'success':'Please check your email inbox for confirmation'})
+
+def sendActivationEmail(current_site, userObj):
+    mail_subject = 'Activate Your CodersLab.io Account.'
+    message = render_to_string('accountactivationtemplate.html', {
+        'user': userObj,
+        'domain': current_site.domain,
+        'uid':urlsafe_base64_encode(force_bytes(userObj.pk)),
+        'token':account_activation_token.make_token(userObj),
+    })
+    to_email = userObj.email
+    email = EmailMessage(mail_subject, message, to=[to_email])
+    email.content_subtype = 'html'
+    email.send()
