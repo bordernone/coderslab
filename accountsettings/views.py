@@ -6,4 +6,4 @@ import re
 
 @login_required
 def accountSettings(request):
-    return render(request, 'accountsettings.html')
+    return render(request, 'accountsettings.html', {'pagetitle':'Account Settings & Preferences | CodersLab'})

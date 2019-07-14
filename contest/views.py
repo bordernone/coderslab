@@ -30,7 +30,7 @@ def contestView(request, competitionnameslug, contestid, roundnameslug, roundid)
     
     questions = zip(questions, questionSuccessRates)
 
-    return render(request, 'contest.html', {'questions':questions, 'roundname':roundname, 'isActive':isRoundActive(roundid)})
+    return render(request, 'contest.html', {'questions':questions, 'roundname':roundname, 'isActive':isRoundActive(roundid), 'pagetitle': roundname + ', ' + competitionname + ' | CodersLab'})
 
 @login_required
 def submitSolution(request):

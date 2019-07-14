@@ -38,7 +38,7 @@ def questionscreen(request, titleslug, id, iscontest=None):
                 userMaxScore = 'N/A'
                 totalUserSubmissions = 'N/A'
 
-            return render(request, 'questionscreen.html', {'question':question, 'iscontest':iscontest, 'totalsubmissions':totalSubmissions, 'successrate': successRate, 'failurerate': failureRate, 'usermaxscore':userMaxScore, 'totalusersubmissions':totalUserSubmissions})
+            return render(request, 'questionscreen.html', {'question':question, 'iscontest':iscontest, 'totalsubmissions':totalSubmissions, 'successrate': successRate, 'failurerate': failureRate, 'usermaxscore':userMaxScore, 'totalusersubmissions':totalUserSubmissions, 'pagetitle': title + ' | CodersLab'})
         else:
             # not ready for publication
             if settings.DEBUG:
@@ -72,7 +72,7 @@ def questionscreen(request, titleslug, id, iscontest=None):
                 userMaxScore = 'N/A'
                 totalUserSubmissions = 'N/A'
 
-            return render(request, 'questionscreen.html', {'question':question, 'iscontest':iscontest, 'totalsubmissions':totalSubmissions, 'successrate':successRate, 'failurerate':failureRate, 'usermaxscore':userMaxScore, 'totalusersubmissions':totalUserSubmissions})
+            return render(request, 'questionscreen.html', {'question':question, 'iscontest':iscontest, 'totalsubmissions':totalSubmissions, 'successrate':successRate, 'failurerate':failureRate, 'usermaxscore':userMaxScore, 'totalusersubmissions':totalUserSubmissions, 'pagetitle':title + ' | CodersLab'})
         else:
             # not ready for publication
             if settings.DEBUG:

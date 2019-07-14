@@ -41,7 +41,7 @@ def subscribe(request):
                 return JsonResponse({'error':'Invalid email', 'at':'email'})
 
 def privacyPolicyView(request):
-    return render(request, 'privacy-policy.html')
+    return render(request, 'privacy-policy.html', {'pagetitle': 'Privacy Policy | CodersLab'})
 
 def socialFbPage(request):
     return HttpResponseRedirect(settings.SOCIAL_FACEBOOK_PAGE_URL)

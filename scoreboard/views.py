@@ -18,7 +18,7 @@ def scoreboard(request):
         mostRecentRound = allPastRounds[0].roundName
     else:
         mostRecentRound = 'No Recent Contests'
-    return render(request, 'scoreboard.html', {'roundname': mostRecentRound})
+    return render(request, 'scoreboard.html', {'roundname': mostRecentRound, 'pagetitle': 'Scoreboard | CodersLab'})
 
 def recentCompetitionUserScoreboard(request):
     today = datetime.now()

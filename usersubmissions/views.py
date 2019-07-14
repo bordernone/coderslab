@@ -29,7 +29,7 @@ def userSubmissionsView(request):
     else:
         allSubmissions = Submissions.objects.filter(user=currentUser).order_by('-submitted_at')[:limit]
 
-    return render(request, 'usersubmissions.html', {'submissions': allSubmissions })
+    return render(request, 'usersubmissions.html', {'submissions': allSubmissions, 'pagetitle' : 'Your Submissions | CodersLab'})
 
 @login_required
 def userSubmissionsJson(request):

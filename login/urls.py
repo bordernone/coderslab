@@ -1,6 +1,6 @@
 from django.urls import path
 from django.conf.urls import url
-from .views import loginPage, googleLogin, facebookLogin, loginUser, recoverAccountView
+from .views import loginPage, googleLogin, facebookLogin, loginUser
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [

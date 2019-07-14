@@ -6,7 +6,7 @@ import re
 
 # Create your views here.
 def timelineView(request):
-    return render(request, 'timeline.html')
+    return render(request, 'timeline.html', {'pagetitle': 'Contest Timeline | CodersLab'})
 
 def nextRoundTime(request):
     today = datetime.now()

@@ -8,7 +8,7 @@ import re
 
 # Create your views here.
 def contactPage(request):
-    return render(request, 'contactpage.html')
+    return render(request, 'contactpage.html', {'pagetitle':'Contact Us | CodersLab'})
 
 def sendContactMsg(request):
     if request.method != 'POST':

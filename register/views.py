@@ -16,7 +16,7 @@ from .tokens import account_activation_token
 def registerView(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/practice/')
-    return render(request, 'register.html')
+    return render(request, 'register.html', {'pagetitle': 'Create an account | CodersLab'})
 
 # registration process
 def registerUser(request):

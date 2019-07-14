@@ -16,7 +16,7 @@ def userProfile(request, username):
         else:
             raise Http404
     
-    return render(request, 'userprofile.html', {'user': thisUser})
+    return render(request, 'userprofile.html', {'user': thisUser, 'pagetitle': thisUser.username + '\'s Profile | CodersLab'})
 
 @login_required
 def userProfileJson(request):

@@ -31,7 +31,7 @@ def practiceView(request):
             catsName.append(categoryName)
     
     categoryAndQuestions = zip(catsName, catQuestions)
-    return render(request, 'practice.html', {'cat':categoryAndQuestions})
+    return render(request, 'practice.html', {'cat':categoryAndQuestions, 'pagetitle': 'Practice | CodersLab'})
     
 @login_required
 def submitSolution(request):

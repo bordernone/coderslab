@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 def loginPage(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/practice/')
-    return render(request, 'login.html')
+    return render(request, 'login.html', {'pagetitle': 'Login | CodersLab'})
 
 
 def loginUser(request):
@@ -245,6 +245,3 @@ def facebookLogin(request):
                     return JsonResponse({'error':'Something went wrong'}) 
         else:
             return JsonResponse(apiResponseJson) if settings.DEBUG else JsonResponse({'error':'Something went wrong.'})
-
-def recoverAccountView(request):
-    return render(request, 'recoveraccount.html')

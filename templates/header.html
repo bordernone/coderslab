@@ -3,7 +3,13 @@
 <html>
 
 <head>
-    <title>CodersLab</title>
+    <title>
+        {% if pagetitle %}
+            {{ pagetitle }}
+        {% else %}
+            CodersLab
+        {% endif %}
+    </title>
 
     <!-- Bootstrap CDN, favicon, & font awesome -->
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'
