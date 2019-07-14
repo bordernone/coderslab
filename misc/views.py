@@ -43,6 +43,9 @@ def subscribe(request):
 def privacyPolicyView(request):
     return render(request, 'privacy-policy.html', {'pagetitle': 'Privacy Policy | CodersLab'})
 
+def termsandConditionView(request):
+    return render(request, 'terms-and-conditions.html', {'pagetitle': 'Terms & Conditions | CodersLab'})
+
 def socialFbPage(request):
     return HttpResponseRedirect(settings.SOCIAL_FACEBOOK_PAGE_URL)
 

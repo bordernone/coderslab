@@ -9,7 +9,7 @@
                 <ul style="list-style: none;">
                     <li><a href="{% url 'contactpage' %}?next={{ request.path }}">Contact form</a></li>
                     <li><a href="{% url 'privacypolicyview' %}?next={{ request.path }}">Privacy Policy</a></li>
-                    <li><a href="">Terms & Conditions</a></li>
+                    <li><a href="{% url 'termsandconditionsview' %}">Terms & Conditions</a></li>
                     <li><a href="">Site Map</a></li>
                 </ul>
             </div>
@@ -32,11 +32,11 @@
                     </div>
                 </div>
                 <div class="socialIcons">
-                    <a href="{% url 'socialfbpage' %}" class="facebook"><span
+                    <a href="{% url 'socialfbpage' %}" class="facebook" target="_blank"><span
                             class="fab fa-facebook-f"></span></a>
-                    <a href="{% url 'sociallinkedinpage' %}" class="linkedin"><span class="fab fa-linkedin"></span></a>
-                    <a href="{% url 'socialinstagrampage' %}" class="instagram"><span class="fab fa-instagram"></span></a>
-                    <a href="{% url 'socialtwitterpage' %}" class="twitter"><span class="fab fa-twitter"></span></a>
+                    <a href="{% url 'sociallinkedinpage' %}" class="linkedin"  target="_blank"><span class="fab fa-linkedin"></span></a>
+                    <a href="{% url 'socialinstagrampage' %}" class="instagram"  target="_blank"><span class="fab fa-instagram"></span></a>
+                    <a href="{% url 'socialtwitterpage' %}" class="twitter"  target="_blank"><span class="fab fa-twitter"></span></a>
                 </div>
             </div>
         </div>
@@ -103,6 +103,8 @@
 <script src="{% static 'usersubmissions/js/usersubmissions-react.js' %}"></script>
 {% elif request.path == '/misc/privacy-policy/' %}
 <script src="{% static 'global/js/privacy-policy-react.js' %}"></script>
+{% elif request.path == '/misc/terms-and-conditions/' %}
+<script src="{% static 'global/js/termsandconditions-react.js' %}"></script>
 {% endif %}
 
 <!-- Footer React Components -->
