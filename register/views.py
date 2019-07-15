@@ -52,6 +52,7 @@ def registerUser(request):
                 newUser = User.objects.create_user(username=username, email=email, password=password, is_active=False)
                 newUser.save()
                 current_site = get_current_site(request)
+                newUser = User.objects.get(username=username)
                 sendActivationEmail(current_site, newUser)
                 return JsonResponse({'success':'Please check your email inbox for confirmation'})
 
@@ -99,7 +100,7 @@ def sendActivationEmail(current_site, userObj):
     message = render_to_string('accountactivationtemplate.html', {
         'user': userObj,
         'domain': current_site.domain,
-        'uid':urlsafe_base64_encode(force_bytes(userObj.pk)),
+        'uid':urlsafe_base64_encode(force_bytes(userObj.pk)).decode(),
         'token':account_activation_token.make_token(userObj),
     })
     to_email = userObj.email
