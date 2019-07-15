@@ -26,7 +26,7 @@ SECRET_KEY = 'lvj*90^-nm=+%3r_os00h2rfr-d=gh(#-g3=v1f7yk^3bj!7w='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['coderslab.io', 'www.coderslab.io']
 
 # Application definition
 
@@ -171,8 +171,17 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL = '/media/'
+# Change STATIC root and Media root for deployment
 
+# For development
+""" For development
 MEDIA_ROOT = BASE_DIR + "/media"
+"""
+
+# For production
+STATIC_ROOT = '/home/gomusixn/public_html/coderslab.io/static'
+MEDIA_ROOT = '/home/gomusixn/public_html/coderslab.io/media'
+
 
 #AVATAR
 AVATAR_CHANGE_TEMPLATE = 'avatar_change.html'

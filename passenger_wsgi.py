@@ -1,0 +1,1 @@
+from coderslab.wsgi import application
