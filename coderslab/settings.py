@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from .email_login_credentials import EMAIL_ADDRESS, PASSWORD
+from .auth_keys import GOOGLECLIENTID, FACEBOOKAPPID, FACEBOOKAPPSECRET
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -145,16 +146,24 @@ USE_TZ = True
 LOGIN_URL = '/login/'
 
 # Email
+""" Gmail
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = EMAIL_ADDRESS
 EMAIL_HOST_PASSWORD = PASSWORD
+"""
+#CODERSLAB SMTP
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'mail.gomusix.net'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = EMAILADDRESS
+EMAIL_HOST_PASSWORD = EMAILPASSWORD
 
 # Social Sign in
-GOOGLE_CLIENT_ID = '43423819785-efv9qqqm0vshbpic0grnl7aa60iba100.apps.googleusercontent.com'
-FACEBOOK_APP_ID = '350903085617384'
-FACEBOOK_APP_SECRET = 'a8c9ee9f7b8547247c78a954322a76fd'
+GOOGLE_CLIENT_ID = GOOGLECLIENTID
+FACEBOOK_APP_ID = FACEBOOKAPPID
+FACEBOOK_APP_SECRET = FACEBOOKAPPSECRET
 
 # Social Urls
 SOCIAL_FACEBOOK_PAGE_URL = 'https://www.facebook.com/CodersLab-883282698685530'
