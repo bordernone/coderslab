@@ -419,7 +419,7 @@ class SiteCookieConsent extends React.Component {
             }), " By accessing this site, i agree to the ", React.createElement("a", {
                 href: "/misc/privacy-policy/"
             }, "Privacy Policy"), " and ", React.createElement("a", {
-                href: "#"
+                href: "/misc/terms-and-conditions/"
             }, "Terms & Conditions"), "."), React.createElement("div", {
                 className: "siteCookieConsentButton"
             }, React.createElement("button", {

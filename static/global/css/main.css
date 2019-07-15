@@ -1524,12 +1524,12 @@ input:checked+.slider:before {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 50px;
     width: 100%;
     background: rgb(248, 248, 248);
-    line-height: 50px;
     padding-left: 5%;
     padding-right: 5%;
+    padding-top: 10px;
+    padding-bottom: 10px;
     text-align: center;
     border-top: solid 0.1px rgb(183, 183, 183);
     font-family: HelveticaNeue-Light;
@@ -1540,7 +1540,7 @@ input:checked+.slider:before {
 }
 
 .siteCookieConsentText{
-    white-space: nowrap;
+    white-space: normal;
 }
 
 .siteCookieConsentButton button {
