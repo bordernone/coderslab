@@ -28,7 +28,7 @@ SECRET_KEY = 'lvj*90^-nm=+%3r_os00h2rfr-d=gh(#-g3=v1f7yk^3bj!7w='
 DEBUG = True
 
 ALLOWED_HOSTS = ['coderslab.io', 'www.coderslab.io']
-
+SECURE_SSL_REDIRECT = True # only use for production
 # Application definition
 
 INSTALLED_APPS = [
