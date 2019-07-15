@@ -157,8 +157,8 @@ EMAIL_HOST_PASSWORD = PASSWORD
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'mail.gomusix.net'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = EMAILADDRESS
-EMAIL_HOST_PASSWORD = EMAILPASSWORD
+EMAIL_HOST_USER = EMAIL_ADDRESS
+EMAIL_HOST_PASSWORD = PASSWORD
 
 # Social Sign in
 GOOGLE_CLIENT_ID = GOOGLECLIENTID
@@ -183,7 +183,7 @@ MEDIA_URL = '/media/'
 # Change STATIC root and Media root for deployment
 
 # For development
-""" For development
+"""# For development
 MEDIA_ROOT = BASE_DIR + "/media"
 """
 
