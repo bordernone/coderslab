@@ -28,10 +28,10 @@ class LogoutScreen extends React.Component {
     runTimer() {
         let loaded = false
         try {
-            let auth2 = gapi.auth2.getAuthInstance();
+            let x = gapi.auth2.getAuthInstance();
             loaded = true;
 
-            this.signoutGoogle(auth2);
+            this.signoutGoogle();
         } catch(error){
             let temp = this.state.dotString;
             if (temp == '...') {
@@ -52,8 +52,9 @@ class LogoutScreen extends React.Component {
         });
     }
 
-    signoutGoogle(auth2) {
+    signoutGoogle() {
         var _this = this;
+        var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
             window.location.href = '/';
         });
