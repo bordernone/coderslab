@@ -519,6 +519,9 @@ html, body {
 }
 
 /* practice */
+.practiceCatWrapper{
+    width: 100%;
+}
 
 .catWrapper {
     padding: 20px;
