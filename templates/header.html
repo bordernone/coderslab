@@ -52,7 +52,7 @@
     <script>
         window.fbAsyncInit = function () {
             FB.init({
-                appId: '350903085617384',
+                appId: '{{ fbappid }}',
                 cookie: true,
                 xfbml: true,
                 version: 'v3.3'
@@ -74,7 +74,7 @@
     </script>
     <div id="fb-root"></div>
     <script crossorigin="anonymous"
-        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=350903085617384&autoLogAppEvents=1"></script>
+        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId={{ fbappid }}&autoLogAppEvents=1"></script>
     {% endif %}
 
     <div id="mainWrapper">
