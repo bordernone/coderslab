@@ -8,6 +8,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import EmailMessage
+from django.conf import settings
 import re
 from .utils import isUsernameValid, isEmailValid, isPasswordValid, cleanUsername, cleanEmail
 from .tokens import account_activation_token
@@ -16,7 +17,8 @@ from .tokens import account_activation_token
 def registerView(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/practice/')
-    return render(request, 'register.html', {'pagetitle': 'Create an account | CodersLab'})
+    facebookAppId = settings.FACEBOOK_APP_ID
+    return render(request, 'register.html', {'pagetitle': 'Create an account | CodersLab', 'fbappid': facebookAppId})
 
 # registration process
 def registerUser(request):

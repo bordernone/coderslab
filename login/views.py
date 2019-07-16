@@ -18,7 +18,8 @@ logger = logging.getLogger(__name__)
 def loginPage(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/practice/')
-    return render(request, 'login.html', {'pagetitle': 'Login | CodersLab'})
+    facebookAppId = settings.FACEBOOK_APP_ID
+    return render(request, 'login.html', {'pagetitle': 'Login | CodersLab', 'fbappid': facebookAppId})
 
 
 def loginUser(request):
