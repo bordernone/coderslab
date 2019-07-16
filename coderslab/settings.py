@@ -176,13 +176,10 @@ MEDIA_URL = '/media/'
 # Change STATIC root and Media root for deployment
 
 # For development
-"""# For development
 MEDIA_ROOT = BASE_DIR + "/media"
-"""
 
 # For production
-STATIC_ROOT = '/home/gomusixn/public_html/coderslab.io/static'
-MEDIA_ROOT = '/home/gomusixn/public_html/coderslab.io/media'
+STATIC_ROOT = '/home/gomusixn/public_html/coderslab.io/static' # Comment this out when in development mode
 
 
 #AVATAR
