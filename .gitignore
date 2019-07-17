@@ -9,3 +9,6 @@ static/global/.DS_Store
 .DS_Store
 coderslab/auth_keys.py
 coderslab/email_login_credentials.py
+static/.DS_Store
+static/global/.DS_Store
+static/global/images/.DS_Store
