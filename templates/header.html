@@ -5,9 +5,9 @@
 <head>
     <title>
         {% if pagetitle %}
-            {{ pagetitle }}
+        {{ pagetitle }}
         {% else %}
-            CodersLab
+        CodersLab
         {% endif %}
     </title>
 
@@ -19,7 +19,7 @@
     <script src="{% static 'global/js/popper.min.js' %}"></script>
     <script src="{% static 'global/bootstrap/js/bootstrap.min.js' %}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/gif" href="{% static 'global/images/favicon.gif' %}"/>
+    <link rel="shortcut icon" type="image/gif" href="{% static 'global/images/favicon.gif' %}" />
 
 
     <!-- static files -->
@@ -32,17 +32,31 @@
     <script src="{% static 'timeline/js/jquery.connections.js' %}"></script>
     <script src="{% static 'timeline/js/timeline.js' %}"></script>
     <script src="{% static 'timeline/js/jquery.visible.min.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'timeline/css/timeline.css' %}"> 
+    <link rel="stylesheet" type="text/css" href="{% static 'timeline/css/timeline.css' %}">
     {% endif %}
     {% if request.path == '/register/' or request.path == '/login/' or request.path == '/login/recover/' %}
     <!-- Google platform library -->
     <script src="https://apis.google.com/js/platform.js"></script>
     <meta name="google-signin-client_id"
-        content="43423819785-efv9qqqm0vshbpic0grnl7aa60iba100.apps.googleusercontent.com"> 
-        {% endif %}
+        content="43423819785-efv9qqqm0vshbpic0grnl7aa60iba100.apps.googleusercontent.com">
+    {% endif %}
     {% if '/question/' in request.path %}
     <script src="{% static 'global/src-noconflict/ace.js' %}" type="text/javascript" charset="utf-8"></script>
     {% endif %}
+
+
+    <!-- Google Analytics -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144048815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-144048815-1');
+    </script>
+
+
 </head>
 
 <body>
@@ -103,17 +117,22 @@
                                 <a class="nav-item nav-link" href="/timeline/">Timeline</a>
                                 <a class="nav-item nav-link" href="/scoreboard/">Scoreboard</a>
                                 <a class="nav-item nav-link" href="/user/{{ request.user.username }}/">Profile</a>
-                                <a class="nav-item nav-link" href="{% url 'accountsettings' %}?next={{ request.path }}">Settings</a>
+                                <a class="nav-item nav-link"
+                                    href="{% url 'accountsettings' %}?next={{ request.path }}">Settings</a>
                                 <div class="dropdown">
                                     <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"
                                         aria-expanded="false">
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right navbarDropdown">
-                                        <a class="dropdown-item" href="{% url 'usersubmissionsview' %}?next={{ request.path }}" id="navMyScoreContainer">My Score:</a>
+                                        <a class="dropdown-item"
+                                            href="{% url 'usersubmissionsview' %}?next={{ request.path }}"
+                                            id="navMyScoreContainer">My Score:</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="https://blog.coderslab.io/rules/">Rules</a>
-                                        <a class="dropdown-item" href="https://blog.coderslab.io/resources-for-practice/">Resources</a>
-                                        <a class="dropdown-item" href="{% url 'avatar_change' %}?next={{ request.path }}">Avatar</a>
+                                        <a class="dropdown-item"
+                                            href="https://blog.coderslab.io/resources-for-practice/">Resources</a>
+                                        <a class="dropdown-item"
+                                            href="{% url 'avatar_change' %}?next={{ request.path }}">Avatar</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="/logout/">Logout</a>
                                     </div>
@@ -123,7 +142,8 @@
                                 <a class="nav-item nav-link" href="/register/">Register</a>
                                 <a class="nav-item nav-link" href="/login/">Login</a>
                                 <a class="nav-item nav-link" href="https://blog.coderslab.io/rules/">Rules</a>
-                                <a class="nav-item nav-link" href="https://blog.coderslab.io/resources-for-practice/">Find more resources</a>
+                                <a class="nav-item nav-link"
+                                    href="https://blog.coderslab.io/resources-for-practice/">Find more resources</a>
                                 {% endif %}
                             </div>
                         </div>
