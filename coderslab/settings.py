@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps', # sitemaps
     'homepage.apps.HomepageConfig', #homepage
     'homepage.templatetags', # template tags
     'register.apps.RegisterConfig', #register
@@ -158,6 +159,9 @@ DEFAULT_FROM_EMAIL = 'CodersLab <noreply@coderslab.io>'
 ADMIN_MOBILE_NUMBERS = ADMINMOBILENUMBERS
 ADMIN_EMAIL_ADDRESSES = ADMINEMAILADDRESSES
 
+# Django error reporting
+ADMINS = list(map(lambda email: ('CodersLab', email), ADMINEMAILADDRESSES))
+
 # Social Sign in
 GOOGLE_CLIENT_ID = GOOGLECLIENTID
 FACEBOOK_APP_ID = FACEBOOKAPPID
@@ -165,7 +169,7 @@ FACEBOOK_APP_SECRET = FACEBOOKAPPSECRET
 
 # Social Urls
 SOCIAL_FACEBOOK_PAGE_URL = 'https://www.facebook.com/CodersLab-883282698685530'
-SOCIAL_LINKEDIN_URL = ''
+SOCIAL_LINKEDIN_URL = 'https://www.linkedin.com/in/coderslab-io-27560818a/'
 SOCIAL_INSTA_URL = ''
 SOCIAL_TWITTER_URL = 'https://twitter.com/CoderslabIo'
 
