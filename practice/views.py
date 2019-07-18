@@ -1,10 +1,11 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from .models import Questions
 from questionscreen.models import Submissions
 from .utils import getQuestionObjFromId, practiceQuestionSuccessRate
-from contest.utils import getUserObjFromUsername
+from contest.utils import getUserObjFromUsername, sendEmailToAdmin, sendSMSToAdmin
 import re
 from django.core import serializers
 
@@ -60,6 +61,12 @@ def submitSolution(request):
         userObj = getUserObjFromUsername(username)
         newSubmission = Submissions(question=questionObj, user=userObj, passed=False, content=solutionCode, score=0, programminglanguage=programmingLang)
         newSubmission.save()
+
+        # Submission Made 
+        # Send SMS and Email to admin
+        messageToSend = 'By: ' + userObj.username
+        sendSMSToAdmin(settings.ADMIN_MOBILE_NUMBERS, 'New Submission (Practice)', messageToSend)
+        sendEmailToAdmin(settings.ADMIN_EMAIL_ADDRESSES, 'New Submission (Practice)', messageToSend)
         return JsonResponse({'success':True})
     else:
         if settings.DEBUG:
