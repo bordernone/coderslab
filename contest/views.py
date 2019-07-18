@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
-from .utils import getActiveRoundId, isRoundActive, getContestnameFromId, getRoundnameFromId, getUserObjFromUsername, getQuestionObjFromId, contestQuestionSuccessRate
+from .utils import getActiveRoundId, isRoundActive, getContestnameFromId, getRoundnameFromId, getUserObjFromUsername, getQuestionObjFromId, contestQuestionSuccessRate, sendSMSToAdmin, sendEmailToAdmin
 from .models import Rounds, Competitions, RoundQuestions, RoundSubmissions
 from django.conf import settings
 from django.template.defaultfilters import slugify
@@ -59,6 +59,12 @@ def submitSolution(request):
         userObj = getUserObjFromUsername(username)
         newSubmission = RoundSubmissions(roundquestion=questionObj, user=userObj, passed=False, content=solutionCode, score=0, programminglanguage=programmingLang)
         newSubmission.save()
+
+        # Submission Made 
+        # Send SMS and Email to admin
+        messageToSend = 'By: ' + userObj.username
+        sendSMSToAdmin(settings.ADMIN_MOBILE_NUMBERS, 'New Submission (Contest)', messageToSend)
+        sendEmailToAdmin(settings.ADMIN_EMAIL_ADDRESSES, 'New Submission (Contest)', messageToSend)
         return JsonResponse({'success':True})
     else:
         if settings.DEBUG:

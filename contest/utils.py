@@ -1,6 +1,8 @@
 from .models import Rounds, Competitions, RoundQuestions, RoundSubmissions
 from django.contrib.auth.models import User
 from datetime import date, datetime, timedelta
+from django.core.mail import send_mail
+from django.conf import settings
 import pytz
 
 utc=pytz.UTC
@@ -64,3 +66,25 @@ def contestTotalUserSubmissions(username, questionid):
     user = getUserObjFromUsername(username)
     question = getQuestionObjFromId(questionid)
     return RoundSubmissions.objects.filter(user=user, roundquestion=question).count()
+
+def sendSMSToAdmin(mobilenumbers, subject, message):
+    fromEmail = settings.EMAIL_HOST_USER
+    toEmail = list(map(lambda number: str(number) + '@sms.ncell.com.np', mobilenumbers))
+    send_mail(
+        subject,
+        message,
+        fromEmail,
+        toEmail,
+        fail_silently=False,
+    )
+
+def sendEmailToAdmin(emailAddresses, subject, message):
+    fromEmail = settings.EMAIL_HOST_USER
+    toEmail = emailAddresses
+    send_mail(
+        subject,
+        message,
+        fromEmail,
+        toEmail,
+        fail_silently=False,
+    )
