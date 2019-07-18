@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-from .email_login_credentials import EMAIL_ADDRESS, PASSWORD
+from .login_credentials import EMAIL_ADDRESS, PASSWORD, ADMINEMAILADDRESSES, ADMINMOBILENUMBERS
 from .auth_keys import GOOGLECLIENTID, FACEBOOKAPPID, FACEBOOKAPPSECRET
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -154,8 +154,8 @@ EMAIL_HOST_PASSWORD = PASSWORD
 
 
 # Admin mobile numbers and email addresses, used for sending SMS and email alerts
-ADMIN_MOBILE_NUMBERS = ['9779814767895']
-ADMIN_EMAIL_ADDRESSES = ['bishnu.dev52@gmail.com']
+ADMIN_MOBILE_NUMBERS = ADMINMOBILENUMBERS
+ADMIN_EMAIL_ADDRESSES = ADMINEMAILADDRESSES
 
 # Social Sign in
 GOOGLE_CLIENT_ID = GOOGLECLIENTID
