@@ -152,6 +152,11 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = EMAIL_ADDRESS
 EMAIL_HOST_PASSWORD = PASSWORD
 
+
+# Admin mobile numbers and email addresses, used for sending SMS and email alerts
+ADMIN_MOBILE_NUMBERS = ['9779814767895']
+ADMIN_EMAIL_ADDRESSES = ['bishnu.dev52@gmail.com']
+
 # Social Sign in
 GOOGLE_CLIENT_ID = GOOGLECLIENTID
 FACEBOOK_APP_ID = FACEBOOKAPPID
