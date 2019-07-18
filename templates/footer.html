@@ -10,7 +10,7 @@
                     <li><a href="{% url 'contactpage' %}?next={{ request.path }}">Contact form</a></li>
                     <li><a href="{% url 'privacypolicyview' %}?next={{ request.path }}">Privacy Policy</a></li>
                     <li><a href="{% url 'termsandconditionsview' %}">Terms & Conditions</a></li>
-                    <li><a href="">Site Map</a></li>
+                    <li><a href="{% url 'django.contrib.sitemaps.views.sitemap' %}">Site Map</a></li>
                 </ul>
             </div>
             <div class="col eachFooterCol">

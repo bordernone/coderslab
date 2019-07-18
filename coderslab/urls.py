@@ -17,6 +17,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from coderslab.sitemap import StaticSitemap, UserProfileSitemap, ContestRoundsSitemap
+from django.contrib.sitemaps.views import sitemap
+from django.conf.urls import url
+
+sitemaps = {
+ 'static': StaticSitemap,
+ 'users': UserProfileSitemap,
+ 'contests': ContestRoundsSitemap,
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,4 +44,6 @@ urlpatterns = [
     path('logout/', include('logout.urls')), #logout
     path('misc/', include('misc.urls')), #misc
     path('usersubmissions/', include('usersubmissions.urls')), #user submissions
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+     name='django.contrib.sitemaps.views.sitemap')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #media files
