@@ -165,7 +165,7 @@ FACEBOOK_APP_SECRET = FACEBOOKAPPSECRET
 
 # Social Urls
 SOCIAL_FACEBOOK_PAGE_URL = 'https://www.facebook.com/CodersLab-883282698685530'
-SOCIAL_LINKEDIN_URL = ''
+SOCIAL_LINKEDIN_URL = 'https://www.linkedin.com/in/coderslab-io-27560818a/'
 SOCIAL_INSTA_URL = ''
 SOCIAL_TWITTER_URL = 'https://twitter.com/CoderslabIo'
 
