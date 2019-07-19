@@ -195,3 +195,4 @@ STATIC_ROOT = '/home/gomusixn/public_html/coderslab.io/static' # Comment this ou
 AVATAR_CHANGE_TEMPLATE = 'avatar_change.html'
 AVATAR_DELETE_TEMPLATE = 'avatar_delete.html'
 AVATAR_CLEANUP_DELETED = True
+AVATAR_THUMB_FORMAT = 'PNG' # This is a fix to Django-avatar and Pillow latest version incompatibility
