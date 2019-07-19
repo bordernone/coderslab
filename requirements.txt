@@ -9,7 +9,8 @@ google-auth==1.6.3
 google-auth-httplib2==0.0.3
 httplib2==0.13.0
 idna==2.8
-Pillow==6.0.0
+olefile==0.46
+Pillow==5.2.0
 pyasn1==0.4.5
 pyasn1-modules==0.2.5
 pytz==2019.1
