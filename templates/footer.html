@@ -26,7 +26,7 @@
             <div class="col-lg eachFooterCol">
                 <span class="footerNavTitle">Get updates to your inbox:</span>
                 <div id="subscribeBoxContainer">
-                    <div class="subscribeBox">
+                    <div class="subscribeBox">{% csrf_token %}
                         <input type="text" class="form-control" id="pwd" placeholder="Enter your email address" />
                         <button type="button" class="btn btn-link"><span class="fas fa-arrow-right"></span></button>
                     </div>
