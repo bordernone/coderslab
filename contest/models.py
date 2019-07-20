@@ -45,3 +45,10 @@ class RoundSubmissions(models.Model):
     
     def __str__(self):
         return self.roundquestion.title + ' -> ' + self.user.username
+
+class RoundUsers(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    thisround = models.ForeignKey(Rounds, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username + ' -> ' + self.thisround.roundName
