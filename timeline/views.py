@@ -26,15 +26,23 @@ def competitionRoundTimelineDetailsJson(request):
             thisContest = getContestFromRound(getUpcomingRound())
     else:
         thisContest = getContestFromRound(getActiveRound())
+        activeRoundId = getActiveRound().id
 
     allRoundsThisContest = Rounds.objects.filter(competition=thisContest)
     thisRounds = []
     for eachRound in allRoundsThisContest:
-        thisRounds.append({
-            'id':eachRound.id,
-            'name':eachRound.roundName,
-            'isActive': True if eachRound == getActiveRound() else False
-        })
+        if activeRoundId and activeRoundId == eachRound.id:
+            thisRounds.append({
+                'id':eachRound.id,
+                'name':eachRound.roundName,
+                'isActive': True
+            })
+        else:
+            thisRounds.append({
+                'id':eachRound.id,
+                'name':eachRound.roundName,
+                'isActive': False
+            })
 
     jsonDataResponse = {'contest':{
         'id':thisContest.id,
