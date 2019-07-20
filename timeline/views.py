@@ -19,6 +19,7 @@ def nextRoundTime(request):
     return JsonResponse({'datetime':millisec})
 
 def competitionRoundTimelineDetailsJson(request):
+    activeRoundId = None
     if getActiveRound() == None:
         if getUpcomingRound() == None:
             return JsonResponse({'error':'No Upcoming Contest'})
@@ -31,7 +32,7 @@ def competitionRoundTimelineDetailsJson(request):
     allRoundsThisContest = Rounds.objects.filter(competition=thisContest)
     thisRounds = []
     for eachRound in allRoundsThisContest:
-        if activeRoundId and activeRoundId == eachRound.id:
+        if activeRoundId != None and activeRoundId == eachRound.id:
             thisRounds.append({
                 'id':eachRound.id,
                 'name':eachRound.roundName,
