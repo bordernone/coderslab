@@ -22,9 +22,6 @@ def isRoundActive(id):
     thisRound = Rounds.objects.get(id=id)
     startdatetime = thisRound.startdatetime
     enddatetime = startdatetime + thisRound.duration
-    print(today)
-    print(startdatetime)
-    print(enddatetime)
     if startdatetime <= today and enddatetime >= today:
         return True
     else:
