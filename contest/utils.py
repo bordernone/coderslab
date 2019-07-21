@@ -31,7 +31,7 @@ def isRoundOver(id):
     today = timezone.now()
     thisRound = Rounds.objects.get(id=id)
     enddatetime = thisRound.startdatetime + thisRound.duration
-    if enddatetime > today:
+    if enddatetime < today:
         return True
     else:
         return False

@@ -5,9 +5,7 @@ from .utils import getActiveRoundId, isRoundActive, getContestnameFromId, getRou
 from .models import Rounds, Competitions, RoundQuestions, RoundSubmissions, RoundUsers
 from django.conf import settings
 from django.template.defaultfilters import slugify
-from django.views.decorators.cache import never_cache
 
-@never_cache
 def contestView(request, competitionnameslug, contestid, roundnameslug, roundid):
     if not (Competitions.objects.filter(id=contestid).exists() and Rounds.objects.filter(id=roundid).exists()):
         if settings.DEBUG:
@@ -21,19 +19,24 @@ def contestView(request, competitionnameslug, contestid, roundnameslug, roundid)
     if slugify(competitionname) != competitionnameslug or slugify(roundname) != roundnameslug:
         return HttpResponseRedirect('/contest/'+slugify(competitionname)+'/'+str(contestid)+'/'+slugify(roundname)+'/'+str(roundid)+'/')
     
-    # verified contest and round
-    questions = RoundQuestions.objects.filter(thisround__id=roundid)
+    # check if round is active or over
+    thisRound = Rounds.objects.get(id=roundid)
+    if isRoundActive(roundid) == True or isRoundOver(roundid) == True:
+        # verified contest and round
+        questions = RoundQuestions.objects.filter(thisround__id=roundid)
 
-    questionSuccessRates = []
-    for question in questions:
-        successRate = contestQuestionSuccessRate(question.id)
-        questionSuccessRates.append(int(successRate))
+        questionSuccessRates = []
+        for question in questions:
+            successRate = contestQuestionSuccessRate(question.id)
+            questionSuccessRates.append(int(successRate))
+        
+        questions = zip(questions, questionSuccessRates)
+
+        return render(request, 'contest.html', {'questions':questions, 'roundname':roundname, 'isActive':isRoundActive(roundid), 'pagetitle': roundname + ', ' + competitionname + ' | CodersLab'})
     
-    questions = zip(questions, questionSuccessRates)
+    else:
+        return render(request, 'contest.html', {'roundname': roundname, 'isActive': isRoundActive(roundid), 'pagetitle': roundname + ', ' + competitionname + ' | CodersLab'})
 
-    return render(request, 'contest.html', {'questions':questions, 'roundname':roundname, 'isActive':isRoundActive(roundid), 'pagetitle': roundname + ', ' + competitionname + ' | CodersLab'})
-
-@never_cache
 @login_required
 def submitSolution(request):
     if request.method != 'POST':
