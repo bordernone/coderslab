@@ -101,16 +101,17 @@ class SignUpBtn extends React.Component {
                     if (dataObj.hasOwnProperty('at')) {
                         if (dataObj.at == 'username') {
                             _this.showPopoverMsg(ELEMENTSID.usernameInput, dataObj.error);
+                            $.Toast('Warning', 'Username can only contain alphabets, numbers, dashes, and underscore.', 'warning')
                         } else if (dataObj.at == 'email') {
                             _this.showPopoverMsg(ELEMENTSID.emailInput, dataObj.error);
                         } else if (dataObj.at == 'password') {
                             _this.showPopoverMsg(ELEMENTSID.passwordInput, dataObj.error);
                         } else {
-                            alert('Something went wrong. Please try again');
+                            $.Toast('Error', 'Something went wrong. Please try again.', 'error');
                             console.log(dataObj);
                         }
                     } else {
-                        alert('Something went wrong. Please try again');
+                        $.Toast('Error', 'Something went wrong. Please try again.', 'error');
                         console.log(dataObj);
                     }
                 } else if (dataObj.hasOwnProperty('success')) {

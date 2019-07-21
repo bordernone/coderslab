@@ -263,10 +263,11 @@ class FooterSubscription extends React.Component {
                     if (dataObj.success == true) {
                         _this.setState({
                             completed: true,
-                        })
+                        });
                     } else {
                         console.log(dataObj);
                     }
+                    $.Toast('Success', 'You have been subscribed for updates.', 'success');
                 } else {
                     console.log(data);
                 }

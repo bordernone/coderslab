@@ -9,6 +9,7 @@
                 <h4>{{roundname}}: <small>{% if isActive == True %}<kbd style="background-color:#4CAF50;">Active</kbd>{% else %}<kbd>Inactive</kbd>{% endif %}</small></h4>
             </div>
 
+            {% if questions %}
             <div class="row questionsWrapper justify-content-md-around">
                 {% for question, successrate in questions %}
                 <div class="col-md-5 questionBox" onclick="showQuestion('{% url "questionscreen" question.title|slugify question.id "1" %}')">
@@ -26,6 +27,9 @@
                 </div>
                 {% endfor %}
             </div>
+            {% else %}
+            <h2 class="text-secondary text-center mx-auto pt-5 pb-5">This round isn't active yet</h2>
+            {% endif %}
         </div>
     </div>
 </div>

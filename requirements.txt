@@ -1,7 +1,7 @@
 cachetools==3.1.1
 certifi==2019.3.9
 chardet==3.0.4
-Django==2.1
+Django==2.1.5
 django-appconf==1.0.3
 django-avatar==4.1.0
 google-api-python-client==1.7.9
@@ -10,7 +10,7 @@ google-auth-httplib2==0.0.3
 httplib2==0.13.0
 idna==2.8
 olefile==0.46
-Pillow==5.2.0
+Pillow==6.1.0
 pyasn1==0.4.5
 pyasn1-modules==0.2.5
 pytz==2019.1
