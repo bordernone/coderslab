@@ -4,8 +4,6 @@ const e = React.createElement;
 const NAVIGATIONLINKS = {
     register: '/register/',
     login: '/login/',
-    resources: '/resources/',
-    fbpage: 'https://www.facebook.com/CodersLab-883282698685530',
 }
 const ELEMENTSID = {
     usernameoremailInput: '#usernameoremailInp',

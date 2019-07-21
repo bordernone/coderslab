@@ -20,7 +20,7 @@ def isUsernameValid(username):
         if ((char.isalnum()) or (char in ['_', '-'])):
             valid = True
         else:
-            return 'Username contains invalid character(s).'
+            return 'Space, and special characters are not allowed.'
     
     return True
             
