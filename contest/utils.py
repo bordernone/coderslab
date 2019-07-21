@@ -2,27 +2,27 @@ from .models import Rounds, Competitions, RoundQuestions, RoundSubmissions
 from django.contrib.auth.models import User
 from datetime import date, datetime, timedelta
 from django.core.mail import send_mail
+from django.utils import timezone
 from django.conf import settings
-import pytz
 
-utc=pytz.UTC
-today = datetime.now()
 
 def getActiveRoundId():
+    today = timezone.now()
     allNextRounds = Rounds.objects.filter(startdatetime__lte=today).order_by('startdatetime').reverse()
     mostRecentRound = allNextRounds[0]
     enddatetime = allNextRounds[0].startdatetime + allNextRounds[0].duration
-    if enddatetime >= utc.localize(today):
+    if enddatetime >= today:
         return 'Active'
     else:
         return 'Not active'
     return mostRecentRound
 
 def isRoundActive(id):
+    today = timezone.now()
     thisRound = Rounds.objects.get(id=id)
     startdatetime = thisRound.startdatetime
     enddatetime = startdatetime + thisRound.duration
-    if startdatetime <= utc.localize(today) and enddatetime >= utc.localize(today):
+    if startdatetime <= today and enddatetime >= today:
         return True
     else:
         return False
@@ -88,3 +88,6 @@ def sendEmailToAdmin(emailAddresses, subject, message):
         toEmail,
         fail_silently=False,
     )
+
+def getRoundObjFromQuestionId(questionid):
+    return RoundQuestions.objects.get(id=questionid).thisround

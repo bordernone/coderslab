@@ -58,6 +58,7 @@ class profileEditModal2 extends React.Component {
             },
             success: function (dataObj, status, xhr) {
                 if (dataObj.hasOwnProperty('error')) {
+                    $.Toast("Error", "Something went wrong", "error");
                     console.log(dataObj);
                 } else {
                     _this.setState({
@@ -100,7 +101,10 @@ class profileEditModal2 extends React.Component {
             },
             success: function (dataObj, status, xhr) {
                 if (dataObj.hasOwnProperty('success')) {
-                    location.reload();
+                    $.Toast("Update", "Successfully Update. Reloading now...", 'success');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
                 } else if (dataObj.hasOwnProperty('error')) {
                     var errorMsg = dataObj.error;
                     if (dataObj.hasOwnProperty("at")) {
@@ -317,7 +321,10 @@ class profileEditModal1 extends React.Component {
             },
             success: function (dataObj, status, xhr) {
                 if (dataObj.hasOwnProperty('success')) {
-                    location.reload();
+                    $.Toast("Update", "Successfully Updated. Reloading now...", 'success');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
                 } else if (dataObj.hasOwnProperty('error')) {
                     var errorMsg = dataObj.error;
                     if (dataObj.hasOwnProperty("at")) {
@@ -358,11 +365,11 @@ class profileEditModal1 extends React.Component {
     }
 
     navigationToAvatarDelete() {
-        window.location.href = "/avatar/delete/?next="+window.location.href;
+        window.location.href = "/avatar/delete/?next=" + window.location.href;
     }
 
     navigationToAvatarChange() {
-        window.location.href = "/avatar/change/?next="+window.location.href;
+        window.location.href = "/avatar/change/?next=" + window.location.href;
     }
 
     render() {
@@ -447,13 +454,13 @@ class profileEditModal1 extends React.Component {
         }, React.createElement("button", {
             type: "button",
             className: "btn btn-primary",
-            onClick: function(){
+            onClick: function () {
                 _this.navigationToAvatarChange();
             },
         }, "Change Avatar"), React.createElement("button", {
             type: "button",
             className: "btn btn-danger",
-            onClick: function(){
+            onClick: function () {
                 _this.navigationToAvatarDelete();
             },
         }, "Delete Avatar"))))), e("div", {

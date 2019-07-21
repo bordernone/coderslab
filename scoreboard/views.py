@@ -1,18 +1,18 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.core.serializers import serialize
-from contest.models import Rounds, RoundSubmissions
+from contest.models import Rounds, RoundSubmissions, RoundUsers
 from questionscreen.models import Submissions
-from datetime import date, datetime
 from .utils import userObjFromId
 import re
 from avatar.utils import get_primary_avatar
 from avatar.templatetags.avatar_tags import has_avatar
 from operator import itemgetter
+from django.utils import timezone
 
 # Create your views here.
 def scoreboard(request):
-    today = datetime.now()
+    today = timezone.now()
     allPastRounds = Rounds.objects.filter(startdatetime__lte=today).order_by('startdatetime').reverse()
     if allPastRounds.count() > 0:
         mostRecentRound = allPastRounds[0].roundName
@@ -21,7 +21,7 @@ def scoreboard(request):
     return render(request, 'scoreboard.html', {'roundname': mostRecentRound, 'pagetitle': 'Scoreboard | CodersLab'})
 
 def recentCompetitionUserScoreboard(request):
-    today = datetime.now()
+    today = timezone.now()
     allPastRounds = Rounds.objects.filter(startdatetime__lte=today).order_by('startdatetime').reverse()
     if allPastRounds.count() > 0:
         mostRecentRound = allPastRounds[0]
@@ -31,20 +31,21 @@ def recentCompetitionUserScoreboard(request):
         users = {}
         for submission in thisRoundSubmissions:
             thisUser = submission.user
-            if thisUser.id not in users.keys():
-                if has_avatar(thisUser) == True:
-                    userAvatarUrl = get_primary_avatar(thisUser.username).get_absolute_url()
-                elif thisUser.profile.profileImgUrl != '':
-                    userAvatarUrl = thisUser.profile.profileImgUrl
-                else:
-                    userAvatarUrl = ''
-                users[thisUser.id] = {
-                        'userid': thisUser.id,
-                        'profileImgUrl': userAvatarUrl,
-                        'first_name': thisUser.first_name,
-                        'last_name': thisUser.last_name,
-                        'username': thisUser.username,
-                    } 
+            if RoundUsers.objects.filter(user=thisUser, thisround=mostRecentRound).exists() == True:
+                if thisUser.id not in users.keys():
+                    if has_avatar(thisUser) == True:
+                        userAvatarUrl = get_primary_avatar(thisUser.username).get_absolute_url()
+                    elif thisUser.profile.profileImgUrl != '':
+                        userAvatarUrl = thisUser.profile.profileImgUrl
+                    else:
+                        userAvatarUrl = ''
+                    users[thisUser.id] = {
+                            'userid': thisUser.id,
+                            'profileImgUrl': userAvatarUrl,
+                            'first_name': thisUser.first_name,
+                            'last_name': thisUser.last_name,
+                            'username': thisUser.username,
+                        }
                 
         competitionUsers = list(users.values())
 

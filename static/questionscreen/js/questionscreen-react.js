@@ -99,7 +99,7 @@ class QuestionScreenSubmissionBtn extends React.Component {
         };
 
         if (solutionCode.length < 10) {
-            alert('Please try again');
+            $.Toast("Error", "Please try again", "error");
             _this.setState({
                 isLoading: false,
             });
@@ -116,11 +116,13 @@ class QuestionScreenSubmissionBtn extends React.Component {
                     }
                 },
                 success: function (dataObj, status, xhr) {
-                    console.log(dataObj);
                     if (dataObj.hasOwnProperty('success')) {
+                        $.Toast("Done", 'Successfully Submitted', "success");
                         _this.setState({
                             hasSubmitted:true,
                         });
+                    } else if (dataObj.hasOwnProperty('error')) {
+                        $.Toast("Error", dataObj.error, "error");
                     }
                     _this.setState({
                         isLoading: false,
@@ -149,7 +151,7 @@ class QuestionScreenSubmissionBtn extends React.Component {
         };
 
         if (solutionCode.length < 10) {
-            alert('Please try again');
+            $.Toast("Error", "Please try again", "error");
             _this.setState({
                 isLoading: false,
             });
@@ -168,9 +170,12 @@ class QuestionScreenSubmissionBtn extends React.Component {
                 success: function (dataObj, status, xhr) {
                     console.log(dataObj);
                     if (dataObj.hasOwnProperty('success')) {
+                        $.Toast("Done", 'Successfully Submitted', "success");
                         _this.setState({
                             hasSubmitted:true,
                         });
+                    } else if (dataObj.hasOwnProperty('error')) {
+                        $.Toast("Error", dataObj.error, "error");
                     }
                     _this.setState({
                         isLoading: false,

@@ -1,13 +1,10 @@
 from contest.models import Competitions, Rounds
 from datetime import date, datetime
+from django.utils import timezone
 from django.db.models import F
-import pytz
-
-utc=pytz.UTC
-today = datetime.now()
 
 def getUpcomingRound():
-    today = datetime.now()
+    today = timezone.now()
     allRounds = Rounds.objects.filter(startdatetime__gt=today).order_by('startdatetime')
     if allRounds.count() > 0:
         return allRounds[0]
@@ -15,7 +12,8 @@ def getUpcomingRound():
         return None
 
 def getActiveRound():
-    allRounds = Rounds.objects.filter(startdatetime__lte=utc.localize(today), startdatetime__gte=utc.localize(today) - F('duration'))
+    today = timezone.now()
+    allRounds = Rounds.objects.filter(startdatetime__lte=today, startdatetime__gte=today - F('duration'))
     if allRounds.count() > 0:
         return allRounds[0]
     else:

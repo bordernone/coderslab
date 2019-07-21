@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
-from .utils import getActiveRoundId, isRoundActive, getContestnameFromId, getRoundnameFromId, getUserObjFromUsername, getQuestionObjFromId, contestQuestionSuccessRate, sendSMSToAdmin, sendEmailToAdmin
-from .models import Rounds, Competitions, RoundQuestions, RoundSubmissions
+from .utils import getActiveRoundId, isRoundActive, getContestnameFromId, getRoundnameFromId, getUserObjFromUsername, getQuestionObjFromId, contestQuestionSuccessRate, sendSMSToAdmin, sendEmailToAdmin, getRoundObjFromQuestionId
+from .models import Rounds, Competitions, RoundQuestions, RoundSubmissions, RoundUsers
 from django.conf import settings
 from django.template.defaultfilters import slugify
+from django.views.decorators.cache import never_cache
 
-
+@never_cache
 def contestView(request, competitionnameslug, contestid, roundnameslug, roundid):
     if not (Competitions.objects.filter(id=contestid).exists() and Rounds.objects.filter(id=roundid).exists()):
         if settings.DEBUG:
@@ -32,6 +33,7 @@ def contestView(request, competitionnameslug, contestid, roundnameslug, roundid)
 
     return render(request, 'contest.html', {'questions':questions, 'roundname':roundname, 'isActive':isRoundActive(roundid), 'pagetitle': roundname + ', ' + competitionname + ' | CodersLab'})
 
+@never_cache
 @login_required
 def submitSolution(request):
     if request.method != 'POST':
@@ -49,6 +51,15 @@ def submitSolution(request):
     questionId = request.POST['questionid']
     solutionCode = request.POST['solutioncode']
     programmingLang = request.POST['programminglanguage'].lower() #converting to lowercase
+
+    thisRound = getRoundObjFromQuestionId(questionId)
+    if isRoundActive(thisRound.id) == True:
+        # check if user is permitted for submission
+        try:
+            thisUser = getUserObjFromUsername(username)
+            RoundUsers.objects.get(user=thisUser)
+        except:
+            return JsonResponse({'error':'You are not eligible to submit solution for this round. Please wait until the round is over'})
 
     # verify programming languages
     if programmingLang not in ['python', 'c++', 'java', 'javascript']:

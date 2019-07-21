@@ -1,7 +1,6 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from contest.models import Competitions, Rounds
-from datetime import date, datetime
 from .utils import getUpcomingRound, getActiveRound, getContestFromRound
 
 # Create your views here.
