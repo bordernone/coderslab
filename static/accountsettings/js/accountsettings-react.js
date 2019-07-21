@@ -75,9 +75,11 @@ class accountsettingsInput extends React.Component {
                 success: function (dataObj, status, xhr) {
                     if (dataObj.hasOwnProperty('success')) {
                         _this.toggleInputDisable();
+                        $.Toast("Update", "Successfully Changed", "success");
                     } else if (dataObj.hasOwnProperty('error')) {
                         let errorMsg = dataObj.error;
                         _this.showPopoverMsg('#' + _this.inputElementId, errorMsg);
+                        $.Toast("Error", errorMsg, "error");
                     } else {
                         console.log(dataObj);
                         alert('Something went wrong');

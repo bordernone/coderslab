@@ -5,8 +5,9 @@ from .utils import getActiveRoundId, isRoundActive, getContestnameFromId, getRou
 from .models import Rounds, Competitions, RoundQuestions, RoundSubmissions, RoundUsers
 from django.conf import settings
 from django.template.defaultfilters import slugify
+from django.views.decorators.cache import never_cache
 
-
+@never_cache
 def contestView(request, competitionnameslug, contestid, roundnameslug, roundid):
     if not (Competitions.objects.filter(id=contestid).exists() and Rounds.objects.filter(id=roundid).exists()):
         if settings.DEBUG:
@@ -32,6 +33,7 @@ def contestView(request, competitionnameslug, contestid, roundnameslug, roundid)
 
     return render(request, 'contest.html', {'questions':questions, 'roundname':roundname, 'isActive':isRoundActive(roundid), 'pagetitle': roundname + ', ' + competitionname + ' | CodersLab'})
 
+@never_cache
 @login_required
 def submitSolution(request):
     if request.method != 'POST':

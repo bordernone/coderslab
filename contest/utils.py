@@ -5,9 +5,9 @@ from django.core.mail import send_mail
 from django.utils import timezone
 from django.conf import settings
 
-today = timezone.now()
 
 def getActiveRoundId():
+    today = timezone.now()
     allNextRounds = Rounds.objects.filter(startdatetime__lte=today).order_by('startdatetime').reverse()
     mostRecentRound = allNextRounds[0]
     enddatetime = allNextRounds[0].startdatetime + allNextRounds[0].duration
@@ -18,9 +18,13 @@ def getActiveRoundId():
     return mostRecentRound
 
 def isRoundActive(id):
+    today = timezone.now()
     thisRound = Rounds.objects.get(id=id)
     startdatetime = thisRound.startdatetime
     enddatetime = startdatetime + thisRound.duration
+    print(today)
+    print(startdatetime)
+    print(enddatetime)
     if startdatetime <= today and enddatetime >= today:
         return True
     else:
