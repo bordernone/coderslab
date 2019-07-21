@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
-from .utils import getActiveRoundId, isRoundActive, getContestnameFromId, getRoundnameFromId, getUserObjFromUsername, getQuestionObjFromId, contestQuestionSuccessRate, sendSMSToAdmin, sendEmailToAdmin, getRoundObjFromQuestionId
+from .utils import getActiveRoundId, isRoundActive, getContestnameFromId, getRoundnameFromId, getUserObjFromUsername, getQuestionObjFromId, contestQuestionSuccessRate, sendSMSToAdmin, sendEmailToAdmin, getRoundObjFromQuestionId, isRoundActive, isRoundOver
 from .models import Rounds, Competitions, RoundQuestions, RoundSubmissions, RoundUsers
 from django.conf import settings
 from django.template.defaultfilters import slugify
@@ -67,6 +67,8 @@ def submitSolution(request):
 
     if getQuestionObjFromId(questionId) != None:
         questionObj = getQuestionObjFromId(questionId)
+        if questionObj.public != True and (isRoundActive(thisRound.id) or isRoundOver(thisRound.id)):
+            return JsonResponse({'error':'This question is not ready to accept submissions.'})
         userObj = getUserObjFromUsername(username)
         newSubmission = RoundSubmissions(roundquestion=questionObj, user=userObj, passed=False, content=solutionCode, score=0, programminglanguage=programmingLang)
         newSubmission.save()

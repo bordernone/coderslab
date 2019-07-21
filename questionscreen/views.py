@@ -5,13 +5,14 @@ from practice.models import Questions
 from .models import Submissions
 from practice.utils import practiceQuestionSuccessRate, practiceUserMaxScore, practiceTotalUserSubmissions
 from contest.models import RoundQuestions, RoundSubmissions
-from contest.utils import contestQuestionSuccessRate, contestUserMaxScore, contestTotalUserSubmissions
+from contest.utils import contestQuestionSuccessRate, contestUserMaxScore, contestTotalUserSubmissions, isRoundActive, isRoundOver, getRoundObjFromQuestionId
 from django.conf import settings
 import re
 
 # Create your views here.
 def questionscreen(request, titleslug, id, iscontest=None):
     if iscontest != 1:
+        # Not a contest, just practice submission
         iscontest = False
         try:
             question = Questions.objects.get(id=id)
@@ -46,6 +47,7 @@ def questionscreen(request, titleslug, id, iscontest=None):
             else:
                 raise Http404
     else:
+        # contest submission
         iscontest = True
         try:
             question = RoundQuestions.objects.get(id=id)
@@ -55,7 +57,9 @@ def questionscreen(request, titleslug, id, iscontest=None):
             else:
                 raise Http404
         
-        if question.public == True:
+        thisRound = getRoundObjFromQuestionId(question.id)
+
+        if question.public == True and (isRoundActive(thisRound.id) or isRoundOver(thisRound.id)):
             title = question.title
             if slugify(title) != titleslug:
                 return HttpResponseRedirect('/question/'+slugify(title)+'/'+str(id)+'/1/')
