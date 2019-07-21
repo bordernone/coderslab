@@ -12,7 +12,6 @@ class Competitions(models.Model):
 class Rounds(models.Model):
     competition = models.ForeignKey(Competitions, on_delete=models.CASCADE)
     roundName = models.CharField(max_length=20)
-    participantsCount = models.IntegerField()
     startdatetime = models.DateTimeField()
     duration = models.DurationField()
 

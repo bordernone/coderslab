@@ -27,6 +27,15 @@ def isRoundActive(id):
     else:
         return False
 
+def isRoundOver(id):
+    today = timezone.now()
+    thisRound = Rounds.objects.get(id=id)
+    enddatetime = thisRound.startdatetime + thisRound.duration
+    if enddatetime > today:
+        return True
+    else:
+        return False
+
 def getRoundnameFromId(id):
     return Rounds.objects.get(id=id).roundName
 
