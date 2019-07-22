@@ -151,7 +151,7 @@ class QuestionScreenSubmissionBtn extends React.Component {
         };
 
         if (solutionCode.length < 10) {
-            $.Toast("Error", "Please try again", "error");
+            $.Toast("Error", "Incorrect Solution", "error");
             _this.setState({
                 isLoading: false,
             });
