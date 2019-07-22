@@ -14,6 +14,7 @@ class accountsettingsInput extends React.Component {
             value: '',
             isInputDisabled: true,
             inputType: 'text',
+            contentLoading: true,
         }
 
         this.inputElementId = this.props.item + 'ReactInput';
@@ -138,6 +139,7 @@ class accountsettingsInput extends React.Component {
                     if (dataObj.hasOwnProperty(_this.props.item)) {
                         _this.setState({
                             value: dataObj[_this.props.item],
+                            contentLoading: false,
                         });
                     } else {
                         console.log(dataObj);
@@ -154,7 +156,11 @@ class accountsettingsInput extends React.Component {
     render() {
         var _this = this;
 
-        if (_this.props.item == 'email') {
+        if (_this.state.contentLoading == true) {
+            return React.createElement("span", null, React.createElement("span", {
+                class: "spinner-border spinner-border-sm"
+            }), " Loading...");
+        } else if (_this.props.item == 'email') {
             return React.createElement("span", null, React.createElement("input", {
                 type: _this.state.inputType,
                 value: _this.state.value,
