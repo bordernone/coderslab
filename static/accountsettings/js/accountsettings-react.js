@@ -117,6 +117,7 @@ class accountsettingsInput extends React.Component {
         if (this.props.item == 'password') {
             this.setState({
                 value: '****',
+                contentLoading: false,
             });
         } else {
             var _this = this;
