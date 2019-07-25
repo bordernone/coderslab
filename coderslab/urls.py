@@ -45,5 +45,6 @@ urlpatterns = [
     path('misc/', include('misc.urls')), #misc
     path('usersubmissions/', include('usersubmissions.urls')), #user submissions
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
-     name='django.contrib.sitemaps.views.sitemap')
+     name='django.contrib.sitemaps.views.sitemap'), #site map
+    path('compile/', include('sourcecompiler.urls')), # source compiler
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #media files

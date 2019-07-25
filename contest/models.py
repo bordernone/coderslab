@@ -23,6 +23,8 @@ class RoundQuestions(models.Model):
     thisround = models.ForeignKey(Rounds, on_delete=models.CASCADE)
     title = models.CharField(max_length = 200, default='')
     content = models.TextField(default='')
+    stdin = models.TextField(default='')
+    expected_output = models.TextField(default='')
     points = models.IntegerField(default=0)
     subscore = models.IntegerField(default=0)
     public = models.BooleanField(default=False)

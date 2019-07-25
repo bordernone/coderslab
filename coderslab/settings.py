@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'misc.apps.MiscConfig', #misc
     'usersubmissions.apps.UsersubmissionsConfig', #user submissions
     'avatar', #avatar library
+    'sourcecompiler.apps.SourcecompilerConfig', #source compiler
 ]
 
 
