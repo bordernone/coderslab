@@ -3,6 +3,7 @@ from django.http import Http404, HttpRequest, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .utils import getActiveRoundId, isRoundActive, getContestnameFromId, getRoundnameFromId, getUserObjFromUsername, getQuestionObjFromId, contestQuestionSuccessRate, sendSMSToAdmin, sendEmailToAdmin, getRoundObjFromQuestionId, isRoundActive, isRoundOver
 from .models import Rounds, Competitions, RoundQuestions, RoundSubmissions, RoundUsers
+from sourcecompiler.utils import makeCompileReq
 from django.conf import settings
 from django.template.defaultfilters import slugify
 
@@ -75,6 +76,11 @@ def submitSolution(request):
         userObj = getUserObjFromUsername(username)
         newSubmission = RoundSubmissions(roundquestion=questionObj, user=userObj, passed=False, content=solutionCode, score=0, programminglanguage=programmingLang)
         newSubmission.save()
+
+
+        # make a compile request
+        makeCompileReq(newSubmission, True)
+
 
         # Submission Made 
         # Send SMS and Email to admin

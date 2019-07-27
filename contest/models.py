@@ -36,7 +36,7 @@ class RoundQuestions(models.Model):
 class RoundSubmissions(models.Model):
     roundquestion = models.ForeignKey(RoundQuestions, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    score = models.IntegerField(blank=True)
+    score = models.IntegerField(blank=True, default=0)
     submitted_at = models.DateTimeField(auto_now=True)
     passed = models.BooleanField(blank=True)
     checked = models.BooleanField(default=False)

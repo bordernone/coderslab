@@ -113,22 +113,36 @@ async def checkCompileStatus(session, submission, iscontest, token, base64Encode
                     elif 'Runtime Error' in statusMsg:
                         setTaskStatus(currentTask.id, 'RUNTIMEERROR')
                         updateSubmissionStatus(submission.id, iscontest, 'WRONG')
+                        if settings.DEBUG:
+                            print(responsedata)
+                        else:
+                            logger.error('2. Runtime Error: ' + token)
+                    elif 'Compilation Error' in statusMsg:
+                        setTaskStatus(currentTask.id, 'RUNTIMEERROR')
+                        updateSubmissionStatus(submission.id, iscontest, 'WRONG')
+                        if settings.DEBUG:
+                            print(responsedata)
+                        else:
+                            logger.error('2. Compilation Error: ' + token)
                     else:
                         if settings.DEBUG:
                             print('No matching status: ' + statusMsg)
+                            print(responsedata)
                         else:
                             logger.error('No matching status: ' + statusMsg)
+                            logger.error(responsedata)
                 except Exception as e:
                     if settings.DEBUG:
                         print('2. Cannot check task. Token: ' + token)
                         print(e)
-                        print(status)
+                        print(responsedata)
                     else:
                         logger.error('2. Cannot check task. Token: ' + token)
         except Exception as e:
             if settings.DEBUG:
                 print('1. Cannot check task. Token: ' + token)
                 print(e)
+                print(responsedata)
             else:
                 logger.error('1. Cannot check task. Token: ' + token)
 
