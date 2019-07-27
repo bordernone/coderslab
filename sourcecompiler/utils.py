@@ -5,6 +5,7 @@ import requests
 import base64
 import logging
 import asyncio
+import aiohttp
 
 logger = logging.getLogger(__name__)
 
@@ -80,23 +81,99 @@ def makeCompileReq(submission, iscontest):
             logger.error(e)
 
 async def checkAllTasksStatus(arrayOfTasksToBeScheduled):
-    tasks = []
     for task in arrayOfTasksToBeScheduled:
-        tasks.append(asyncio.create_task(checkCompileStatus(task['submission'], task['isContest'], task['token'], task['base64encoded'])))
-    
-    for task in tasks:
-        await task
+        async with aiohttp.ClientSession() as session:
+            await checkCompileStatus(session, task['submission'], task['isContest'], task['token'], task['base64encoded'])
 
-async def checkCompileStatus(submission, iscontest, token, base64Encoded):
+async def checkCompileStatus(session, submission, iscontest, token, base64Encoded):
     from .models import Tasks
-    parameters = {
-        'base64_encoded': str(base64Encoded).lower(),
-    }
-    apiResponseUrl = 'https://api.judge0.com/submissions/'+token
+    currentTask = Tasks.objects.get(submissionid=submission.id, token=token)
+    apiResponseUrl = 'https://api.judge0.com/submissions/'+token#+'/?base64_encoded='+str(base64Encoded).lower()
+    async with session.get(apiResponseUrl) as apiResponse:
+        responsedata = await apiResponse.json()
 
-    apiResponse = await requests.get(url=apiResponseUrl, params=parameters)
-    responsedata = apiResponse.json()
-    print(responsedata)
+        try:
+            status = responsedata['status']
+
+            if status == 500:
+                if settings.DEBUG:
+                    print(responsedata)
+                else:
+                    logger.error('Internal Server Error when checking task. Token: ' + token)
+            else:
+                try:
+                    statusMsg = status['description']
+
+                    if statusMsg == 'Accepted':
+                        setTaskStatus(currentTask.id, 'CORRECT')
+                        updateSubmissionStatus(submission.id, iscontest, 'CORRECT')
+                    elif statusMsg == 'Wrong Answer':
+                        setTaskStatus(currentTask.id, 'WRONG')
+                        updateSubmissionStatus(submission.id, iscontest, 'WRONG')
+                    elif 'Runtime Error' in statusMsg:
+                        setTaskStatus(currentTask.id, 'RUNTIMEERROR')
+                        updateSubmissionStatus(submission.id, iscontest, 'WRONG')
+                    else:
+                        if settings.DEBUG:
+                            print('No matching status: ' + statusMsg)
+                        else:
+                            logger.error('No matching status: ' + statusMsg)
+                except Exception as e:
+                    if settings.DEBUG:
+                        print('2. Cannot check task. Token: ' + token)
+                        print(e)
+                        print(status)
+                    else:
+                        logger.error('2. Cannot check task. Token: ' + token)
+        except Exception as e:
+            if settings.DEBUG:
+                print('1. Cannot check task. Token: ' + token)
+                print(e)
+            else:
+                logger.error('1. Cannot check task. Token: ' + token)
+
+def setTaskStatus(taskid, msg):
+    from .models import Tasks
+    thisTask = Tasks.objects.get(id=taskid)
+    thisTask.status = msg
+    thisTask.save()
+
+def updateSubmissionStatus(submissionid, iscontest, STATUS):
+    if STATUS not in ['CORRECT', 'WRONG']:
+        print('Status can only be CORRECT or WRONG')
+    else:
+        if STATUS == 'CORRECT':
+            if iscontest:
+                thisSubmission = RoundSubmissions.objects.get(id=submissionid)
+                thisSubmission.passed = True
+                thisSubmission.checked = True
+                thisSubmission.score = thisSubmission.roundquestion.points + thisSubmission.roundquestion.subscore
+                thisSubmission.gotSubscore = True
+                thisSubmission.save()
+            else:
+                thisSubmission = Submissions.objects.get(id=submissionid)
+                thisSubmission.passed = True
+                thisSubmission.checked = True
+                thisSubmission.gotSubscore = True
+                thisSubmission.score = thisSubmission.question.points + thisSubmission.question.subscore
+                thisSubmission.save()
+        elif STATUS == 'WRONG':
+            if iscontest:
+                thisSubmission = RoundSubmissions.objects.get(id=submissionid)
+                thisSubmission.passed = False
+                thisSubmission.checked = True
+                thisSubmission.score = 0
+                thisSubmission.gotSubscore = False
+                thisSubmission.save()
+            else:
+                thisSubmission = Submissions.objects.get(id=submissionid)
+                thisSubmission.passed = False
+                thisSubmission.checked = True
+                thisSubmission.gotSubscore = False
+                thisSubmission.score = 0
+                thisSubmission.save()
+
+
 
 def getUserObjFromSubmission(submissionid, iscontest):
     if iscontest:

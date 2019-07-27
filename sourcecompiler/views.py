@@ -35,5 +35,7 @@ def checkNow(request):
             'base64encoded':base64Encoded
         })
     
-    asyncio.run(checkAllTasksStatus(tasksToBeScheduled))
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(checkAllTasksStatus(tasksToBeScheduled))
     return HttpResponse('checking')
