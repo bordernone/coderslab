@@ -51,9 +51,6 @@ def makeCompileReq(submission, iscontest):
             'stdin': stdin,
             'expected_output': expected_output,
         }
-
-    print(post_data)
-
     try:
         response = requests.post(url=apiHostUrl, data=post_data)
         content = response.json()
@@ -67,6 +64,7 @@ def makeCompileReq(submission, iscontest):
                 temp = False
             newTask = Tasks(submissionid=submission.id, is_contest=iscontest, token=token, base64_encoded=temp, status='PENDING')
             newTask.save()
+            checkTasksNow()
         except Exception as e:
             if settings.DEBUG:
                 print(e)
@@ -80,71 +78,113 @@ def makeCompileReq(submission, iscontest):
         else:
             logger.error(e)
 
+# Call this function to check for tasks status
+def checkTasksNow():
+    from .models import Tasks
+    allUnfinishedTasks = Tasks.objects.filter(status='PENDING').order_by('last_checked', 'is_contest')
+
+    # following variable stores all Tasks coroutines
+    tasksToBeScheduled = []
+    for thisTask in allUnfinishedTasks:
+        isContest = thisTask.is_contest
+        submissionid = thisTask.submissionid
+
+        if isContest:
+            submission = RoundSubmissions.objects.get(id=submissionid)
+        else:
+            submission = Submissions.objects.get(id=submissionid)
+        token = thisTask.token
+        base64Encoded = thisTask.base64_encoded
+
+        tasksToBeScheduled.append({
+            'submission':submission,
+            'isContest':isContest,
+            'token':token,
+            'base64encoded':base64Encoded
+        })
+    
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(checkAllTasksStatus(tasksToBeScheduled))
+
+# Do Not Invoke this function directly to check for the tasks
 async def checkAllTasksStatus(arrayOfTasksToBeScheduled):
     for task in arrayOfTasksToBeScheduled:
         async with aiohttp.ClientSession() as session:
             await checkCompileStatus(session, task['submission'], task['isContest'], task['token'], task['base64encoded'])
 
+# Do Not Invoke this function directly to check for the tasks
 async def checkCompileStatus(session, submission, iscontest, token, base64Encoded):
     from .models import Tasks
     currentTask = Tasks.objects.get(submissionid=submission.id, token=token)
     apiResponseUrl = 'https://api.judge0.com/submissions/'+token#+'/?base64_encoded='+str(base64Encoded).lower()
     async with session.get(apiResponseUrl) as apiResponse:
-        responsedata = await apiResponse.json()
-
         try:
-            status = responsedata['status']
-
-            if status == 500:
-                if settings.DEBUG:
-                    print(responsedata)
-                else:
-                    logger.error('Internal Server Error when checking task. Token: ' + token)
-            else:
-                try:
-                    statusMsg = status['description']
-
-                    if statusMsg == 'Accepted':
-                        setTaskStatus(currentTask.id, 'CORRECT')
-                        updateSubmissionStatus(submission.id, iscontest, 'CORRECT')
-                    elif statusMsg == 'Wrong Answer':
-                        setTaskStatus(currentTask.id, 'WRONG')
-                        updateSubmissionStatus(submission.id, iscontest, 'WRONG')
-                    elif 'Runtime Error' in statusMsg:
-                        setTaskStatus(currentTask.id, 'RUNTIMEERROR')
-                        updateSubmissionStatus(submission.id, iscontest, 'WRONG')
-                        if settings.DEBUG:
-                            print(responsedata)
-                        else:
-                            logger.error('2. Runtime Error: ' + token)
-                    elif 'Compilation Error' in statusMsg:
-                        setTaskStatus(currentTask.id, 'RUNTIMEERROR')
-                        updateSubmissionStatus(submission.id, iscontest, 'WRONG')
-                        if settings.DEBUG:
-                            print(responsedata)
-                        else:
-                            logger.error('2. Compilation Error: ' + token)
-                    else:
-                        if settings.DEBUG:
-                            print('No matching status: ' + statusMsg)
-                            print(responsedata)
-                        else:
-                            logger.error('No matching status: ' + statusMsg)
-                            logger.error(responsedata)
-                except Exception as e:
+            # if conversion to JSON fails, it's probably internal server error
+            responsedata = await apiResponse.json()
+            try:
+                status = responsedata['status']
+                if status == 500:
                     if settings.DEBUG:
-                        print('2. Cannot check task. Token: ' + token)
-                        print(e)
                         print(responsedata)
                     else:
-                        logger.error('2. Cannot check task. Token: ' + token)
+                        logger.error('Internal Server Error when checking task. Token: ' + token)
+                else:
+                    try:
+                        statusMsg = status['description']
+
+                        if statusMsg == 'Accepted':
+                            setTaskStatus(currentTask.id, 'CORRECT')
+                            updateSubmissionStatus(submission.id, iscontest, 'CORRECT')
+                        elif statusMsg == 'Wrong Answer':
+                            setTaskStatus(currentTask.id, 'WRONG')
+                            updateSubmissionStatus(submission.id, iscontest, 'WRONG')
+                        elif 'Runtime Error' in statusMsg:
+                            setTaskStatus(currentTask.id, 'RUNTIMEERROR')
+                            updateSubmissionStatus(submission.id, iscontest, 'WRONG')
+                            if settings.DEBUG:
+                                print(responsedata)
+                            else:
+                                logger.error('2. Runtime Error: ' + token)
+                        elif 'Compilation Error' in statusMsg:
+                            setTaskStatus(currentTask.id, 'RUNTIMEERROR')
+                            updateSubmissionStatus(submission.id, iscontest, 'WRONG')
+                            if settings.DEBUG:
+                                print(responsedata)
+                            else:
+                                logger.error('2. Compilation Error: ' + token)
+                        else:
+                            if settings.DEBUG:
+                                print('No matching status: ' + statusMsg)
+                                print(responsedata)
+                            else:
+                                logger.error('No matching status: ' + statusMsg)
+                                logger.error(responsedata)
+                    except Exception as e:
+                        if settings.DEBUG:
+                            print('2. Cannot check task. Token: ' + token)
+                            print(e)
+                            print(responsedata)
+                        else:
+                            logger.error('2. Cannot check task. Token: ' + token)
+            except Exception as e:
+                setTaskStatus(currentTask.id, 'RUNTIMEERROR')
+                updateSubmissionStatus(submission.id, iscontest, 'WRONG')
+                if settings.DEBUG:
+                    print('1. Cannot check task. Token: ' + token)
+                    print(e)
+                    print(responsedata)
+                else:
+                    logger.error('1. Cannot check task. Token: ' + token)
         except Exception as e:
+            setTaskStatus(currentTask.id, 'RUNTIMEERROR')
+            updateSubmissionStatus(submission.id, iscontest, 'WRONG')
             if settings.DEBUG:
-                print('1. Cannot check task. Token: ' + token)
                 print(e)
-                print(responsedata)
+                print(apiResponse)
             else:
-                logger.error('1. Cannot check task. Token: ' + token)
+                logger.error('Internal Server Error when checking task. Token: ' + token)
+
 
 def setTaskStatus(taskid, msg):
     from .models import Tasks
@@ -186,8 +226,6 @@ def updateSubmissionStatus(submissionid, iscontest, STATUS):
                 thisSubmission.gotSubscore = False
                 thisSubmission.score = 0
                 thisSubmission.save()
-
-
 
 def getUserObjFromSubmission(submissionid, iscontest):
     if iscontest:
