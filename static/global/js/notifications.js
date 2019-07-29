@@ -7,15 +7,15 @@ function fill_notification_list_custom(data) {
         var messages = data.unread_list.map(function (item) {
             var message = "";
             var userFriendlyMsg = "";
-            if (typeof item.actor !== 'undefined') {
-                message = item.actor;
-            }
+            // if (typeof item.actor !== 'undefined') {
+            //     message = item.actor;
+            // }
             if (typeof item.verb !== 'undefined') {
                 message = message + " " + item.verb;
             }
-            if (typeof item.target !== 'undefined') {
-                message = message + " " + item.target;
-            }
+            // if (typeof item.target !== 'undefined') {
+            //     message = message + " " + item.target;
+            // }
             //if(typeof item.timestamp !== 'undefined'){
             //  message = message + " " + item.timestamp;
             //}
@@ -27,7 +27,7 @@ function fill_notification_list_custom(data) {
                 } else if (item.level === 'warning') {
                     return '<li><a href="#" class="dropdown-item text-warning fas fa-exclamation-triangle" onclick="notificationClicked(' + item.id + ')"> ' + message + '</a></li>';
                 } else if (item.level === 'error') {
-                    return '<li><a href="#" class="dropdown-item text-error fas fa-exclamation-triangle" onclick="notificationClicked(' + item.id + ')"> ' + message + '</a></li>';
+                    return '<li><a href="#" class="dropdown-item text-danger fas fa-exclamation-triangle" onclick="notificationClicked(' + item.id + ')"> ' + message + '</a></li>';
                 } else {
                     return '<li><a href="#" class="dropdown-item text-secondary" onclick="notificationClicked(' + item.id + ')"> ' + message + '</a></li>';
                 }
@@ -35,6 +35,10 @@ function fill_notification_list_custom(data) {
                 return '<li><a href="#" class="dropdown-item text-secondary" onclick="notificationClicked(' + item.id + ')">' + message + '</a></li>';
             }
         }).join('')
+
+        if (messages.length <= 0){
+            messages = '<li class="dropdown-item">No unread notifications</li>';
+        }
 
         for (var i = 0; i < menus.length; i++) {
             menus[i].innerHTML = messages;
@@ -76,7 +80,7 @@ function redirectToUrl(item) {
         let url = data.url;
         window.location.href = url;
     } catch (error) {
-
+        console.log(error);
     }
 }
 

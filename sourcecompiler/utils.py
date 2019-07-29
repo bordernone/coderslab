@@ -6,6 +6,9 @@ import base64
 import logging
 import asyncio
 import aiohttp
+from django.urls import reverse
+from notifications.signals import notify
+from django.contrib.auth.models import User
 
 logger = logging.getLogger(__name__)
 
@@ -196,7 +199,9 @@ def updateSubmissionStatus(submissionid, iscontest, STATUS):
     if STATUS not in ['CORRECT', 'WRONG']:
         print('Status can only be CORRECT or WRONG')
     else:
+        thisUser = getUserObjFromSubmission(submissionid, iscontest)
         if STATUS == 'CORRECT':
+            notify.send(thisUser, recipient=thisUser, verb='Submission Correct', level='success', url=reverse('usersubmissionsview'))
             if iscontest:
                 thisSubmission = RoundSubmissions.objects.get(id=submissionid)
                 thisSubmission.passed = True
@@ -212,6 +217,7 @@ def updateSubmissionStatus(submissionid, iscontest, STATUS):
                 thisSubmission.score = thisSubmission.question.points + thisSubmission.question.subscore
                 thisSubmission.save()
         elif STATUS == 'WRONG':
+            notify.send(thisUser, recipient=thisUser, verb='Submission Incorrect', level='error', url=reverse('usersubmissionsview'))
             if iscontest:
                 thisSubmission = RoundSubmissions.objects.get(id=submissionid)
                 thisSubmission.passed = False
@@ -226,6 +232,7 @@ def updateSubmissionStatus(submissionid, iscontest, STATUS):
                 thisSubmission.gotSubscore = False
                 thisSubmission.score = 0
                 thisSubmission.save()
+        
 
 def getUserObjFromSubmission(submissionid, iscontest):
     if iscontest:
