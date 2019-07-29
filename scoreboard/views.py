@@ -27,7 +27,7 @@ def recentCompetitionUserScoreboard(request):
         mostRecentRound = allPastRounds[0]
 
         # now editing
-        thisRoundSubmissions = RoundSubmissions.objects.filter(roundquestion__thisround__id=mostRecentRound.id, passed=True).order_by('-score', 'submitted_at')
+        thisRoundSubmissions = RoundSubmissions.objects.filter(roundquestion__thisround__id=mostRecentRound.id, passed=True).order_by('-score', 'submitted_at').distinct('user', 'roundquestion')
         users = {}
         for submission in thisRoundSubmissions:
             thisUser = submission.user
@@ -51,14 +51,13 @@ def recentCompetitionUserScoreboard(request):
 
         # editing ends
         
-            
         return JsonResponse({'users':competitionUsers})
     else:
         competitionUsers = None
         return JsonResponse({'error':'No competitions'})
 
 def overallUserScoreboard(request):
-    allsubmissions = Submissions.objects.all()
+    allsubmissions = Submissions.objects.all().order_by('-score').distinct('user', 'question')
     users = []
     for submission in allsubmissions:
         score = 0
@@ -101,8 +100,6 @@ def overallUserScoreboard(request):
                             userAvatarUrl = thisUserObj.profile.profileImgUrl
                         else:
                             userAvatarUrl = ''
-
-
                         users[index] = {
                             'username':username,
                             'score':score,
