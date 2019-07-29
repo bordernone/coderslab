@@ -23,6 +23,14 @@ html, body {
     font-size: 10px;
 }
 
+.height-300{
+    height: 300px;
+}
+
+.overflow-scroll{
+    overflow: scroll;
+}
+
 #mainWrapper {
     min-height: 100%;
     display: flex;

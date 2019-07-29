@@ -20,6 +20,7 @@ from django.conf import settings
 from coderslab.sitemap import StaticSitemap, UserProfileSitemap, ContestRoundsSitemap
 from django.contrib.sitemaps.views import sitemap
 from django.conf.urls import url
+import notifications.urls # DELETE this if you remove the notification library
 
 sitemaps = {
  'static': StaticSitemap,
@@ -47,4 +48,5 @@ urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
      name='django.contrib.sitemaps.views.sitemap'), #site map
     path('compile/', include('sourcecompiler.urls')), # source compiler
+    url('^inbox/notifications/', include(notifications.urls, namespace='notifications')), # notification
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #media files
