@@ -23,6 +23,10 @@ html, body {
     font-size: 10px;
 }
 
+.fontsize-14{
+    font-size: 14px;
+}
+
 .height-300{
     height: 300px;
 }

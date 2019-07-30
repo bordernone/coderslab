@@ -127,14 +127,14 @@
                                     href="{% url 'accountsettings' %}?next={{ request.path }}">Settings</a>
 
                                 <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    <button class="btn btn-secondary dropdown-toggle fontsize-14" type="button"
+                                        id="dropdownMenuButtonNotification" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         <i class="fas fa-bell"></i>
                                         {% live_notify_badge %}
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right navbarDropdown height-300 overflow-scroll"
-                                        aria-labelledby="dropdownMenuButton">
+                                        aria-labelledby="dropdownMenuButtonNotification">
                                         <div class="markallreadbtncontainer p-3">
                                             <button type="button" class="btn btn-outline-secondary btn-block btn-sm" onclick="markallnotificationasread();"><li class="fas fa-check"> Mark all as read</li></button>
                                         </div>
