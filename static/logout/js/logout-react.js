@@ -12,6 +12,7 @@ class LogoutScreen extends React.Component {
 
         this.signoutGoogle = this.signoutGoogle.bind(this);
         this.onLoad = this.onLoad.bind(this);
+        this.timeElapsed = 0;
     }
 
     componentDidMount() {
@@ -27,6 +28,12 @@ class LogoutScreen extends React.Component {
 
     runTimer() {
         let loaded = false
+        this.timeElapsed = this.timeElapsed + 1;
+
+        if (this.timeElapsed > 5){
+            window.location.href = '/';
+        }
+
         try {
             let x = gapi.auth2.getAuthInstance();
             loaded = true;
