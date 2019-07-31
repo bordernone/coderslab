@@ -35,6 +35,9 @@ class LogoutScreen extends React.Component {
         }
 
         try {
+            gapi.load('auth2', function () {
+                gapi.auth2.init();
+            });
             let x = gapi.auth2.getAuthInstance();
             loaded = true;
 
