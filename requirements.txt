@@ -11,11 +11,14 @@ cryptography==2.7
 Django==2.1.5
 django-appconf==1.0.3
 django-avatar==4.1.0
+django-model-utils==3.2.0
+django-notifications-hq==1.5.0
 google-api-python-client==1.7.9
 google-auth==1.6.3
 google-auth-httplib2==0.0.3
 httplib2==0.13.0
 idna==2.8
+jsonfield==2.0.2
 multidict==4.5.2
 ndg-httpsclient==0.5.1
 olefile==0.46
