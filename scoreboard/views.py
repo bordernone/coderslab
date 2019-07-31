@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.core.serializers import serialize
 from contest.models import Rounds, RoundSubmissions, RoundUsers
 from questionscreen.models import Submissions
-from .utils import userObjFromId
+from .utils import userObjFromId, getDistinctModelFields
 import re
 from avatar.utils import get_primary_avatar
 from avatar.templatetags.avatar_tags import has_avatar
@@ -28,6 +28,7 @@ def recentCompetitionUserScoreboard(request):
 
         # now editing
         thisRoundSubmissions = RoundSubmissions.objects.filter(roundquestion__thisround__id=mostRecentRound.id, passed=True).order_by('-score', 'submitted_at')
+        thisRoundSubmissions = getDistinctModelFields(thisRoundSubmissions, ['user', 'roundquestion'])
         users = {}
         for submission in thisRoundSubmissions:
             thisUser = submission.user
@@ -58,7 +59,8 @@ def recentCompetitionUserScoreboard(request):
         return JsonResponse({'error':'No competitions'})
 
 def overallUserScoreboard(request):
-    allsubmissions = Submissions.objects.all()
+    allsubmissions = Submissions.objects.all().order_by('-score', 'submitted_at')
+    allsubmissions = getDistinctModelFields(allsubmissions, ['user', 'question'])
     users = []
     for submission in allsubmissions:
         score = 0

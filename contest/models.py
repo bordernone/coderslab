@@ -23,6 +23,8 @@ class RoundQuestions(models.Model):
     thisround = models.ForeignKey(Rounds, on_delete=models.CASCADE)
     title = models.CharField(max_length = 200, default='')
     content = models.TextField(default='')
+    stdin = models.TextField(default='')
+    expected_output = models.TextField(default='')
     points = models.IntegerField(default=0)
     subscore = models.IntegerField(default=0)
     public = models.BooleanField(default=False)
@@ -34,7 +36,7 @@ class RoundQuestions(models.Model):
 class RoundSubmissions(models.Model):
     roundquestion = models.ForeignKey(RoundQuestions, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    score = models.IntegerField(blank=True)
+    score = models.IntegerField(blank=True, default=0)
     submitted_at = models.DateTimeField(auto_now=True)
     passed = models.BooleanField(blank=True)
     checked = models.BooleanField(default=False)

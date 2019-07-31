@@ -5,6 +5,8 @@ class Questions(models.Model):
     # django automatically adds a primary key field called id
     title = models.CharField(max_length = 200)
     content = models.TextField()
+    stdin = models.TextField(default='')
+    expected_output = models.TextField(default='')
     points = models.IntegerField()
     subscore = models.IntegerField()
     CATEGORIES = (

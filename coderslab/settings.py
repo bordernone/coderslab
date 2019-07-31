@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'misc.apps.MiscConfig', #misc
     'usersubmissions.apps.UsersubmissionsConfig', #user submissions
     'avatar', #avatar library
+    'sourcecompiler.apps.SourcecompilerConfig', #source compiler
+    'notifications', # user notification, remove if you remove notification system
 ]
 
 
@@ -172,6 +174,9 @@ SOCIAL_FACEBOOK_PAGE_URL = 'https://www.facebook.com/CodersLab-883282698685530'
 SOCIAL_LINKEDIN_URL = 'https://www.linkedin.com/in/coderslab-io-27560818a/'
 SOCIAL_INSTA_URL = ''
 SOCIAL_TWITTER_URL = 'https://twitter.com/CoderslabIo'
+
+# Notifications
+DJANGO_NOTIFICATIONS_CONFIG = {'USE_JSONFIELD': True}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/

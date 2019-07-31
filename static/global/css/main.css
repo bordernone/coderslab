@@ -19,6 +19,22 @@ html, body {
     src: url('../fonts/HelveticaNeueBold.woff'), url('../fonts/HelveticaNeueBold.woff') format('woff');
 }
 
+.fontsize-10{
+    font-size: 10px;
+}
+
+.fontsize-14{
+    font-size: 14px;
+}
+
+.height-300{
+    height: 300px;
+}
+
+.overflow-scroll{
+    overflow: scroll;
+}
+
 #mainWrapper {
     min-height: 100%;
     display: flex;

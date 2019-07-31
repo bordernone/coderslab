@@ -6,6 +6,7 @@ from .models import Questions
 from questionscreen.models import Submissions
 from .utils import getQuestionObjFromId, practiceQuestionSuccessRate
 from contest.utils import getUserObjFromUsername, sendEmailToAdmin, sendSMSToAdmin
+from sourcecompiler.utils import makeCompileReq
 import re
 from django.core import serializers
 
@@ -61,6 +62,9 @@ def submitSolution(request):
         userObj = getUserObjFromUsername(username)
         newSubmission = Submissions(question=questionObj, user=userObj, passed=False, content=solutionCode, score=0, programminglanguage=programmingLang)
         newSubmission.save()
+
+        # make a compile request
+        makeCompileReq(newSubmission, False)
 
         # Submission Made 
         # Send SMS and Email to admin

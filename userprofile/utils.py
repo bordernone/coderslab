@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from contest.models import RoundSubmissions
 from contest.utils import getUserObjFromUsername
 from questionscreen.models import Submissions
+from scoreboard.utils import getDistinctModelFields
 import re
 
 def isLocationValid(location):
@@ -155,7 +156,8 @@ def updateReceiveImpEmail(username, receiveImgEmail):
 
 def userTotalScoreContest(username):
     user = getUserObjFromUsername(username)
-    allSubmissionsOfThisUser = RoundSubmissions.objects.filter(user=user, passed=True)
+    allSubmissionsOfThisUser = RoundSubmissions.objects.filter(user=user, passed=True).order_by('-score')
+    allSubmissionsOfThisUser = getDistinctModelFields(allSubmissionsOfThisUser, ['user', 'roundquestion'])
     score = 0
     for submission in allSubmissionsOfThisUser:
         score = score + submission.score
@@ -163,7 +165,8 @@ def userTotalScoreContest(username):
 
 def userTotalScorePractice(username):
     user = getUserObjFromUsername(username)
-    allSubmissionsOfThisUser = Submissions.objects.filter(user=user, passed=True)
+    allSubmissionsOfThisUser = Submissions.objects.filter(user=user, passed=True).order_by('-score')
+    allSubmissionsOfThisUser = getDistinctModelFields(allSubmissionsOfThisUser, ['user', 'question'])
     score = 0
     for submission in allSubmissionsOfThisUser:
         score = score + submission.score
