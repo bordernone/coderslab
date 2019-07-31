@@ -119,7 +119,7 @@ def googleLogin(request):
                     
                     else:
                         #user doesn't exist, create and login
-                        username=firstName+lastName
+                        username=cleanEmail(email).split('@')[0]
                         
                         username = re.sub(r'\W+', '', username) # removing all non alphanumeric characters except '_'
                         
@@ -218,7 +218,7 @@ def facebookLogin(request):
                     return JsonResponse({'error':'Something went wrong'})
             else:
                 #user doesn't exist, create and login
-                username=first_name+last_name
+                username = cleanEmail(email).split('@')[0]
                 
                 username = re.sub(r'\W+', '', username) # removing all non alphanumeric characters except '_'
                 
