@@ -22,6 +22,12 @@ def isUsernameValid(username):
         else:
             return 'Space, and special characters are not allowed.'
     
+    # check non english characters
+    try:
+        username.encode(encoding='utf-8').decode('ascii')
+    except:
+        return 'Username can only contain english alphabets & numbers'
+    
     return True
             
 def isEmailValid(email):
