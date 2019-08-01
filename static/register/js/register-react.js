@@ -141,7 +141,7 @@ class SignUpBtn extends React.Component {
                 disabled: true
             }, "  ", e("span", {
                 className: "spinner-border spinner-border-sm"
-            }), " Sign Up");
+            }), " Sign Up*");
         } else {
             if (this.state.registerComplete == true) {
                 return e("div", {
@@ -154,7 +154,7 @@ class SignUpBtn extends React.Component {
                     onClick: function onClick() {
                         return _this.onBtnClick();
                     }
-                }, "Sign Up");
+                }, "Sign Up*");
             }
         }
     }
