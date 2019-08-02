@@ -123,6 +123,8 @@ class QuestionScreenSubmissionBtn extends React.Component {
                         });
                     } else if (dataObj.hasOwnProperty('error')) {
                         $.Toast("Error", dataObj.error, "error");
+                    } else {
+                        $.Toast('Error', 'Something is wrong. Are you logged in?', 'error');
                     }
                     _this.setState({
                         isLoading: false,
@@ -168,7 +170,6 @@ class QuestionScreenSubmissionBtn extends React.Component {
                     }
                 },
                 success: function (dataObj, status, xhr) {
-                    console.log(dataObj);
                     if (dataObj.hasOwnProperty('success')) {
                         $.Toast("Done", 'Successfully Submitted', "success");
                         _this.setState({
@@ -176,6 +177,8 @@ class QuestionScreenSubmissionBtn extends React.Component {
                         });
                     } else if (dataObj.hasOwnProperty('error')) {
                         $.Toast("Error", dataObj.error, "error");
+                    } else {
+                        $.Toast('Error', 'Something is wrong. Are you logged in?', 'error');
                     }
                     _this.setState({
                         isLoading: false,
