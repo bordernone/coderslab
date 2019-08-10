@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import subscribe, privacyPolicyView, socialFbPage, socialInstagramPage, socialLinkedinPage, socialTwitterPage, termsandConditionView
+from .views import subscribe, privacyPolicyView, socialFbPage, socialInstagramPage, socialLinkedinPage, socialTwitterPage, termsandConditionView, showAnnouncementHtml
 
 urlpatterns = [
     path('subscribe/', subscribe, name='subscribe'),
@@ -9,4 +9,5 @@ urlpatterns = [
     path('linkedinpage/', socialLinkedinPage, name='sociallinkedinpage'),
     path('instagrampage/', socialInstagramPage, name='socialinstagrampage'),
     path('twitterpage/', socialTwitterPage, name='socialtwitterpage'),
+    path('announcement/', showAnnouncementHtml, name="showAnnouncementView"),
 ]

@@ -35,6 +35,10 @@ html, body {
     overflow: scroll;
 }
 
+.paddingTop-100-strict{
+    padding-top: 100px !important;
+}
+
 #mainWrapper {
     min-height: 100%;
     display: flex;
@@ -1582,4 +1586,10 @@ input:checked+.slider:before {
 
 .siteCookieConsentText a:hover {
     color: #28a745;
+}
+
+/* announcement */
+.announcement-bar{
+    color:white;
+    background-color:rgb(255, 127, 80);
 }
