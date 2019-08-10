@@ -3,32 +3,36 @@ from django.utils import timezone
 from django.urls import reverse
 
 def getAnnouncementData():
-    if getActiveRound() == None:
+    if getActiveRound() != None:
         now = timezone.now()
-        nextRoundStarttime = getUpcomingRound().startdatetime
-        difference = (nextRoundStarttime - now)
-        upcomingRoundId = getUpcomingRound().id
-        contestId = getContestFromRound(getUpcomingRound()).id
-        url = reverse('contestview', args=['comp', contestId, 'round', upcomingRoundId])
+        enddatetime = getActiveRound().startdatetime + getActiveRound().duration
+        difference = (enddatetime - now)
+        activeRoundId = getActiveRound().id
+        contestId = getContestFromRound(getActiveRound()).id
+        url = reverse('contestview', args=['comp', contestId, 'round', activeRoundId])
         print(url)
         html = ('<div id="announcement-bar" class="p-2 text-center announcement-bar">'
-            '<p class="noMargin">Qualification Round begins in ' +
+            '<p class="noMargin">' +
+            getActiveRound().roundName + 
+            ' Round ends in ' +
             hoursMinutesSecondsString(difference.total_seconds()) + 
             '  <a href="' +
             url +
             '" class="btn btn-info btn-sm">Check</a></p>'
             '</div>')
     else:
-        if getUpcomingRound != None:
+        if getUpcomingRound() != None:
             now = timezone.now()
-            enddatetime = getActiveRound().startdatetime + getActiveRound().duration
-            difference = (enddatetime - now)
-            activeRoundId = getActiveRound().id
-            contestId = getContestFromRound(getActiveRound()).id
-            url = reverse('contestview', args=['comp', contestId, 'round', activeRoundId])
+            nextRoundStarttime = getUpcomingRound().startdatetime
+            difference = (nextRoundStarttime - now)
+            upcomingRoundId = getUpcomingRound().id
+            contestId = getContestFromRound(getUpcomingRound()).id
+            url = reverse('contestview', args=['comp', contestId, 'round', upcomingRoundId])
             print(url)
             html = ('<div id="announcement-bar" class="p-2 text-center announcement-bar">'
-                '<p class="noMargin">Qualification Round end in ' +
+                '<p class="noMargin">' +
+                getUpcomingRound().roundName + 
+                ' Round begins in ' +
                 hoursMinutesSecondsString(difference.total_seconds()) + 
                 '  <a href="' +
                 url +
