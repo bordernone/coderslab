@@ -3,6 +3,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonRespons
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.conf import settings
+import os
 from .models import Subscriptions
 
 # Create your views here.
@@ -57,3 +58,17 @@ def socialInstagramPage(request):
 
 def socialTwitterPage(request):
     return HttpResponseRedirect(settings.SOCIAL_TWITTER_URL)
+
+def showAnnouncementHtml(request):
+    baseDir = settings.BASE_DIR
+    filePath = os.path.join(baseDir, "coderslab/announcements.py")
+    try:
+        file = open(filePath, "r")
+        # file exists
+
+        from coderslab.announcements import getAnnouncementData
+        return JsonResponse({'contents': getAnnouncementData()})
+    except Exception as e:
+        print(e)
+        return JsonResponse({"contents": None})
+
