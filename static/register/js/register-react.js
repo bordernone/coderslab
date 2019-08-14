@@ -165,8 +165,8 @@ ReactDOM.render(e(SignUpBtn), signupBtnContainer);
 
 // Google login
 const googleSignInContainer = document.querySelector('#googleSignInContainer');
-ReactDOM.render(e(GoogleSignInBtn), googleSignInContainer);
+//ReactDOM.render(e(GoogleSignInBtn), googleSignInContainer);
 
 // Facebook login
 const facebookSignInContainer = document.querySelector('#facebookSignInContainer');
-ReactDOM.render(e(FacebookSignInBtn), facebookSignInContainer);
+//ReactDOM.render(e(FacebookSignInBtn), facebookSignInContainer);
