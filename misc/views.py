@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 import os
 from .models import Subscriptions
@@ -72,3 +73,13 @@ def showAnnouncementHtml(request):
         print(e)
         return JsonResponse({"contents": None})
 
+@login_required
+def getCertificate(request):
+    path = 'certificate/' + request.user.username + '.png'
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="image/png")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    return HttpResponse("You had not participated")
